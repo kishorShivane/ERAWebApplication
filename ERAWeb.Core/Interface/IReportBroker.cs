@@ -5,6 +5,6 @@ using System.Threading.Tasks;
 namespace ERAWeb.Core.Interface
 {
     public interface IReportBroker
-    {
+    { 
     }
 }
