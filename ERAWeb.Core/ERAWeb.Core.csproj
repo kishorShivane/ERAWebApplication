@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ERAWeb.Logger\ERAWeb.Logger.csproj" />
+    <ProjectReference Include="..\ERAWeb.Models\ERAWeb.Models.csproj" />
+    <ProjectReference Include="..\ERAWeb.Proxy\ERAWeb.Proxy.csproj" />
+  </ItemGroup>
+
+</Project>

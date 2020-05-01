@@ -1,0 +1,1296 @@
+{
+  "ErgonomicScores": [
+    //Gender
+    {
+      "RiskID": 1,
+      "Value": "Male",
+      "Score": 1,
+      "RiskType": "LowRisk"
+    },
+    {
+      "RiskID": 1,
+      "Value": "Female",
+      "Score": 2,
+      "RiskType": "HighRisk"
+    },
+    //Age
+    {
+      "RiskID": 2,
+      "Value": "21-39 Years",
+      "Score": 1,
+      "RiskType": "LowRisk"
+    },
+    {
+      "RiskID": 2,
+      "Value": "40-50 Years",
+      "Score": 2,
+      "RiskType": "ModetareRisk"
+    },
+    {
+      "RiskID": 2,
+      "Value": "50+ Years",
+      "Score": 3,
+      "RiskType": "HighRisk"
+    },
+    //Years of working
+    {
+      "RiskID": 3,
+      "Value": "1-3 Years",
+      "Score": 1,
+      "RiskType": "LowRisk"
+    },
+    {
+      "RiskID": 3,
+      "Value": "4-6 Years",
+      "Score": 2,
+      "RiskType": "ModetareRisk"
+    },
+    {
+      "RiskID": 3,
+      "Value": "7+ Years",
+      "Score": 3,
+      "RiskType": "HighRisk"
+    },
+    //Working Hours
+    {
+      "RiskID": 4,
+      "Value": "0-3 Hours",
+      "Score": 1,
+      "RiskType": "LowRisk"
+    },
+    {
+      "RiskID": 4,
+      "Value": "4-6 Hours",
+      "Score": 2,
+      "RiskType": "ModetareRisk"
+    },
+    {
+      "RiskID": 4,
+      "Value": "7+ Hours",
+      "Score": 3,
+      "RiskType": "HighRisk"
+    },
+    //BMI
+    {
+      "RiskID": 5,
+      "IsRange": true,
+      "FromValue": 0,
+      "Value": 18.5,
+      "Score": 3,
+      "RiskType": "HighRisk"
+    },
+    {
+      "RiskID": 5,
+      "IsRange": true,
+      "FromValue": 18.5,
+      "ToValue": 25,
+      "Score": 1,
+      "RiskType": "LowRisk"
+    },
+    {
+      "RiskID": 5,
+      "IsRange": true,
+      "FromValue": 25,
+      "ToValue": 30,
+      "Score": 2,
+      "RiskType": "Normal"
+    },
+    {
+      "RiskID": 5,
+      "IsRange": true,
+      "FromValue": 30,
+      "ToValue": 100,
+      "Score": 3,
+      "RiskType": "HighRisk"
+    },
+    //Discomforts
+    {
+      "RiskID": 6,
+      "Value": "0",
+      "Score": 1,
+      "RiskType": "LowRisk"
+    },
+    {
+      "RiskID": 6,
+      "Value": "1",
+      "Score": 1,
+      "RiskType": "LowRisk"
+    },
+    {
+      "RiskID": 6,
+      "Value": "2 to 3",
+      "Score": 1,
+      "RiskType": "LowRisk"
+    },
+    {
+      "RiskID": 6,
+      "Value": "4+",
+      "Score": 1,
+      "RiskType": "LowRisk"
+    },
+    //Sitting Position
+    {
+      "RiskID": 7,
+      "Value": "< 0.3333333333333333",
+      "Score": 1,
+      "RiskType": "NoRisk"
+    },
+    {
+      "RiskID": 7,
+      "Value": "0.3333333333333334 to 0.6666666666666666",
+      "Score": 1,
+      "RiskType": "ModerateRisk"
+    },
+    {
+      "RiskID": 7,
+      "Value": "0.6666666666666667 to 1",
+      "Score": 1,
+      "RiskType": "HighRisk"
+    },
+    //Standing Position
+    {
+      "RiskID": 8,
+      "IsRange": true,
+      "FromValue": 0,
+      "ToValue": 0.3333333333333333,
+      "Score": 1,
+      "RiskType": "NoRisk"
+    },
+    {
+      "RiskID": 8,
+      "IsRange": true,
+      "FromValue": 0.3333333333333334,
+      "ToValue": 0.6666666666666666,
+      "Score": 1,
+      "RiskType": "ModerateRisk"
+    },
+    {
+      "RiskID": 8,
+      "IsRange": true,
+      "FromValue": 0.6666666666666667,
+      "ToValue": 1,
+      "Score": 1,
+      "RiskType": "HighRisk"
+    },
+    //Standing Computer Position
+    {
+      "RiskID": 9,
+      "IsRange": true,
+      "FromValue": 0,
+      "ToValue": 0.3333333333333333,
+      "Score": 1,
+      "RiskType": "NoRisk"
+    },
+    {
+      "RiskID": 9,
+      "IsRange": true,
+      "FromValue": 0.3333333333333334,
+      "ToValue": 0.6666666666666666,
+      "Score": 9,
+      "RiskType": "ModerateRisk"
+    },
+    {
+      "RiskID": 9,
+      "IsRange": true,
+      "FromValue": 0.6666666666666667,
+      "ToValue": 1,
+      "Score": 1,
+      "RiskType": "HighRisk"
+    },
+    //Standing Computer Position
+    {
+      "RiskID": 10,
+      "IsRange": true,
+      "FromValue": 0,
+      "ToValue": 0.3333333333333333,
+      "Score": 1,
+      "RiskType": "NoRisk"
+    },
+    {
+      "RiskID": 10,
+      "IsRange": true,
+      "FromValue": 0.3333333333333334,
+      "ToValue": 0.6666666666666666,
+      "Score": 9,
+      "RiskType": "ModerateRisk"
+    },
+    {
+      "RiskID": 10,
+      "IsRange": true,
+      "FromValue": 0.6666666666666667,
+      "ToValue": 1,
+      "Score": 1,
+      "RiskType": "HighRisk"
+    },
+    //Ergonomics Overall Scoring
+    {
+      "RiskID": 0,
+      "IsRange": true,
+      "FromValue": 0,
+      "ToValue": 40,
+      "Score": 0,
+      "RiskType": "Pass"
+    },
+    {
+      "RiskID": 0,
+      "IsRange": true,
+      "FromValue": 40,
+      "ToValue": 100,
+      "Score": 1,
+      "RiskType": "Fail"
+    }
+  ],
+  "HumanVariables": [
+    // Human Variables
+    {
+      "QuestionID": 1,
+      "Question": "What is your gender?",
+      "RiskID": 1,
+      "Risk": "Gender",
+      "Comment": "",
+      "Category": "Human Variables",
+      "Answers": [
+        {
+          "Text": "Male",
+          "Type": "switch-success",
+          "Score": 1
+        },
+        {
+          "Text": "Female",
+          "Type": "switch-danger",
+          "Score": 2
+        }
+      ],
+      "Information": {
+        "Title": "Gender information",
+        "InformationText": "It has been proven that due to certain biological and physiological differences between male and female.\nFemales are more prone to ergonomics related injuries compared to males.   ",
+        "InformationImageURL": "",
+        "RecommendationText": "",
+        "RecommendationImageURL": ""
+      }
+    },
+    {
+      "QuestionID": 2,
+      "Question": "What is your age group?",
+      "RiskID": 2,
+      "Risk": "Age",
+      "Comment": "",
+      "Category": "Human Variables",
+      "Answers": [
+        {
+          "Text": "21-39 Years",
+          "Type": "switch-success",
+          "Score": 1
+        },
+        {
+          "Text": "40-50 Years",
+          "Type": "switch-warning",
+          "Score": 2
+        },
+        {
+          "Text": "50+ Years",
+          "Type": "switch-danger",
+          "Score": 3
+        }
+      ],
+      "Information": {
+        "Title": "Age Group information",
+        "InformationText": "As we age, certain inevitable biomechanical and physiological changes occur.\nHence, the older you are, the more prone to ergonomics related injuries you are.",
+        "InformationImageURL": "",
+        "RecommendationText": "",
+        "RecommendationImageURL": ""
+      }
+    },
+    {
+      "QuestionID": 3,
+      "Question": "What is the number of years you have been working at your current company?",
+      "RiskID": 3,
+      "Risk": "Years Employed",
+      "Comment": "",
+      "Category": "Human Variables",
+      "Answers": [
+        {
+          "Text": "1-3 Years",
+          "Type": "switch-success",
+          "Score": 1
+        },
+        {
+          "Text": "4-6 Years",
+          "Type": "switch-warning",
+          "Score": 2
+        },
+        {
+          "Text": "7+ Years",
+          "Type": "switch-danger",
+          "Score": 3
+        }
+      ],
+      "Information": {
+        "Title": "Work Exposure information",
+        "InformationText": "The longer you have been working for, the longer you have been exposed to the ergonomics risk factors present in your workstation;\ntherefore, the higher your risk of ergonomics related injury.",
+        "InformationImageURL": "",
+        "RecommendationText": "",
+        "RecommendationImageURL": ""
+      }
+    },
+    {
+      "QuestionID": 4,
+      "Question": "How many hours do you spend working on a computer?",
+      "RiskID": 4,
+      "Risk": "Time Using Computer",
+      "Comment": "",
+      "Category": "Human Variables",
+      "Answers": [
+        {
+          "Text": "0-3 Hours",
+          "Type": "switch-success",
+          "Score": 1
+        },
+        {
+          "Text": "4-6 Hours",
+          "Type": "switch-warning",
+          "Score": 2
+        },
+        {
+          "Text": "7+ Hours",
+          "Type": "switch-danger",
+          "Score": 3
+        }
+      ],
+      "Information": {
+        "Title": "Working Hours information",
+        "InformationText": "The longer you spend doing computer work, the longer you are exposed to developing related issues from poor \n static & awkward posture of different body parts which could lead to musculoskeletal pain, eyes strain etc.",
+        "InformationImageURL": "",
+        "RecommendationText": "",
+        "RecommendationImageURL": ""
+      }
+    }
+  ],
+  "BMI": [
+    //BMI 
+    {
+      "QuestionID": 5,
+      "Question": "Weight in kilogram?",
+      "RiskID": 5,
+      "Risk": "BMI",
+      "Comment": "",
+      "Category": "BMI",
+      "Answers": [
+      ]
+    },
+    {
+      "QuestionID": 6,
+      "Question": "Height in meters e.g. 1.7?",
+      "RiskID": 5,
+      "Risk": "BMI",
+      "Comment": "",
+      "Category": "BMI",
+      "Answers": [
+      ]
+    }
+  ],
+  "Discomforts": [
+    //Discomforts
+    {
+      "QuestionID": 7,
+      "Question": "Do you experience discomfort in your Head during and/or after work?",
+      "RiskID": 6,
+      "Risk": "Discomforts",
+      "Comment": "",
+      "Category": "Discomforts",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-danger",
+          "Score": 1
+        },
+        {
+          "Text": "No",
+          "Type": "switch-success",
+          "Score": 0
+        }
+      ]
+    },
+    {
+      "QuestionID": 8,
+      "Question": "Do you experience discomfort in your Eyes during and/or after work?",
+      "RiskID": 6,
+      "Risk": "Discomforts",
+      "Comment": "",
+      "Category": "Discomforts",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-danger",
+          "Score": 1
+        },
+        {
+          "Text": "No",
+          "Type": "switch-success",
+          "Score": 0
+        }
+      ]
+    },
+    {
+      "QuestionID": 9,
+      "Question": "Do you experience discomfort in your Neck during and/or after work?",
+      "RiskID": 6,
+      "Risk": "Discomforts",
+      "Comment": "",
+      "Category": "Discomforts",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-danger",
+          "Score": 1
+        },
+        {
+          "Text": "No",
+          "Type": "switch-success",
+          "Score": 0
+        }
+      ]
+
+    },
+    {
+      "QuestionID": 10,
+      "Question": "Do you experience discomfort in your Shoulders during and/or after work?",
+      "RiskID": 6,
+      "Risk": "Discomforts",
+      "Comment": "",
+      "Category": "Discomforts",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-danger",
+          "Score": 1
+        },
+        {
+          "Text": "No",
+          "Type": "switch-success",
+          "Score": 0
+        }
+      ]
+
+    },
+    {
+      "QuestionID": 11,
+      "Question": "Do you experience discomfort in your Arms during and/or after work?",
+      "RiskID": 6,
+      "Risk": "Discomforts",
+      "Comment": "",
+      "Category": "Discomforts",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-danger",
+          "Score": 1
+        },
+        {
+          "Text": "No",
+          "Type": "switch-success",
+          "Score": 0
+        }
+      ]
+
+    },
+    {
+      "QuestionID": 12,
+      "Question": "Do you experience discomfort in your Upper/Middle Back during and/or after work?",
+      "RiskID": 6,
+      "Risk": "Discomforts",
+      "Comment": "",
+      "Category": "Discomforts",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-danger",
+          "Score": 1
+        },
+        {
+          "Text": "No",
+          "Type": "switch-success",
+          "Score": 0
+        }
+      ]
+
+    },
+    {
+      "QuestionID": 13,
+      "Question": "Do you experience discomfort in your Lower Back during and/or after work?",
+      "RiskID": 6,
+      "Risk": "Discomforts",
+      "Comment": "",
+      "Category": "Discomforts",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-danger",
+          "Score": 1
+        },
+        {
+          "Text": "No",
+          "Type": "switch-success",
+          "Score": 0
+        }
+      ]
+
+    },
+    {
+      "QuestionID": 14,
+      "Question": "Do you experience discomfort in your Knees during and/or after work?",
+      "RiskID": 6,
+      "Risk": "Discomforts",
+      "Comment": "",
+      "Category": "Discomforts",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-danger",
+          "Score": 1
+        },
+        {
+          "Text": "No",
+          "Type": "switch-success",
+          "Score": 0
+        }
+      ]
+
+    },
+    {
+      "QuestionID": 15,
+      "Question": "Do you experience discomfort in your Legs during and/or after work?",
+      "RiskID": 6,
+      "Risk": "Discomforts",
+      "Comment": "",
+      "Category": "Discomforts",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-danger",
+          "Score": 1
+        },
+        {
+          "Text": "No",
+          "Type": "switch-success",
+          "Score": 0
+        }
+      ]
+
+    },
+    {
+      "QuestionID": 16,
+      "Question": "Do you experience discomfort in your Feet during and/or after work?",
+      "RiskID": 6,
+      "Risk": "Discomforts",
+      "Comment": "",
+      "Category": "Discomforts",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-danger",
+          "Score": 1
+        },
+        {
+          "Text": "No",
+          "Type": "switch-success",
+          "Score": 0
+        }
+      ]
+    }
+  ],
+  "WorkStation": [
+    {
+      "QuestionID": 0,
+      "Question": "Type of Work station",
+      "RiskID": 7,
+      "Risk": "WorkStation",
+      "Comment": "",
+      "Category": "WorkStation",
+      "Answers": [
+        {
+          "Text": "Sitting Workstation",
+          "Type": "switch-primary"
+        },
+        {
+          "Text": "Standing Workstation",
+          "Type": "switch-secondary"
+        }
+      ],
+      "Information": {
+        "Title": "Standing/Sitting Position information",
+        "InformationText": "If you work more than 5 hours sitting please select sitting station.",
+        "InformationImageURL": "",
+        "RecommendationText": "",
+        "RecommendationImageURL": ""
+      }
+    }
+  ],
+  "SittingPosition": [
+    //Sitting Position
+    {
+      "QuestionID": 17,
+      "Question": "When you sit, are your back and bum resting/touching the back of the chair?",
+      "RiskID": 7,
+      "Risk": "Sitting Position",
+      "Comment": "",
+      "Category": "Sitting Position",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-success",
+          "Score": 0
+        },
+        {
+          "Text": "No",
+          "Type": "switch-danger",
+          "Score": 1
+        }
+      ],
+      "Information": {
+        "Title": "Sitting Position information",
+        "InformationTitle": "Sitting Position",
+        "InformationText": "If the full length of your back is not being supported by the chair, your erector spinae (back muscles) will have to work over time to keep your back in its natural anatomical position.\nThis could lead to strain and eventually cause injury.",
+        "InformationImageURL": "sittingP4.jpg",
+        "InformationImageText": "Make sure your bum touches the back of the chair",
+        "RecommendationTitle": "Recommendation",
+        "RecommendationText": "Procure a sound ergonomics chair, that has an adjustable lumbar support.",
+        "RecommendationImageURL": "bonne-position-ordinateur.jpg",
+        "RecommendationImageText": "Sitting Straight",
+        "PopoverClass": "infoImageRecoImage"
+      }
+    },
+    {
+      "QuestionID": 18,
+      "Question": "Are your feet firmly touching/supported by the floor?",
+      "RiskID": 7,
+      "Risk": "Sitting Position",
+      "Comment": "",
+      "Category": "Sitting Position",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-success",
+          "Score": 0
+        },
+        {
+          "Text": "No",
+          "Type": "switch-danger",
+          "Score": 1
+        }
+      ],
+      "Information": {
+        "Title": "Sitting Position information",
+        "InformationTitle": "Feet Support",
+        "InformationText": "With your back fully supported against the back rest, if your feet are dangling off the floor, a percentage of your lower body weight is being transferred to your lower back (L5/S1).\nThis could lead to discomfort and eventually, cause injury.",
+        "InformationImageURL": "feet.png",
+        "InformationImageText": "Your feet must touch the floor.",
+        "RecommendationTitle": "Recommendation",
+        "RecommendationText": "It is recommended that your feet are firmly placed on a solid surface when you sit.\nAfter adjusting your chair correctly and your feet are still dangling, an adjustable foot rest/stool may be recommended for you.",
+        "RecommendationImageURL": "feetSupport.jpg",
+        "RecommendationImageText": "Something to support your feet.",
+        "PopoverClass": "infoImageRecoImage"
+      }
+    },
+    {
+      "QuestionID": 19,
+      "Question": "Are your armrest in line with your desk?",
+      "RiskID": 7,
+      "Risk": "Sitting Position",
+      "Comment": "",
+      "Category": "Sitting Position",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-success",
+          "Score": 0
+        },
+        {
+          "Text": "No",
+          "Type": "switch-danger",
+          "Score": 1
+        },
+        {
+          "Text": "N/A",
+          "Type": "switch-danger",
+          "Score": 1
+        }
+      ],
+      "Information": {
+        "Title": "Sitting Position information",
+        "InformationTitle": "Arm Support",
+        "InformationText": "With your arms and elbows being supported by the arm rest of your chair, you should be able to access your keyboard and mouse easily, with your elbows at 90 degrees to prevent potential shoulder strain and injury.",
+        "InformationImageURL": "arm5.png",
+        "InformationImageText": "Support.",
+        "RecommendationTitle": "Recommendation",
+        "RecommendationText": "Elevate your chair so that the armrests are in line with your desk.\nIf after elevating your chair, your feet are not touching the floor, a foot rest is required.",
+        "RecommendationImageURL": "heads.jpg",
+        "RecommendationImageText": "Arm Support.",
+        "PopoverClass": "infoImageRecoImage"
+      }
+    },
+    {
+      "QuestionID": 20,
+      "Question": "Can you comfortably place 3 fingers between the back of your knee and edge of the seat?",
+      "RiskID": 7,
+      "Risk": "Sitting Position",
+      "Comment": "",
+      "Category": "Sitting Position",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-success",
+          "Score": 0
+        },
+        {
+          "Text": "No",
+          "Type": "switch-danger",
+          "Score": 1
+        }
+      ],
+      "Information": {
+        "Title": "Sitting Position information",
+        "InformationTitle": "Information",
+        "InformationText": "There needs to be some space (approx. 2-3 fingers) between the back of your knee and the round edge of the seat, in order to avoid constriction of blood vessels which could lead to limited blood flow, oxygen etc.\nThis would result in swollen legs/feet and general discomfort.",
+        "InformationImageURL": "space2.jpg",
+        "InformationImageText": "Armrest.",
+        "RecommendationTitle": "Recommendation",
+        "RecommendationText": "Adjust the seat depth of the chair (if possible) to enable 2/3 fingers fit.\nIf there is no adjustability feature on the chair, a sound ergonomics chair may be recommended for you to allow seat depth adjustment.",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "infoImageReco"
+      }
+
+    },
+    {
+      "QuestionID": 21,
+      "Question": "Are you seated in an upright (flexed) position while using your computer?",
+      "RiskID": 7,
+      "Risk": "Sitting Position",
+      "Comment": "",
+      "Category": "Sitting Position",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-danger",
+          "Score": 1
+        },
+        {
+          "Text": "No",
+          "Type": "switch-success",
+          "Score": 0
+        }
+      ],
+      "Information": {
+        "Title": "Sitting Position information",
+        "InformationTitle": "Information",
+        "InformationText": "If sitting upright/flexed, your back muscles are working extra hard to keep your back in this upright/flexed position.\nThis will lead to muscle strain and eventually, overtime, injury.",
+        "InformationImageURL": "stti.jpg",
+        "InformationImageText": "Seated Upright.",
+        "RecommendationTitle": "Recommendation",
+        "RecommendationText": "If possible, adjust the recline mechanism of your back rest to about 100-110 (degree).\nThis will allow for a slightly reclined positon while working on your computer, where the angle between your thighs and torso is increased.\nIf your chair's back rest does not have this reclining feature, a sound ergonomics chair may be recommended for you.",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "infoImageReco"
+      }
+    },
+    {
+      "QuestionID": 22,
+      "Question": "When you sit, are your knees higher than your hip?",
+      "RiskID": 7,
+      "Risk": "Sitting Position",
+      "Comment": "",
+      "Category": "Sitting Position",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-danger",
+          "Score": 1
+        },
+        {
+          "Text": "No",
+          "Type": "switch-success",
+          "Score": 0
+        }
+      ],
+      "Information": {
+        "Title": "Sitting Position information",
+        "InformationTitle": "Information",
+        "InformationText": "If your knees are higher than your hips, there is immense strain being placed on your intervertebral discs, which could lead to pain/injury.",
+        "InformationImageURL": "kneePosition.jpg",
+        "InformationImageText": "Knees Position.",
+        "RecommendationTitle": "Recommendation",
+        "RecommendationText": "Adjust your chair to the appropriate height so that with your feet firmly on the floor, your knees are either in line or slightly below your hip.\nIt is also recommended that you move and change leg positions regularly for blood flow.",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "infoImageReco"
+      }
+    }
+  ],
+  "ComputerPositionWhenSitting": [
+    //Computer Position when Sitting
+    {
+      "QuestionID": 32,
+      "Question": "Is your screen at least an arms length away from you when working?",
+      "RiskID": 10,
+      "Risk": "Computer Position when Sitting",
+      "Comment": "Place the monitor directly in front of you, about an arms length away.",
+      "Category": "Computer Position when Sitting",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-success",
+          "Score": 0
+        },
+        {
+          "Text": "No",
+          "Type": "switch-danger",
+          "Score": 1
+        }
+      ],
+      "Information": {
+        "Title": "Computer Position when Sitting information",
+        "InformationTitle": "Information",
+        "InformationText": "Your monitor should be about an arm's length away from you when you are sitting correctly in your chair.\nSitting too far or too close from your screen could cause eyestrain and force your body into awkward postures. ",
+        "InformationImageURL": "monitor.jpg",
+        "InformationImageText": "Monitor Distance.",
+        "RecommendationTitle": "",
+        "RecommendationText": "",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "infoImage"
+      }
+    },
+    {
+      "QuestionID": 33,
+      "Question": "Are your eyes in line with your screen?",
+      "RiskID": 10,
+      "Risk": "Computer Position when Sitting",
+      "Comment": "",
+      "Category": "Computer Position when Sitting",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-success",
+          "Score": 0
+        },
+        {
+          "Text": "No",
+          "Type": "switch-danger",
+          "Score": 1
+        }
+      ],
+      "Information": {
+        "Title": "Computer Position when Sitting information",
+        "InformationTitle": "Information",
+        "InformationText": "If your screen is too high or too low, your neck and whole body might be forced into an awkward posture causing pain/injury.",
+        "InformationImageURL": "good.jpg",
+        "InformationImageText": "",
+        "RecommendationTitle": "Recommendation",
+        "RecommendationText": "Adjust your monitor height to be in line with or slightly above your seated eye height- to promote a sound ergonomics posture.",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "infoImageReco"
+      }
+
+    },
+    {
+      "QuestionID": 34,
+      "Question": "Is your screen placed directly infront of you?",
+      "RiskID": 10,
+      "Risk": "Computer Position when Sitting",
+      "Comment": "Your monitor should directly(centered) be placed in front of you.",
+      "Category": "Computer Position when Sitting",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-success",
+          "Score": 0
+        },
+        {
+          "Text": "No",
+          "Type": "switch-danger",
+          "Score": 1
+        }
+      ],
+      "Information": {
+        "Title": "Computer Position when Sitting information",
+        "InformationTitle": "Information",
+        "InformationText": "Having your monitor directly in front of you, will promote a sound posture.\nIf your screen is not centred (i.e. to the left or right of your body), this allows frequent, twisting neck movements- which could cause injury in future.",
+        "InformationImageURL": "arm5.png",
+        "InformationImageText": "",
+        "RecommendationTitle": "Recommendation",
+        "RecommendationText": "Position your screen in the centre of your desk and so that your entire body is facing it.",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "infoImageReco"
+      }
+    },
+    {
+      "QuestionID": 35,
+      "Question": "Is there any glare hitting the screen of your computer?",
+      "RiskID": 10,
+      "Risk": "Computer Position when Sitting",
+      "Comment": "Place the monitor to the side of the light source/s, not directly underneath.",
+      "Category": "Computer Position when Sitting",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-danger",
+          "Score": 1
+        },
+        {
+          "Text": "No",
+          "Type": "switch-success",
+          "Score": 0
+        }
+      ],
+      "Information": {
+        "Title": "Computer Position when Sitting information",
+        "InformationTitle": "Information",
+        "InformationText": "Windows and fluorescent light bulbs are a common source of glare on your screen.\nBe sensitive to glare issues as they could cause eyestrain, headaches and general muscle fatigue.\nA great way to check for glare is to turn your monitor off and examine any reflections visible on it.",
+        "InformationImageURL": "glare_pic.jpg",
+        "InformationImageText": "",
+        "RecommendationTitle": "Recommendation",
+        "RecommendationText": "If reflections are observed, suitable glare control, in the form of blinds installation, anti-glare screens, or even the repositioning of your workstation, is recommended.",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "infoImageReco"
+      }
+
+    },
+    {
+      "QuestionID": 36,
+      "Question": "Are your keyboard and mouse at elbow level?",
+      "RiskID": 10,
+      "Risk": "Computer Position when Sitting",
+      "Comment": "Place your mouse within easy reach and on the same surface as your keyboard.",
+      "Category": "Computer Position when Sitting",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-success",
+          "Score": 0
+        },
+        {
+          "Text": "No",
+          "Type": "switch-danger",
+          "Score": 1
+        }
+      ],
+      "Information": {
+        "Title": "Computer Position when Sitting information",
+        "InformationTitle": "Information",
+        "InformationText": "\"Your keyboard and mouse should be placed within the safe working zones i.e.\nwhere your elbows are resting on the armrest and shoulders are close to your body.\nYour arms should tilt downwards while using both the keyboard and mouse, leaving your elbows at a comfortable \"open\" angle.\"",
+        "InformationImageURL": "keyboard.png",
+        "InformationImageText": "",
+        "RecommendationTitle": "Recommendation",
+        "RecommendationText": "Place your keyboard and mouse as close as possible and within the safe working zone (where your shoulder is in a neutral position).",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "infoImageReco"
+      }
+
+    }
+  ],
+  "StandingPosition": [
+    //Standing Position
+    {
+      "QuestionID": 23,
+      "Question": "Are your shoulders/elbows in a natural or relaxed position?",
+      "RiskID": 8,
+      "Risk": "Standing Position",
+      "Comment": "Adjust the workstation to the proper height for the shoulders/elbows to be at a relaxed position",
+      "Category": "Standing Position",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-success",
+          "Score": 0
+        },
+        {
+          "Text": "No",
+          "Type": "switch-danger",
+          "Score": 1
+        }
+      ],
+      "Information": {
+        "Title": "Standing Potition information",
+        "InformationTitle": "Information",
+        "InformationText": "",
+        "InformationImageURL": "standiiii.jpg",
+        "InformationImageText": "",
+        "RecommendationTitle": "",
+        "RecommendationText": "",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "imageOnly"
+      }
+
+    },
+    {
+      "QuestionID": 24,
+      "Question": "Do you wear comfortable shoes when you work standing?",
+      "RiskID": 8,
+      "Risk": "Standing Position",
+      "Comment": "Wear comfortable shoes. Some stylish shoes can cause discomfort when you stand.",
+      "Category": "Standing Position",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-success",
+          "Score": 0
+        },
+        {
+          "Text": "No",
+          "Type": "switch-danger",
+          "Score": 1
+        }
+      ],
+      "Information": {
+        "Title": "Computer Position when Sitting information",
+        "InformationTitle": "Information",
+        "InformationText": "Wearing comfortable shoes help in reducing the pressure that comes against your foot from the floor and helps in preventing heel injuries.",
+        "InformationImageURL": "shouu.jpg",
+        "InformationImageText": "",
+        "RecommendationTitle": "",
+        "RecommendationText": "",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "infoImage"
+      }
+
+    },
+    {
+      "QuestionID": 25,
+      "Question": "Do you use elevated foot-rest  while standing?",
+      "RiskID": 8,
+      "Risk": "Standing Position",
+      "Comment": "Simply lifting one foot a bit changes your posture enough to protect your low back from the potentially uncomfortable dynamics of long-term standing.",
+      "Category": "Standing Position",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-success",
+          "Score": 0
+        },
+        {
+          "Text": "No",
+          "Type": "switch-danger",
+          "Score": 1
+        }
+      ],
+      "Information": {
+        "Title": "Computer Position when Sitting information",
+        "InformationTitle": "Information",
+        "InformationText": "It is recommended that you elevate one foot at a time using a footrest.\nDoing this, will reduce pressure acting on your intervertebral discs and protect your lower back from pain/discomfort and potentially injury.",
+        "InformationImageURL": "footElevator.png",
+        "InformationImageText": "",
+        "RecommendationTitle": "",
+        "RecommendationText": "",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "infoImage"
+      }
+    },
+    {
+      "QuestionID": 26,
+      "Question": "Do you take regular breaks when working?",
+      "RiskID": 8,
+      "Risk": "Standing Position",
+      "Comment": "Static standing can be almost as bad for you as sitting. The more you fidget and move as you stand, the longer you’ll be able to do it comfortably and productively.",
+      "Category": "Standing Position",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-success",
+          "Score": 0
+        },
+        {
+          "Text": "No",
+          "Type": "switch-danger",
+          "Score": 1
+        }
+      ],
+      "Information": {
+        "Title": "Computer Position when Sitting information",
+        "InformationTitle": "Information",
+        "InformationText": "Standing can reduce the static nature of sitting but if done for prolonged periods, may also have adverse effects such as joint pain, foot injury, general fatigue etc.\n\nIt is recommended that you take frequent breaks to sit or walk or squat at certain intervals (i.e. every half hour or so.\n\nWorking while standing has also been linked to poor concentration. Therefore, for fine manipulative tasks, sitting maybe preferred.",
+        "InformationImageURL": "breaks.jpg",
+        "InformationImageText": "",
+        "RecommendationTitle": "",
+        "RecommendationText": "",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "biggerInfoImage"
+      }
+    }
+  ],
+  "ComputerPositionWhenStanding": [
+    //Computer Position when Standing
+    {
+      "QuestionID": 27,
+      "Question": "Is your screen at least an arms length away from you when working?",
+      "RiskID": 9,
+      "Risk": "Computer Position when Standing",
+      "Comment": "Place the monitor directly in front of you, about an arms length away.",
+      "Category": "Computer Position when Standing",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-success",
+          "Score": 0
+        },
+        {
+          "Text": "No",
+          "Type": "switch-danger",
+          "Score": 1
+        }
+      ],
+      "Information": {
+        "Title": "Computer Position when Sitting information",
+        "InformationTitle": "Information",
+        "InformationText": "Your monitor should be about an arm's length away from you when you are sitting correctly in your chair.\nSitting too far or too close from your screen could cause eyestrain and force your body into awkward postures. ",
+        "InformationImageURL": "monitor.jpg",
+        "InformationImageText": "Monitor Distance.",
+        "RecommendationTitle": "",
+        "RecommendationText": "",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "infoImage"
+      }
+    },
+    {
+      "QuestionID": 28,
+      "Question": "When you look at your screen without bending or lifting your neck, are your eyes inline with the  top quarter of your screen?",
+      "RiskID": 9,
+      "Risk": "Computer Position when Standing",
+      "Comment": "The top of the screen should be at or slightly below eye level.",
+      "Category": "Computer Position when Standing",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-success",
+          "Score": 0
+        },
+        {
+          "Text": "No",
+          "Type": "switch-danger",
+          "Score": 1
+        }
+      ],
+      "Information": {
+        "Title": "Computer Position when Sitting information",
+        "InformationTitle": "Information",
+        "InformationText": "If your screen is too high or too low, your neck and whole body might be forced into an awkward posture causing pain/injury.",
+        "InformationImageURL": "good.jpg",
+        "InformationImageText": "",
+        "RecommendationTitle": "Recommendation",
+        "RecommendationText": "Adjust your monitor height to be in line with or slightly above your seated eye height- to promote a sound ergonomics posture.",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "infoImageReco"
+      }
+
+    },
+    {
+      "QuestionID": 29,
+      "Question": "Is your screen placed directly infront of you?",
+      "RiskID": 9,
+      "Risk": "Computer Position when Standing",
+      "Comment": "Your monitor should directly(centered) be placed in front of you.",
+      "Category": "Computer Position when Standing",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-success",
+          "Score": 0
+        },
+        {
+          "Text": "No",
+          "Type": "switch-danger",
+          "Score": 1
+        }
+      ],
+      "Information": {
+        "Title": "Computer Position when Sitting information",
+        "InformationTitle": "Information",
+        "InformationText": "Having your monitor directly in front of you, will promote a sound posture.\nIf your screen is not centred (i.e. to the left or right of your body), this allows frequent, twisting neck movements- which could cause injury in future.",
+        "InformationImageURL": "arm5.png",
+        "InformationImageText": "",
+        "RecommendationTitle": "Recommendation",
+        "RecommendationText": "Position your screen in the centre of your desk and so that your entire body is facing it.",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "infoImageReco"
+      }
+
+    },
+    {
+      "QuestionID": 30,
+      "Question": "Is there any glare hitting the screen of your computer?",
+      "RiskID": 9,
+      "Risk": "Computer Position when Standing",
+      "Comment": "Place the monitor to the side of the light source/s, not directly underneath.",
+      "Category": "Computer Position when Standing",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-danger",
+          "Score": 1
+        },
+        {
+          "Text": "No",
+          "Type": "switch-success",
+          "Score": 0
+        }
+      ],
+      "Information": {
+        "Title": "Computer Position when Sitting information",
+        "InformationTitle": "Information",
+        "InformationText": "Windows and fluorescent light bulbs are a common source of glare on your screen.\nBe sensitive to glare issues as they could cause eyestrain, headaches and general muscle fatigue.\nA great way to check for glare is to turn your monitor off and examine any reflections visible on it.",
+        "InformationImageURL": "glare_pic.jpg",
+        "InformationImageText": "",
+        "RecommendationTitle": "Recommendation",
+        "RecommendationText": "If reflections are observed, suitable glare control, in the form of blinds installation, anti-glare screens, or even the repositioning of your workstation, is recommended.",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "infoImageReco"
+      }
+
+    },
+    {
+      "QuestionID": 31,
+      "Question": "Are your keyboard and mouse at elbow level?",
+      "RiskID": 9,
+      "Risk": "Computer Position when Standing",
+      "Comment": "Place your mouse within easy reach and on the same surface as your keyboard.",
+      "Category": "Computer Position when Standing",
+      "Answers": [
+        {
+          "Text": "Yes",
+          "Type": "switch-success",
+          "Score": 0
+        },
+        {
+          "Text": "No",
+          "Type": "switch-danger",
+          "Score": 1
+        }
+      ],
+      "Information": {
+        "Title": "Computer Position when Sitting information",
+        "InformationTitle": "Information",
+        "InformationText": "\"Your keyboard and mouse should be placed within the safe working zones i.e.\nwhere your elbows are resting on the armrest and shoulders are close to your body.\nYour arms should tilt downwards while using both the keyboard and mouse, leaving your elbows at a comfortable \"open\" angle.\"",
+        "InformationImageURL": "keyboard.png",
+        "InformationImageText": "",
+        "RecommendationTitle": "Recommendation",
+        "RecommendationText": "Place your keyboard and mouse as close as possible and within the safe working zone (where your shoulder is in a neutral position).",
+        "RecommendationImageURL": "",
+        "RecommendationImageText": "",
+        "PopoverClass": "infoImageReco"
+      }
+
+    }
+  ]
+}

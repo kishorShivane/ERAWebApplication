@@ -1,0 +1,785 @@
+﻿@model ERAWeb.Models.QuestionDictionary
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //var humanVariables = Model.Where(x => x.Category == "Human Variables").ToList();
+}
+<style>
+    .popover-body {
+        white-space: pre-line;
+    }
+
+    .popover-header {
+        background-color: #63c2de !important;
+    }
+
+    .popover {
+        max-width: 60% !important;
+    }
+
+    .popover-body li {
+        padding: 5px 5px 5px 5px !important;
+    }
+
+    .errorBorder {
+        border-color: orangered;
+        border-width: 2px;
+        border-style: groove;
+    }
+
+    .inactive {
+        display: none;
+    }
+</style>
+<form asp-controller="Questionnaire" asp-action="Submit" method="post" novalidate>
+    <div class="container-fluid">
+        <div id="ui-view">
+            <div>
+                <div class="animated fadeIn">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card" id="divQuestionnaire">
+                                <div class="card-body">
+                                    <ul class="nav nav-tabs" id="myTab1" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active show" id="1" data-toggle="tab" href="#humanVariables" role="tab" aria-controls="humanVariables" aria-selected="true"><i class="fas fa-users"></i>&nbsp;&nbsp;Human Variables</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="2" data-toggle="tab" href="#bmiVariables" role="tab" aria-controls="bmiVariables" aria-selected="false"><i class="fas fa-user-md"></i>&nbsp;&nbsp;BMI Variables</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="3" data-toggle="tab" href="#discomforts" role="tab" aria-controls="discomforts" aria-selected="false"><i class="fas fa-diagnoses"></i>&nbsp;&nbsp;Discomforts</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="4" data-toggle="tab" href="#workStation" role="tab" aria-controls="workStation" aria-selected="false"><i class="fas fa-person-booth"></i>&nbsp;&nbsp;Work Station</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="5" data-toggle="tab" href="#position" role="tab" aria-controls="position" aria-selected="false" style="display:none"> Position</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="6" data-toggle="tab" href="#computerPosition" role="tab" aria-controls="computerPosition" aria-selected="false" style="display:none">Computer Position</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="myTab1Content">
+                                        <div class="tab-pane fade active show" id="humanVariables" role="tabpanel" aria-labelledby="1">
+                                            <div class="active">
+                                                @for (int question = 0; question < Model.HumanVariables.Count(); question++)
+                                                {
+                                                    var colCount = 12;
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-10">
+                                                                    <p>@Model.HumanVariables[question].Question</p>
+                                                                    <hr />
+                                                                    <div class="row controlGroup">
+                                                                        @for (int item = 0; item < Model.HumanVariables[question].Answers.Count(); item++)
+                                                                        {
+                                                                            <div class="col-2" style="display: inherit">
+                                                                                <span class="mr-2">@Model.HumanVariables[question].Answers[item].Text</span>
+                                                                                <label class="switch switch-label switch-pill @Model.HumanVariables[question].Answers[item].Type">
+                                                                                    <input class="switch-input" type="checkbox" value="@Model.HumanVariables[question].Answers[item].Text" asp-for="@Model.HumanVariables[question].AnswerSelected">
+                                                                                    <span class="switch-slider"></span>
+                                                                                </label>
+                                                                            </div>
+                                                                            colCount = colCount - 2;
+                                                                        }
+                                                                        <div class="col-@colCount">
+                                                                            @Html.HiddenFor(item => Model.HumanVariables[question].QuestionID)
+                                                                            @Html.HiddenFor(item => Model.HumanVariables[question].RiskID)
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @if (Model.HumanVariables[question].Information != null)
+                                                                {
+                                                                    <div class="col-2">
+                                                                        <a class="btn btn-ghost-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="@Model.HumanVariables[question].Information.InformationText" data-original-title="@Model.HumanVariables[question].Information.Title">
+                                                                            <i class="fas fa-question-circle"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer" style="display:none">
+                                                            <span>Please answer the following section.</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-10">
+                                                                <p>
+                                                                    Human Variables Score
+                                                                </p>
+                                                                <hr>
+                                                                <div class="form-group row humanVariables" id="divSummary">
+                                                                    <div class="col-sm-3">
+                                                                        <a class="btn btn-pill btn-block btn-success active" id="btnLowRisk" value="Low Risk:">Low Risk: 0</a>
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        <a class="btn btn-pill btn-block btn-warning active" id="btnModerateRisk" value="Moderate Risk:">Moderate Risk: 0</a>
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        <a class="btn btn-pill btn-block btn-danger active" id="btnHighRisk" value="High Risk:">High Risk: 0</a>
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        <a class="btn btn-pill btn-block btn-info active" id="btnResult" value="Total:">Total: 0</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <a class="btn btn-ghost-info" tabindex="0" id="popOverBMIInfo" role="button" data-toggle="popover" data-trigger="focus" title="" data-html="true"
+                                                                   data-content="<ul><li><a class='btn btn-pill btn-block btn-success' aria-pressed='true'>Low Risk</a></li><li><a class='btn btn-pill btn-block btn-warning' aria-pressed='true'>Normal</a></li><li><a class='btn btn-pill btn-block btn-danger' aria-pressed='true'>High Risk</a></li></ul>"
+                                                                   data-original-title="Risk Level Indicator">
+                                                                    <i class="fas fa-question-circle"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="bmiVariables" role="tabpanel" aria-labelledby="2">
+                                            <div class="active">
+                                                @for (int question = 0; question < Model.BMI.Count(); question++)
+                                                {
+                                                    var colCount = 12;
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-10">
+                                                                    <p>@Model.BMI[question].Question</p>
+                                                                    <hr />
+                                                                    @if (Model.BMI[question].Answers.Any())
+                                                                    {
+                                                                        <div class="row controlGroup">
+                                                                            @for (int item = 0; item < Model.BMI[question].Answers.Count(); item++)
+                                                                            {
+                                                                                <div class="col-2" style="display:inherit">
+                                                                                    <span class="mr-2">@Model.BMI[question].Answers[item].Text</span>
+                                                                                    <label class="switch switch-label switch-pill @Model.BMI[question].Answers[item].Type">
+                                                                                        <input class="switch-input" type="checkbox" value="@Model.BMI[question].Answers[item].Text" asp-for="@Model.BMI[question].AnswerSelected">
+                                                                                        <span class="switch-slider"></span>
+                                                                                    </label>
+                                                                                </div>
+                                                                                colCount = colCount - 2;
+                                                                            }
+
+                                                                            <div class="col-@colCount">
+                                                                                @Html.HiddenFor(item => Model.BMI[question].QuestionID)
+                                                                                @Html.HiddenFor(item => Model.BMI[question].RiskID)
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        var textID = @Model.BMI[question].Question.Replace(' ', '_').Replace('.', '_');
+                                                                        <div class="controlGroup row">
+                                                                            <div class="col-3">
+                                                                                <input class="form-control" id="@textID" asp-for="@Model.BMI[question].AnswerSelected" type="number" placeholder="">
+                                                                            </div>
+                                                                            <div class="col-9">
+                                                                                @Html.HiddenFor(item => Model.BMI[question].QuestionID)
+                                                                                @Html.HiddenFor(item => Model.BMI[question].RiskID)
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                                @if (Model.BMI[question].Information != null)
+                                                                {
+                                                                    <div class="col-2">
+                                                                        <a class="btn btn-ghost-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="@Model.BMI[question].Information.InformationText" data-original-title="@Model.BMI[question].Information.Title">
+                                                                            <i class="fas fa-question-circle"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer" style="display:none">
+                                                            <span>Please answer the following section.</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-10">
+                                                                <p>
+                                                                    BMI (Body Mass Index)
+                                                                </p>
+                                                                <hr>
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-3">
+                                                                        <a class="" id="bmiResult"></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <a class="btn btn-ghost-info" tabindex="0" id="popOverBMIInfo" role="button" data-toggle="popover" data-trigger="focus" title="" data-html="true"
+                                                                   data-content="<ul><li><a class='btn btn-pill btn-block btn-success' aria-pressed='true'>Low Risk: BMI = 18.5 to 24.9</a></li><li><a class='btn btn-pill btn-block btn-warning' aria-pressed='true'>Normal: BMI = 25 to 29</a></li><li><a class='btn btn-pill btn-block btn-danger' aria-pressed='true'>High Risk: BMI < 18.5 & > 30</a></li></ul>"
+                                                                   data-original-title="BMI Levels">
+                                                                    <i class="fas fa-question-circle"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="discomforts" role="tabpanel" aria-labelledby="3">
+                                            <div class="active">
+                                                @for (int question = 0; question < Model.Discomforts.Count(); question++)
+                                                {
+                                                    var colCount = 12;
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-10">
+                                                                    <p>@Model.Discomforts[question].Question</p>
+                                                                    <hr />
+                                                                    <div class="row controlGroup">
+                                                                        @for (int item = 0; item < Model.Discomforts[question].Answers.Count; item++)
+                                                                        {
+                                                                            <div class="col-2" style="display:inherit">
+                                                                                <span class="mr-2">@Model.Discomforts[question].Answers[item].Text</span>
+                                                                                <label class="switch switch-label switch-pill @Model.Discomforts[question].Answers[item].Type">
+                                                                                    <input class="switch-input" type="checkbox" value="@Model.Discomforts[question].Answers[item].Text" asp-for="@Model.Discomforts[question].AnswerSelected">
+                                                                                    <span class="switch-slider"></span>
+                                                                                </label>
+                                                                            </div>
+                                                                            colCount = colCount - 2;
+                                                                        }
+                                                                        <div class="col-@colCount">
+                                                                            @Html.HiddenFor(item => Model.Discomforts[question].QuestionID)
+                                                                            @Html.HiddenFor(item => Model.Discomforts[question].RiskID)
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @if (Model.Discomforts[question].Information != null)
+                                                                {
+                                                                    <div class="col-2">
+                                                                        <a class="btn btn-ghost-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="@Model.Discomforts[question].Information.InformationText" data-original-title="@Model.Discomforts[question].Information.Title">
+                                                                            <i class="fas fa-question-circle"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer" style="display:none">
+                                                            <span>Please answer the following section.</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-10">
+                                                                <p>
+                                                                    Discomforts Score
+                                                                </p>
+                                                                <hr>
+                                                                <div class="form-group row discomformts" id="divSummary">
+                                                                    <div class="col-sm-3">
+                                                                        <a class="btn btn-pill btn-block btn-success active" id="btnResult">Low Risk: 0</a>
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        @*<a class="btn btn-pill btn-block btn-success active" id="btnLowRisk" value="Low Risk:">Low Risk: 0</a>*@
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        @*<a class="btn btn-pill btn-block btn-danger active" id="btnHighRisk" value="High Risk:">High Risk: 0</a>*@
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        @*<a class="btn btn-pill btn-block btn-info active" id="btnTotal" value="Total:">Total: 0</a>*@
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <a class="btn btn-ghost-info" tabindex="0" id="popOverBMIInfo" role="button" data-toggle="popover" data-trigger="focus" title="" data-html="true"
+                                                                   data-content="<ul><li><a class='btn btn-pill btn-block btn-success' aria-pressed='true'>Low Risk</a></li><li><a class='btn btn-pill btn-block btn-warning' aria-pressed='true'>Normal</a></li><li><a class='btn btn-pill btn-block btn-danger' aria-pressed='true'>High Risk</a></li></ul>"
+                                                                   data-original-title="Risk Level Indicator">
+                                                                    <i class="fas fa-question-circle"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="workStation" role="tabpanel" aria-labelledby="4">
+                                            <div class="active">
+                                                @for (int question = 0; question < Model.WorkStation.Count(); question++)
+                                                {
+                                                    var colCount = 12;
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-10">
+                                                                    <p>@Model.WorkStation[question].Question</p>
+                                                                    <hr />
+                                                                    <div class="row controlGroup">
+                                                                        @for (int item = 0; item < Model.WorkStation[question].Answers.Count; item++)
+                                                                        {
+                                                                            <div class="col-4" style="display:inherit">
+                                                                                <span class="mr-2">@Model.WorkStation[question].Answers[item].Text</span>
+                                                                                <label class="switch switch-label switch-pill @Model.WorkStation[question].Answers[item].Type">
+                                                                                    <input class="switch-input" type="checkbox" value="@Model.WorkStation[question].Answers[item].Text" asp-for="@Model.WorkStation[question].AnswerSelected">
+                                                                                    <span class="switch-slider"></span>
+                                                                                </label>
+                                                                            </div>
+                                                                            colCount = colCount - 4;
+                                                                        }
+                                                                        <div class="col-@colCount">
+                                                                            @Html.HiddenFor(item => Model.WorkStation[question].QuestionID)
+                                                                            @Html.HiddenFor(item => Model.WorkStation[question].RiskID)
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @if (Model.WorkStation[question].Information != null)
+                                                                {
+                                                                    <div class="col-2">
+                                                                        <a class="btn btn-ghost-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="@Model.WorkStation[question].Information.InformationText" data-original-title="@Model.WorkStation[question].Information.Title">
+                                                                            <i class="fas fa-question-circle"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer" style="display:none">
+                                                            <span>Please answer the following section.</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane fade" id="position" role="tabpanel" aria-labelledby="5">
+                                            <div id="divSittingPosition" class="inactive">
+                                                @for (int question = 0; question < Model.SittingPosition.Count(); question++)
+                                                {
+                                                    var colCount = 12;
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-10">
+                                                                    <p>@Model.SittingPosition[question].Question</p>
+                                                                    <hr />
+                                                                    <div class="row controlGroup">
+                                                                        @for (int item = 0; item < Model.SittingPosition[question].Answers.Count; item++)
+                                                                        {
+                                                                            <div class="col-2" style="display:inherit">
+                                                                                <span class="mr-2">@Model.SittingPosition[question].Answers[item].Text</span>
+                                                                                <label class="switch switch-label switch-pill @Model.SittingPosition[question].Answers[item].Type">
+                                                                                    <input class="switch-input" type="checkbox" value="@Model.SittingPosition[question].Answers[item].Text" asp-for="@Model.SittingPosition[question].AnswerSelected">
+                                                                                    <span class="switch-slider"></span>
+                                                                                </label>
+                                                                            </div>
+                                                                            colCount = colCount - 2;
+                                                                        }
+                                                                        <div class="col-@colCount">
+                                                                            @Html.HiddenFor(item => Model.SittingPosition[question].QuestionID)
+                                                                            @Html.HiddenFor(item => Model.SittingPosition[question].RiskID)
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @if (Model.SittingPosition[question].Information != null)
+                                                                {
+                                                                    <div class="col-2">
+                                                                        <a class="btn btn-ghost-info @Model.SittingPosition[question].Information.PopoverClass" role="button">
+                                                                            <i class="fas fa-question-circle"></i>
+                                                                        </a>
+                                                                        <input type="hidden" id="hdnTitle" value="@Model.SittingPosition[question].Information.Title" />
+                                                                        <input type="hidden" id="hdnInformationTitle" value="@Model.SittingPosition[question].Information.InformationTitle" />
+                                                                        <input type="hidden" id="hdnInformationText" value="@Model.SittingPosition[question].Information.InformationText" />
+                                                                        <input type="hidden" id="hdnInformationImageURL" value="@Model.SittingPosition[question].Information.InformationImageURL" />
+                                                                        <input type="hidden" id="hdnInformationImageText" value="@Model.SittingPosition[question].Information.InformationImageText" />
+                                                                        <input type="hidden" id="hdnRecommendationTitle" value="@Model.SittingPosition[question].Information.RecommendationTitle" />
+                                                                        <input type="hidden" id="hdnRecommendationText" value="@Model.SittingPosition[question].Information.RecommendationText" />
+                                                                        <input type="hidden" id="hdnRecommendationImageURL" value="@Model.SittingPosition[question].Information.RecommendationImageURL" />
+                                                                        <input type="hidden" id="hdnRecommendationImageText" value="@Model.SittingPosition[question].Information.RecommendationImageText" />
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer" style="display:none">
+                                                            <span>Please answer the following section.</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-10">
+                                                                <p>
+                                                                    Sitting Position Score
+                                                                </p>
+                                                                <hr>
+                                                                <div class="form-group row average" id="divSummary">
+                                                                    <div class="col-sm-3">
+                                                                        <a class="btn btn-pill btn-block btn-success active" id="btnResult">Low Risk: 0</a>
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        @*<a class="btn btn-pill btn-block btn-success active" id="btnLowRisk" value="Low Risk:">Low Risk: 0</a>*@
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        @*<a class="btn btn-pill btn-block btn-danger active" id="btnHighRisk" value="High Risk:">High Risk: 0</a>*@
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        @*<a class="btn btn-pill btn-block btn-info active" id="btnTotal" value="Total:">Total: 0</a>*@
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <a class="btn btn-ghost-info" tabindex="0" id="popOverBMIInfo" role="button" data-toggle="popover" data-trigger="focus" title="" data-html="true"
+                                                                   data-content="<ul><li><a class='btn btn-pill btn-block btn-success' aria-pressed='true'>Low Risk</a></li><li><a class='btn btn-pill btn-block btn-warning' aria-pressed='true'>Normal</a></li><li><a class='btn btn-pill btn-block btn-danger' aria-pressed='true'>High Risk</a></li></ul>"
+                                                                   data-original-title="Risk Level Indicator">
+                                                                    <i class="fas fa-question-circle"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="divStandingPosition" class="inactive">
+                                                @for (int question = 0; question < Model.StandingPosition.Count(); question++)
+                                                {
+                                                    var colCount = 12;
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-10">
+                                                                    <p>@Model.StandingPosition[question].Question</p>
+                                                                    <hr />
+                                                                    <div class="row controlGroup">
+                                                                        @for (int item = 0; item < Model.StandingPosition[question].Answers.Count; item++)
+                                                                        {
+                                                                            <div class="col-2" style="display:inherit">
+                                                                                <span class="mr-2">@Model.StandingPosition[question].Answers[item].Text</span>
+                                                                                <label class="switch switch-label switch-pill @Model.StandingPosition[question].Answers[item].Type">
+                                                                                    <input class="switch-input" type="checkbox" value="@Model.StandingPosition[question].Answers[item].Text" asp-for="@Model.StandingPosition[question].AnswerSelected">
+                                                                                    <span class="switch-slider"></span>
+                                                                                </label>
+                                                                            </div>
+                                                                            colCount = colCount - 2;
+                                                                        }
+                                                                        <div class="col-@colCount">
+                                                                            @Html.HiddenFor(item => Model.StandingPosition[question].QuestionID)
+                                                                            @Html.HiddenFor(item => Model.StandingPosition[question].RiskID)
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @if (Model.StandingPosition[question].Information != null)
+                                                                {
+                                                                    <div class="col-2">
+                                                                        <a class="btn btn-ghost-info @Model.StandingPosition[question].Information.PopoverClass" role="button">
+                                                                            <i class="fas fa-question-circle"></i>
+                                                                        </a>
+                                                                        <input type="hidden" id="hdnTitle" value="@Model.StandingPosition[question].Information.Title" />
+                                                                        <input type="hidden" id="hdnInformationTitle" value="@Model.StandingPosition[question].Information.InformationTitle" />
+                                                                        <input type="hidden" id="hdnInformationText" value="@Model.StandingPosition[question].Information.InformationText" />
+                                                                        <input type="hidden" id="hdnInformationImageURL" value="@Model.StandingPosition[question].Information.InformationImageURL" />
+                                                                        <input type="hidden" id="hdnInformationImageText" value="@Model.StandingPosition[question].Information.InformationImageText" />
+                                                                        <input type="hidden" id="hdnRecommendationTitle" value="@Model.StandingPosition[question].Information.RecommendationTitle" />
+                                                                        <input type="hidden" id="hdnRecommendationText" value="@Model.StandingPosition[question].Information.RecommendationText" />
+                                                                        <input type="hidden" id="hdnRecommendationImageURL" value="@Model.StandingPosition[question].Information.RecommendationImageURL" />
+                                                                        <input type="hidden" id="hdnRecommendationImageText" value="@Model.StandingPosition[question].Information.RecommendationImageText" />
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer" style="display:none">
+                                                            <span>Please answer the following section.</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-10">
+                                                                <p>
+                                                                    Sitting Position Score
+                                                                </p>
+                                                                <hr>
+                                                                <div class="form-group row average" id="divSummary">
+                                                                    <div class="col-sm-3">
+                                                                        <a class="btn btn-pill btn-block btn-success active" id="btnResult">Low Risk: 0</a>
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        @*<a class="btn btn-pill btn-block btn-success active" id="btnLowRisk" value="Low Risk:">Low Risk: 0</a>*@
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        @*<a class="btn btn-pill btn-block btn-danger active" id="btnHighRisk" value="High Risk:">High Risk: 0</a>*@
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        @*<a class="btn btn-pill btn-block btn-info active" id="btnTotal" value="Total:">Total: 0</a>*@
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <a class="btn btn-ghost-info" tabindex="0" id="popOverBMIInfo" role="button" data-toggle="popover" data-trigger="focus" title="" data-html="true"
+                                                                   data-content="<ul><li><a class='btn btn-pill btn-block btn-success' aria-pressed='true'>Low Risk</a></li><li><a class='btn btn-pill btn-block btn-warning' aria-pressed='true'>Normal</a></li><li><a class='btn btn-pill btn-block btn-danger' aria-pressed='true'>High Risk</a></li></ul>"
+                                                                   data-original-title="Risk Level Indicator">
+                                                                    <i class="fas fa-question-circle"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="computerPosition" role="tabpanel" aria-labelledby="6">
+                                            <div id="divComputerPositionWhenSitting" class="inactive">
+                                                @for (int question = 0; question < Model.ComputerPositionWhenSitting.Count(); question++)
+                                                {
+                                                    var colCount = 12;
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-10">
+                                                                    <p>@Model.ComputerPositionWhenSitting[question].Question</p>
+                                                                    <hr />
+                                                                    <div class="row controlGroup">
+                                                                        @for (int item = 0; item < Model.ComputerPositionWhenSitting[question].Answers.Count; item++)
+                                                                        {
+                                                                            <div class="col-2" style="display:inherit">
+                                                                                <span class="mr-2">@Model.ComputerPositionWhenSitting[question].Answers[item].Text</span>
+                                                                                <label class="switch switch-label switch-pill @Model.ComputerPositionWhenSitting[question].Answers[item].Type">
+                                                                                    <input class="switch-input" type="checkbox" value="@Model.ComputerPositionWhenSitting[question].Answers[item].Text" asp-for="@Model.ComputerPositionWhenSitting[question].AnswerSelected">
+                                                                                    <span class="switch-slider"></span>
+                                                                                </label>
+                                                                            </div>
+                                                                            colCount = colCount - 2;
+                                                                        }
+                                                                        <div class="col-@colCount">
+                                                                            @Html.HiddenFor(item => Model.ComputerPositionWhenSitting[question].QuestionID)
+                                                                            @Html.HiddenFor(item => Model.ComputerPositionWhenSitting[question].RiskID)
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @if (Model.ComputerPositionWhenSitting[question].Information != null)
+                                                                {
+                                                                    <div class="col-2">
+                                                                        <a class="btn btn-ghost-info @Model.ComputerPositionWhenSitting[question].Information.PopoverClass" role="button">
+                                                                            <i class="fas fa-question-circle"></i>
+                                                                        </a>
+                                                                        <input type="hidden" id="hdnTitle" value="@Model.ComputerPositionWhenSitting[question].Information.Title" />
+                                                                        <input type="hidden" id="hdnInformationTitle" value="@Model.ComputerPositionWhenSitting[question].Information.InformationTitle" />
+                                                                        <input type="hidden" id="hdnInformationText" value="@Model.ComputerPositionWhenSitting[question].Information.InformationText" />
+                                                                        <input type="hidden" id="hdnInformationImageURL" value="@Model.ComputerPositionWhenSitting[question].Information.InformationImageURL" />
+                                                                        <input type="hidden" id="hdnInformationImageText" value="@Model.ComputerPositionWhenSitting[question].Information.InformationImageText" />
+                                                                        <input type="hidden" id="hdnRecommendationTitle" value="@Model.ComputerPositionWhenSitting[question].Information.RecommendationTitle" />
+                                                                        <input type="hidden" id="hdnRecommendationText" value="@Model.ComputerPositionWhenSitting[question].Information.RecommendationText" />
+                                                                        <input type="hidden" id="hdnRecommendationImageURL" value="@Model.ComputerPositionWhenSitting[question].Information.RecommendationImageURL" />
+                                                                        <input type="hidden" id="hdnRecommendationImageText" value="@Model.ComputerPositionWhenSitting[question].Information.RecommendationImageText" />
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer" style="display:none">
+                                                            <span>Please answer the following section.</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-10">
+                                                                <p>
+                                                                    Sitting Position Score
+                                                                </p>
+                                                                <hr>
+                                                                <div class="form-group row average" id="divSummary">
+                                                                    <div class="col-sm-3">
+                                                                        <a class="btn btn-pill btn-block btn-success active" id="btnResult">Low Risk: 0</a>
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        @*<a class="btn btn-pill btn-block btn-success active" id="btnLowRisk" value="Low Risk:">Low Risk: 0</a>*@
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        @*<a class="btn btn-pill btn-block btn-danger active" id="btnHighRisk" value="High Risk:">High Risk: 0</a>*@
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        @*<a class="btn btn-pill btn-block btn-info active" id="btnTotal" value="Total:">Total: 0</a>*@
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <a class="btn btn-ghost-info" tabindex="0" id="popOverBMIInfo" role="button" data-toggle="popover" data-trigger="focus" title="" data-html="true"
+                                                                   data-content="<ul><li><a class='btn btn-pill btn-block btn-success' aria-pressed='true'>Low Risk</a></li><li><a class='btn btn-pill btn-block btn-warning' aria-pressed='true'>Normal</a></li><li><a class='btn btn-pill btn-block btn-danger' aria-pressed='true'>High Risk</a></li></ul>"
+                                                                   data-original-title="Risk Level Indicator">
+                                                                    <i class="fas fa-question-circle"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="divComputerPositionWhenStanding" class="inactive">
+                                                @for (int question = 0; question < Model.ComputerPositionWhenStanding.Count(); question++)
+                                                {
+                                                    var colCount = 12;
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-10">
+                                                                    <p>@Model.ComputerPositionWhenStanding[question].Question</p>
+                                                                    <hr />
+                                                                    <div class="row controlGroup">
+                                                                        @for (int item = 0; item < Model.ComputerPositionWhenStanding[question].Answers.Count; item++)
+                                                                        {
+                                                                            <div class="col-2" style="display:inherit">
+                                                                                <span class="mr-2">@Model.ComputerPositionWhenStanding[question].Answers[item].Text</span>
+                                                                                <label class="switch switch-label switch-pill @Model.ComputerPositionWhenStanding[question].Answers[item].Type">
+                                                                                    <input class="switch-input" type="checkbox" value="@Model.ComputerPositionWhenStanding[question].Answers[item].Text" asp-for="@Model.ComputerPositionWhenStanding[question].AnswerSelected">
+                                                                                    <span class="switch-slider"></span>
+                                                                                </label>
+                                                                            </div>
+                                                                            colCount = colCount - 2;
+                                                                        }
+                                                                        <div class="col-@colCount">
+                                                                            @Html.HiddenFor(item => Model.ComputerPositionWhenStanding[question].QuestionID)
+                                                                            @Html.HiddenFor(item => Model.ComputerPositionWhenStanding[question].RiskID)
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @if (Model.ComputerPositionWhenStanding[question].Information != null)
+                                                                {
+                                                                    <div class="col-2">
+                                                                        <a class="btn btn-ghost-info @Model.ComputerPositionWhenStanding[question].Information.PopoverClass" role="button">
+                                                                            <i class="fas fa-question-circle"></i>
+                                                                        </a>
+                                                                        <input type="hidden" id="hdnTitle" value="@Model.ComputerPositionWhenStanding[question].Information.Title" />
+                                                                        <input type="hidden" id="hdnInformationTitle" value="@Model.ComputerPositionWhenStanding[question].Information.InformationTitle" />
+                                                                        <input type="hidden" id="hdnInformationText" value="@Model.ComputerPositionWhenStanding[question].Information.InformationText" />
+                                                                        <input type="hidden" id="hdnInformationImageURL" value="@Model.ComputerPositionWhenStanding[question].Information.InformationImageURL" />
+                                                                        <input type="hidden" id="hdnInformationImageText" value="@Model.ComputerPositionWhenStanding[question].Information.InformationImageText" />
+                                                                        <input type="hidden" id="hdnRecommendationTitle" value="@Model.ComputerPositionWhenStanding[question].Information.RecommendationTitle" />
+                                                                        <input type="hidden" id="hdnRecommendationText" value="@Model.ComputerPositionWhenStanding[question].Information.RecommendationText" />
+                                                                        <input type="hidden" id="hdnRecommendationImageURL" value="@Model.ComputerPositionWhenStanding[question].Information.RecommendationImageURL" />
+                                                                        <input type="hidden" id="hdnRecommendationImageText" value="@Model.ComputerPositionWhenStanding[question].Information.RecommendationImageText" />
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer" style="display:none">
+                                                            <span>Please answer the following section.</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-10">
+                                                                <p>
+                                                                    Sitting Position Score
+                                                                </p>
+                                                                <hr>
+                                                                <div class="form-group row average" id="divSummary">
+                                                                    <div class="col-sm-3">
+                                                                        <a class="btn btn-pill btn-block btn-success active" id="btnResult">Low Risk: 0</a>
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        @*<a class="btn btn-pill btn-block btn-success active" id="btnLowRisk" value="Low Risk:">Low Risk: 0</a>*@
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        @*<a class="btn btn-pill btn-block btn-danger active" id="btnHighRisk" value="High Risk:">High Risk: 0</a>*@
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        @*<a class="btn btn-pill btn-block btn-info active" id="btnTotal" value="Total:">Total: 0</a>*@
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <a class="btn btn-ghost-info" tabindex="0" id="popOverBMIInfo" role="button" data-toggle="popover" data-trigger="focus" title="" data-html="true"
+                                                                   data-content="<ul><li><a class='btn btn-pill btn-block btn-success' aria-pressed='true'>Low Risk</a></li><li><a class='btn btn-pill btn-block btn-warning' aria-pressed='true'>Normal</a></li><li><a class='btn btn-pill btn-block btn-danger' aria-pressed='true'>High Risk</a></li></ul>"
+                                                                   data-original-title="Risk Level Indicator">
+                                                                    <i class="fas fa-question-circle"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer p-4">
+                                    <div class="row show" id="1" aria-selected="true">
+                                        <div class="col-5">
+                                        </div>
+                                        <div class="col-2">
+                                            <button class="btn btn-block btn-foursquare" type="button" id="btnNext">Next</button>
+                                        </div>
+                                        <div class="col-5">
+                                        </div>
+                                    </div>
+                                    <div class="row" id="2" style="display: none" aria-selected="false">
+                                        <div class="col-4">
+                                        </div>
+                                        <div class="col-2">
+                                            <button class="btn btn-block btn-behance" type="button" id="btnPrev">Previous</button>
+                                        </div>
+                                        <div class="col-2">
+                                            <button class="btn btn-block btn-foursquare" type="button" id="btnNext">Next</button>
+                                        </div>
+                                        <div class="col-4">
+                                        </div>
+                                    </div>
+                                    <div class="row" id="3" style="display: none" aria-selected="false">
+                                        <div class="col-4">
+                                        </div>
+                                        <div class="col-2">
+                                            <button class="btn btn-block btn-behance" type="button" id="btnPrev">Previous</button>
+                                        </div>
+                                        <div class="col-2">
+                                            <button class="btn btn-block btn-foursquare" type="button" id="btnNext">Next</button>
+                                        </div>
+                                        <div class="col-4">
+                                        </div>
+                                    </div>
+                                    <div class="row" id="4" style="display: none" aria-selected="false">
+                                        <div class="col-4">
+                                        </div>
+                                        <div class="col-2">
+                                            <button class="btn btn-block btn-behance" type="button" id="btnPrev">Previous</button>
+                                        </div>
+                                        <div class="col-2">
+                                            <button class="btn btn-block btn-foursquare" type="button" id="btnNext" style="display:none">Next</button>
+                                        </div>
+                                        <div class="col-4">
+                                        </div>
+                                    </div>
+                                    <div class="row" id="5" style="display: none" aria-selected="false">
+                                        <div class="col-4">
+                                        </div>
+                                        <div class="col-2">
+                                            <button class="btn btn-block btn-behance" type="button" id="btnPrev">Previous</button>
+                                        </div>
+                                        <div class="col-2">
+                                            <button class="btn btn-block btn-foursquare" type="button" id="btnNext">Next</button>
+                                        </div>
+                                        <div class="col-4">
+                                        </div>
+                                    </div>
+                                    <div class="row" id="6" style="display:none" aria-selected="false">
+                                        <div class="col-4">
+                                        </div>
+                                        <div class="col-2">
+                                            <button class="btn btn-block btn-behance" type="button" id="btnPrev">Previous</button>
+                                        </div>
+                                        <div class="col-2">
+                                            <button class="btn btn-block btn-success" type="submit" id="btnSubmit">Submit</button>
+                                        </div>
+                                        <div class="col-4">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="~/js/questionnaire.js"></script>

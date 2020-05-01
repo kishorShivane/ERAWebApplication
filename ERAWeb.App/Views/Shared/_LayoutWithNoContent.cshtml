@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <base href="./">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>@ViewData["Title"] - ERA Web</title>
+
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/pace.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.min.css" />
+    <link href="~/css/loader.css" rel="stylesheet" />
+    <script src="~/js/jquery.js"></script>
+</head>
+<body class="app header-fixed sidebar-fixed aside-menu-fixed">
+    <main class="main">
+        @RenderBody()
+    </main>
+    <partial name="_Loader" />
+    <script src="~/js/bootstrap.bundle.js"></script>
+    <script src="~/js/coreui.min.js"></script>
+    <script src="~/lib/font-awesome/js/all.js"></script>
+    <script type="text/javascript">
+        showLoader();
+        $(document).ready(function () {
+            hideLoader();
+        });
+
+        var showLoader = function () {
+            $('div#divLoader').addClass('hideLoader');
+        }
+
+        var showLoader = function () {
+            $('div#divLoader').removeClass('hideLoader');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+﻿@model ERAWeb.Models.UserModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LandingLayout.cshtml";
+}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            <div class="wrapper fadeInDown">
+                <div id="formContent">
+                    <form asp-controller="Account" asp-action="Login" method="post" id="formLogin" novalidate>
+                        <div class="card-group">
+                            <div class="card p-4">
+                                <div class="card-body fadeIn first">
+                                    <h1>ERA Login</h1>
+                                    <p class="text-muted">Sign In to your account</p>
+                                    <div class="form-group input-group mb-3 fadeIn Second">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-users"></i>
+                                            </span>
+                                        </div>
+                                        <input asp-for="Email" class="form-control" type="email" id="txtEmail" name="Email" placeholder="Username" required>
+                                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                                    </div>
+                                    <div class="form-group input-group mb-4 fadeIn third">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-lock"></i>
+                                            </span>
+                                        </div>
+                                        <input asp-for="Password" class="form-control" type="password" name="Password" placeholder="password" required minlength="8" id="txtPassword">
+                                        <div class="invalid-feedback">Please enter your password to continue.</div>
+                                    </div>
+                                    <div class="form-group row fadeIn fourth">
+                                        <div class="col-xs-12 col-lg-6 text-center" >
+                                            <button class="btn btn-primary px-4" id="btnSubmit" type="submit">Log In</button>
+                                        </div>
+                                        <div class="col-xs-12 col-lg-6 text-center">
+                                            <a class="btn btn-link px-0" asp-controller="Account"
+                                               asp-action="ForgotPassword">Forgot password?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card text-white bg-primary py-5 d-md-down-none fadeIn fifth" style="width:44%">
+                                <div class="card-body text-center">
+                                    <div>
+                                        <h2>Register</h2>
+                                        <p>To register with us to be able to use the ERA application and take test, please use the below link and fill in the information and submit your registration.</p>
+                                        <a class="btn btn-xing active mt-3" asp-controller="Registration"
+                                           asp-action="Index">Register Now!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#btnSubmit").click(function (event) {
+
+        // Fetch form to apply custom Bootstrap validation
+        var form = $("#formLogin")
+        if (form[0].checkValidity() === false) {
+            event.preventDefault()
+            event.stopPropagation()
+        }
+
+        form.addClass('was-validated');
+        // Perform ajax submit here...
+
+    });
+</script>

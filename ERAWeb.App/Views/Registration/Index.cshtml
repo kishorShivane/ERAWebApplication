@@ -1,0 +1,103 @@
+﻿@model ERAWeb.Models.UserModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_LandingLayout.cshtml";
+    var loginURL = @Url.Action("Login", "Account");
+}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="fadeInDown">
+                <form asp-controller="Registration" asp-action="Register" method="post" id="formRegister">
+                    <div class="card mx-4">
+                        <div class="card-body p-4">
+                            <h1>Register</h1>
+                            <p class="text-muted">Create your account</p>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        First Name
+                                    </span>
+                                </div>
+                                <input class="form-control" asp-for="FirstName" name="FirstName" type="text" placeholder="First Name" id="txtFirstName" required>
+                                <div class="invalid-feedback">Please enter a First Name.</div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        Last Name
+                                    </span>
+                                </div>
+                                <input class="form-control" asp-for="LastName" name="LastName" type="text" placeholder="Last Name" id="txtLastName" required>
+                                <div class="invalid-feedback">Please enter a Last Name.</div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        ID/Passport
+                                    </span>
+                                </div>
+                                <input class="form-control" asp-for="EmployeeNumber" name="EmployeeNumber" type="text" placeholder="Employee Number" id="txtEmployeeNumber" required>
+                                <div class="invalid-feedback">Please enter a valid Employee Number.</div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        Email
+                                    </span>
+                                </div>
+                                <input class="form-control" asp-for="Email" name="Email" type="email" placeholder="Email" id="txtEmail" required>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        Password
+                                    </span>
+                                </div>
+                                <input class="form-control" asp-for="Password" name="Password" type="password" placeholder="Password" id="txtPassword" required minlength="8">
+                                <div class="invalid-feedback">Password is mandatory with minimun 8 characters.</div>
+                            </div>
+                        </div>
+                        <div class="card-footer p-4">
+                            <div class="row">
+                                <div class="col-6">
+                                    <button class="btn btn-block btn-success" type="submit" id="btnSubmit">Create Account</button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-block btn-danger" type="button" id="btnCancel">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+     $(document).ready(function () {
+         $("button#btnCancel").click(function () {
+             alertify.confirm('Confirm', "Are you sure you want to exit?", function ()
+             {
+                 window.location.href = '@loginURL';
+             }, function ()
+                 { alertify.success('Please continue editing!!') });
+        });
+     });
+
+    $("#btnSubmit").click(function (event) {
+
+        // Fetch form to apply custom Bootstrap validation
+        var form = $("#formRegister")
+        debugger;
+        if (form[0].checkValidity() === false) {
+            event.preventDefault()
+            event.stopPropagation()
+        }
+
+        form.addClass('was-validated');
+        // Perform ajax submit here...
+
+    });
+</script>

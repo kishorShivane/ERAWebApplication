@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <base href="./">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>@ViewData["Title"] - ERA Web</title>
+
+    <link href="~/lib/alertify/alertify.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/pace.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.min.css" />
+    <link href="~/css/loader.css" rel="stylesheet" />
+    <script src="~/js/jquery.js"></script>
+</head>
+<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <partial name="_HeaderPartial" />
+    <div class="app-body">
+        <partial name="_NavigationBarPartial" />
+        <main class="main">
+            @RenderBody()
+            <partial name="Notification/_Success" />
+            <partial name="Notification/_Failed" />
+            <partial name="Notification/_Warning" />
+            <partial name="Notification/_Information" />
+        </main>
+    </div>
+    <partial name="_Loader" />
+    <partial name="_FooterPartial" />
+    @*<script src="~/js/bootstrap.min.js"></script>*@
+    <script src="~/js/bootstrap.bundle.js"></script>
+    <script src="~/js/coreui.min.js"></script>
+    <script src="~/lib/font-awesome/js/all.js"></script>
+    <script src="~/lib/alertify/alertify.js"></script>
+    <script type="text/javascript">
+        //override defaults
+        alertify.defaults.transition = "slide";
+        alertify.defaults.theme.ok = "btn btn-primary";
+        alertify.defaults.theme.cancel = "btn btn-danger";
+        alertify.defaults.theme.input = "form-control";
+        alertify.set('notifier','position', 'top-right');
+        $(document).ready(function () {
+            var message = $('<div>').html('@TempData["Notification"]')[0].textContent;
+            if (message != "") {
+                 var notificationContent = JSON.parse(message);
+                ShowClientNotification(notificationContent);
+            }
+
+             $("form").submit(function(){
+                 showLoader();
+            });
+        });
+
+        var ShowClientNotification = function (content) {
+            var modalID = GetModalIDByType(content.Type);
+            var showMe = $("div#" + modalID);
+            SetContentsToModal(showMe, content);
+            showMe.modal("show");
+        }
+
+        var SetContentsToModal = function (modal, content) {
+            debugger;
+            if (content.Title != "") {
+               modal.find("h4.modal-title").html(content.Title);
+            }
+             if (content.Message != "") {
+               modal.find("div.modal-body").html(content.Message);
+            }
+            if (content.Redirection != "") {
+                modal.on('hidden.bs.modal', function (e) {
+                window.location.href = content.Redirection;
+            });
+            }
+        }
+
+        var GetModalIDByType = function(type)
+        {
+            var modalID = "";
+            switch (type) {
+                case 0:
+                    modalID = "successModal";
+                    break;
+                case 1:
+                    modalID = "infoModal";
+                    break;
+                case 2:
+                    modalID = "warningModal";
+                    break;
+                case 4:
+                    modalID = "dangerModal";
+                    break;
+                default:
+                    modalID = "infoModal";
+                    break;
+            }
+            return modalID;
+        }
+
+        var showLoader = function () {
+            $('div#divLoader').removeClass('hideLoader');
+        }
+    </script>
+</body>
+</html>

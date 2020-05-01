@@ -1,0 +1,229 @@
+﻿@model ERAWeb.Models.ErgoReportModel
+@{
+    ViewData["Title"] = "Report";
+    Layout = "~/Views/Shared/_LayoutWithNoContent.cshtml";
+    var positionEntries = Model.SittingPosition.Any() ? Model.SittingPosition : Model.StandingPosition;
+    var positionText = Model.SittingPosition.Any() ? "Sitting Position" : "Standing Position";
+}
+
+<div id="ui-view">
+    <div>
+        <div class="card">
+            <div class="card-header">
+                Ergonomic Report
+                <strong>@Model.FirstName+" "+ @Model.LastName</strong>
+                <a class="btn btn-sm btn-secondary float-right mr-1 d-print-none" href="#" onclick="javascript:window.print();">
+                    <i class="fa fa-print"></i> Print
+                </a>
+                <a class="btn btn-sm btn-info float-right mr-1 d-print-none" href="#">
+                    <i class="fa fa-save"></i> Save
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-sm-12">
+                        <img src="~/images/information/gijimalogo1.jpg" width="250" height="150" />
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-sm-12">
+                        <img class="float-right" src="~/images/information/ergoman2.png" />
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-sm-12">
+                        <h1 style="color: burlywood;">Egonomics assassemnt tool</h1>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-sm-12">
+                        <h3 class="mb-3">@Model.AssessmentDate</h3>
+                        <div>
+                            <h3>
+                                First Name: @Model.FirstName
+                            </h3>
+                        </div>
+                        <div>
+                            <h3>
+                                Last Name: @Model.LastName
+                            </h3>
+                        </div><div>
+                            <h3>
+                                Employee Number: @Model.EmployeeNumber
+                            </h3>
+                        </div><div>
+                            <h3>
+                                Company Name: @Model.CompanyName
+                            </h3>
+                        </div><div>
+                            <h3>
+                                E-mail: @Model.Email
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-sm-12">
+                        <h1 class="mb-3 text-center">Human Variables</h1>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <div class="table-responsive-sm">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="center">Description</th>
+                                        <th class="center">Response</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.HumanVariables)
+                                    {
+                                        <tr>
+                                            <td class="left">@item.Description</td>
+                                            <td class="left">@item.Response</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-sm-12">
+                        <h1 class="mb-3 text-center">@positionText</h1>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <div class="table-responsive-sm">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="center">Description</th>
+                                        <th class="center">Response</th>
+                                        <th class="center">Comments</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in positionEntries)
+                                    {
+                                        <tr>
+                                            <td class="left">@item.Description</td>
+                                            <td class="left">@item.Response</td>
+                                            <td class="left">@item.Comments</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-sm-12">
+                        <h1 class="mb-3 text-center">Computer Position</h1>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <div class="table-responsive-sm">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="center">Description</th>
+                                        <th class="center">Response</th>
+                                        <th class="center">Comments</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.ComputerPosition)
+                                    {
+                                        <tr>
+                                            <td class="left">@item.Description</td>
+                                            <td class="left">@item.Response</td>
+                                            <td class="left">@item.Comments</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-sm-12">
+                        <h3 class="mb-3 text-center">The below table cells shows your results stats. The colour are rating you as follow:</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-10">
+                        @*<table class="table table-clear">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <button aria-pressed="true" class="btn btn-pill btn-block btn-danger active" type="button">Danger</button>
+                                        </td>
+                                        <td class="right">$8.497,00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left">
+                                            <button aria-pressed="true" class="btn btn-pill btn-block btn-danger active" type="button">Danger</button>
+                                        </td>
+                                        <td class="right">$1,699,40</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left">
+                                            <button aria-pressed="true" class="btn btn-pill btn-block btn-danger active" type="button">Danger</button>
+                                        </td>
+                                        <td class="right">$679,76</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left">
+                                            <button aria-pressed="true" class="btn btn-pill btn-block btn-danger active" type="button">Danger</button>
+                                        </td>
+                                        <td class="right">
+                                            <strong>$7.477,36</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>*@
+                        <table class="table table-clear">
+                            <tbody>
+                                <tr>
+                                    <td class="text-center" style="color:#f63c3a">*Red, High Risk</td>
+                                    <td class="text-center" style="color:#d39e00">*Orange, Moderate Risk</td>
+                                    <td class="text-center" style="color:#3a9d5d">*Green, Low Good</td>
+                                    <td class="text-center" style="color:#d39e00">Moderate Risk</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button aria-pressed="true" class="btn btn-pill btn-block btn-danger active" type="button">@Model.HumanVariableSummary</button>
+                                    </td>
+                                    <td>
+                                        <button aria-pressed="true" class="btn btn-pill btn-block btn-warning active" type="button">@Model.PositionSummary</button>
+                                    </td>
+                                    <td>
+                                        <button aria-pressed="true" class="btn btn-pill btn-block btn-success active" type="button">@Model.ComputerPositionSummary</button>
+                                    </td>
+                                    <td>
+                                        <button aria-pressed="true" class="btn btn-pill btn-block btn-warning active" type="button">@Model.OverAllSummary</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
