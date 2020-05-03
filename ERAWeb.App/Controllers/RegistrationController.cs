@@ -14,14 +14,20 @@ namespace ERAWeb.App.Controllers
 {
     public class RegistrationController : BaseController
     {
+        #region fields
         IRegistrationBroker registerService = null;
+        #endregion
+
+        #region constructor
         public RegistrationController(IConfiguration _config, IRegistrationBroker registrationBroker, ILoggerManager loggerManager)
         {
             logger = loggerManager;
             registerService = registrationBroker;
             config = _config;
         }
+        #endregion
 
+        #region action methods
         public IActionResult Index()
         {
             return View();
@@ -35,14 +41,6 @@ namespace ERAWeb.App.Controllers
             var validUser = await registerService.RegisterUser(user);
             if (validUser.Content != null)
             {
-                //var userModel = validUser.Content;
-                //var activationURL = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}/{"Registration"}/{"Activate"}?{"userID="}{userModel.UserID}";
-                //var notificationSent = await NotificationHelper.SendRegisterNotification(userModel.UserEmail, userModel.UserName, activationURL, config);
-                //if (!notificationSent)
-                //{
-                //    logger.LogError("Sending notification failed for userID:" + user.UserID);
-                //}
-                //ViewData["Notification"] = validUser.Message;
                 return RedirectToAction("Successfull", "Registration");
             }
             else
@@ -71,5 +69,6 @@ namespace ERAWeb.App.Controllers
                 return View();
             }
         }
+        #endregion
     }
 }

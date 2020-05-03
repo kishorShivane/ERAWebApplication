@@ -12,5 +12,9 @@ namespace ERAWeb.Proxy
         Task<string> ActivateUser(int userID);
         Task<ResponseMessage<UserAnswerResponse>> GetUserAnswers(UserAnswerReadRequest request);
         Task<ResponseMessage<UserAnswerResponse>> InsertUserAnswers(UserAnswerWriteRequest request);
+        Task<ResponseMessage<UserRiskResponse>> GetUserRisks(UserRiskReadRequest request);
+        Task<ResponseMessage<UserRiskResponse>> InsertUserRisks(UserRiskWriteRequest request);
+        Task<ResponseMessage<QuestionResponse>> GetQuestions(QuestionRequest request);
+        Task<ResponseMessage<List<UserModel>>> GetUserReport(ReportRequest request);
     }
 }

@@ -201,8 +201,7 @@ namespace ERAWeb.Proxy
             string urlQueryStringParams = config.GetValue<string>("ERAAzureAPIURL:ERAUserAnswerWriteAPIURL");
 
             using (var client = new HttpClient())
-            //using (var request = new HttpRequestMessage(HttpMethod.Post, $"{azureBaseUrl}{urlQueryStringParams}"))
-            using (var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:7071/api/ERAUserAnswerWrite"))
+            using (var request = new HttpRequestMessage(HttpMethod.Post, $"{azureBaseUrl}{urlQueryStringParams}"))
             using (var httpContent = CreateHttpContent(writeRequest))
             {
                 request.Content = httpContent;
@@ -218,6 +217,122 @@ namespace ERAWeb.Proxy
                     {
                         result = new ResponseMessage<UserAnswerResponse>();
                         result = JsonConvert.DeserializeObject<ResponseMessage<UserAnswerResponse>>(jsonString);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public async Task<ResponseMessage<UserRiskResponse>> GetUserRisks(UserRiskReadRequest readRequest)
+        {
+            ResponseMessage<UserRiskResponse> result;
+            string azureBaseUrl = config.GetValue<string>("ERAAzureAPIURL:ERAAzureAPIBaseURL");
+            string urlQueryStringParams = config.GetValue<string>("ERAAzureAPIURL:ERAUserRiskReadAPIURL");
+
+            using (var client = new HttpClient())
+            using (var request = new HttpRequestMessage(HttpMethod.Post, $"{azureBaseUrl}{urlQueryStringParams}"))
+            using (var httpContent = CreateHttpContent(readRequest))
+            {
+                request.Content = httpContent;
+
+                using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        result = JsonConvert.DeserializeObject<ResponseMessage<UserRiskResponse>>(jsonString);
+                    }
+                    else
+                    {
+                        result = new ResponseMessage<UserRiskResponse>();
+                        result = JsonConvert.DeserializeObject<ResponseMessage<UserRiskResponse>>(jsonString);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public async Task<ResponseMessage<UserRiskResponse>> InsertUserRisks(UserRiskWriteRequest writeRequest)
+        {
+            ResponseMessage<UserRiskResponse> result;
+            string azureBaseUrl = config.GetValue<string>("ERAAzureAPIURL:ERAAzureAPIBaseURL");
+            string urlQueryStringParams = config.GetValue<string>("ERAAzureAPIURL:ERAUserRiskWriteAPIURL");
+
+            using (var client = new HttpClient())
+            using (var request = new HttpRequestMessage(HttpMethod.Post, $"{azureBaseUrl}{urlQueryStringParams}"))
+            using (var httpContent = CreateHttpContent(writeRequest))
+            {
+                request.Content = httpContent;
+
+                using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        result = JsonConvert.DeserializeObject<ResponseMessage<UserRiskResponse>>(jsonString);
+                    }
+                    else
+                    {
+                        result = new ResponseMessage<UserRiskResponse>();
+                        result = JsonConvert.DeserializeObject<ResponseMessage<UserRiskResponse>>(jsonString);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public async Task<ResponseMessage<QuestionResponse>> GetQuestions(QuestionRequest readRequest)
+        {
+            ResponseMessage<QuestionResponse> result;
+            string azureBaseUrl = config.GetValue<string>("ERAAzureAPIURL:ERAAzureAPIBaseURL");
+            string urlQueryStringParams = config.GetValue<string>("ERAAzureAPIURL:ERAQuestionAPIURL");
+
+            using (var client = new HttpClient())
+            using (var request = new HttpRequestMessage(HttpMethod.Post, $"{azureBaseUrl}{urlQueryStringParams}"))
+            using (var httpContent = CreateHttpContent(readRequest))
+            {
+                request.Content = httpContent;
+
+                using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        result = JsonConvert.DeserializeObject<ResponseMessage<QuestionResponse>>(jsonString);
+                    }
+                    else
+                    {
+                        result = new ResponseMessage<QuestionResponse>();
+                        result = JsonConvert.DeserializeObject<ResponseMessage<QuestionResponse>>(jsonString);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public async Task<ResponseMessage<List<UserModel>>> GetUserReport(ReportRequest reportRequest)
+        {
+            ResponseMessage<List<UserModel>> result;
+            string azureBaseUrl = config.GetValue<string>("ERAAzureAPIURL:ERAAzureAPIBaseURL");
+            string urlQueryStringParams = config.GetValue<string>("ERAAzureAPIURL:ERAReportAPIURL");
+
+            using (var client = new HttpClient())
+            using (var request = new HttpRequestMessage(HttpMethod.Post, $"{azureBaseUrl}{urlQueryStringParams}"))
+            using (var httpContent = CreateHttpContent(reportRequest))
+            {
+                request.Content = httpContent;
+
+                using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        result = JsonConvert.DeserializeObject<ResponseMessage<List<UserModel>>>(jsonString);
+                    }
+                    else
+                    {
+                        result = new ResponseMessage<List<UserModel>>();
+                        result = JsonConvert.DeserializeObject<ResponseMessage<List<UserModel>>>(jsonString);
                     }
                 }
             }

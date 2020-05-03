@@ -10,6 +10,7 @@ $(document).on("blur", "div#bmiVariables input[type='number']", function () {
     var resultClass = "btn-success";
     if (weight != "" && height != "") {
         var bmi = weight / (height * height);
+        bmi = bmi.toFixed(4);
         if (!isNaN(bmi)) {
             if (bmi < 18.5) { resultClass = "btn-danger"; }
             if (bmi >= 18.5 && bmi <= 24.9) { resultClass = "btn-success"; }
@@ -65,7 +66,15 @@ $(document).ready(function () {
     setNavigationButtonsByTabSelected();
     bindSubmitValidation();
     bindPopoverInfo();
+    bindHideInstruction();
 });
+
+var bindHideInstruction = function () {
+    $("a#btnHideInstruction").click(function () {
+        $("div#collapseOne").collapse("toggle");
+        $("div#divMain").show();
+    });
+}
 
 var setNavigationButtonsByTabSelected = function () {
     $(".nav-tabs a[data-toggle=tab]").on("click", function (e) {
@@ -189,10 +198,12 @@ var bindTabSummary = function () {
     var lowRisk = 0, highRisk = 0, moderateRisk = 0;
     var control = activeTab.find("label.switch-pill");
     control.each(function () {
-        if ($(this).find("input[type='checkbox']").is(":checked")) {
-            lowRisk = lowRisk + ($(this).hasClass("switch-success") == true ? 1 : 0);
-            moderateRisk = moderateRisk + ($(this).hasClass("switch-warning") == true ? 1 : 0);
-            highRisk = highRisk + ($(this).hasClass("switch-danger") == true ? 1 : 0);
+        var checkBox = $(this).find("input[type='checkbox']");
+        if (checkBox.is(":checked")) {
+            debugger;
+            lowRisk = lowRisk + ($(this).hasClass("switch-success") == true ? parseInt(checkBox.attr("score")) : 0);
+            moderateRisk = moderateRisk + ($(this).hasClass("switch-warning") == true ? parseInt(checkBox.attr("score")) : 0);
+            highRisk = highRisk + ($(this).hasClass("switch-danger") == true ? parseInt(checkBox.attr("score")) : 0);
         }
     });
     showSummary(lowRisk, moderateRisk, highRisk);
@@ -205,6 +216,7 @@ var showSummary = function (lowRisk, moderateRisk, highRisk) {
     var highRiskBtn = activeTab.find("div#divSummary").find("a.btn-danger");
     var totalBtn = activeTab.find("div#divSummary").find("a.btn-info");
     var averageBtn = activeTab.find("div#divSummary").find("a#btnResult");
+
     if (activeTab.find("div#divSummary").hasClass("humanVariables")) {
         lowRiskBtn.html(lowRiskBtn.attr("value") + " " + lowRisk);
         moderateRiskBtn.html(moderateRiskBtn.attr("value") + " " + moderateRisk);
@@ -216,8 +228,8 @@ var showSummary = function (lowRisk, moderateRisk, highRisk) {
         var resultClass = "";
         var text = "";
         if (highRisk <= 1) { text = "Low Risk: "; resultClass = "btn btn-pill btn-block btn-success active"; }
-        if (highRisk >= 2 && highRisk <= 3) { text = "Moderate Risk: "; resultClass = "btn btn-pill btn-block btn-warning active"; }
-        if (highRisk >= 4) { text = "High Risk: "; resultClass = "btn btn-pill btn-block btn-danger active"; }
+        if (highRisk >= 2 && highRisk <= 4) { text = "Moderate Risk: "; resultClass = "btn btn-pill btn-block btn-warning active"; }
+        if (highRisk > 4) { text = "High Risk: "; resultClass = "btn btn-pill btn-block btn-danger active"; }
         averageBtn.html(text + " " + highRisk);
         averageBtn.attr("class", resultClass);
     }
@@ -225,11 +237,13 @@ var showSummary = function (lowRisk, moderateRisk, highRisk) {
     if (activeTab.find("div#divSummary").hasClass("average")) {
         var resultClass = "";
         var text = "";
-        highRisk = highRisk / (highRisk + lowRisk);
-        if (highRisk <= 0.3333333333333333) { text = "Low Risk: "; resultClass = "btn btn-pill btn-block btn-success active"; }
-        if (highRisk >= 0.3333333333333334 && highRisk <= 0.6666666666666666) { text = "Moderate Risk: "; resultClass = "btn btn-pill btn-block btn-warning active"; }
-        if (highRisk >= 0.6666666666666667) { text = "High Risk: "; resultClass = "btn btn-pill btn-block btn-danger active"; }
-        averageBtn.html(text + " " + highRisk);
+        var totalCheckBoxes = activeTab.find("div.card").length - 1;
+        highRisk = (highRisk / totalCheckBoxes) * 100;
+        highRisk = highRisk.toFixed(4);
+        if (highRisk <= 30) { text = "Low Risk: "; resultClass = "btn btn-pill btn-block btn-success active"; }
+        if (highRisk > 30 && highRisk <= 40) { text = "Moderate Risk: "; resultClass = "btn btn-pill btn-block btn-warning active"; }
+        if (highRisk > 40) { text = "High Risk: "; resultClass = "btn btn-pill btn-block btn-danger active"; }
+        averageBtn.html(text + " " + highRisk + "%");
         averageBtn.attr("class", resultClass);
     }
 }

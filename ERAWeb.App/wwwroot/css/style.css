@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*!
  * CoreUI - Open Source Dashboard UI Kit
  * @version v2.1.12
@@ -16394,3 +16394,10 @@ body {
   background-position: right calc(0.375em + 0.1875rem) center;
 }
 /*# sourceMappingURL=style.css.map */
+
+@media print {
+    .no-print, .no-print * {
+        display: none !important;
+        background-color:white;
+    }
+}

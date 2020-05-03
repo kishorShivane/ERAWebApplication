@@ -10,6 +10,7 @@ namespace ERAWeb.App.Controllers
 {
     public class HomeController : Controller
     {
+        #region action methods
         public IActionResult Index()
         {
             return View();
@@ -19,5 +20,6 @@ namespace ERAWeb.App.Controllers
         {
             return View();
         }
+        #endregion
     }
 }

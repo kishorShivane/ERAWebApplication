@@ -17,9 +17,16 @@ namespace ERAWeb.Core.Broker
             proxy = _proxy;
         }
 
-        public async Task<ResponseMessage<UserAnswerResponse>> GetUserAnswers(int userID)
+        public async Task<List<UserAnswerModel>> GetUserAnswers(int userID)
         {
-            return await Task.Run(() => proxy.GetUserAnswers(new UserAnswerReadRequest() { UserID = userID }));
+            List<UserAnswerModel> userAnswers = null;
+            ResponseMessage<UserAnswerResponse> response;
+            response = await Task.Run(() => proxy.GetUserAnswers(new UserAnswerReadRequest() { UserID = userID }));
+            if (response != null && response.Content != null && response.Content.Answers != null)
+            {
+                userAnswers = response.Content.Answers;
+            }
+            return userAnswers;
         }
 
         public async Task<ResponseMessage<UserAnswerResponse>> InsertUserAnswers(List<UserAnswerModel> answers)

@@ -1,0 +1,117 @@
+﻿@model ERAWeb.Models.ReportSearchModel
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .errorBorder {
+        border-color: orangered;
+        border-width: 2px;
+        border-style: groove;
+    }
+</style>
+
+<div class="row mb-3">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <strong>Ergonomic Report Search</strong>
+            </div>
+            <div class="card-body">
+                <form class="form-horizontal" action="" method="post">
+                    <div class="form-group row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        UserID
+                                    </span>
+                                </div>
+                                <input class="form-control" asp-for="UserID" name="UserID" type="number" placeholder="UserID" id="txtUserID">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        Email
+                                    </span>
+                                </div>
+                                <input class="form-control" asp-for="Email" name="Email" type="text" placeholder="Email like search" id="txtEmail">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary" type="submit" id="btnSubmit">
+                                <i class="fa fa-search"></i> Search
+                            </button>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer errorBorder" style="display:none">
+                <span class="text-center">Please enter search criteria.</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+@if (Model.Users != null && Model.Users.Any())
+{
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> Combined All Table
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th class="text-center">First Name</th>
+                                <th class="text-center">Last Name</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Report</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model.Users)
+                            {
+                                <tr>
+                                    <td align="center">@user.FirstName</td>
+                                    <td align="center">@user.LastName</td>
+                                    <td align="center">@user.Email</td>
+                                    <td>
+                                        <a asp-action="Index" asp-controller="Report" asp-route-id="@user.UserId" target="_blank"><h5 class="text-center"><span class="badge badge-pill badge-success">View Report</span></h5></a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+}
+
+
+<script>
+    $(document).ready(function () {
+        $("button#btnSubmit").click(function () {
+            if ($("input#txtEmail").val() == "" && $("input#txtUserID").val() == "") {
+                $("div.card-footer").show();
+                return false;
+            }
+        });
+
+        $("input").keyup(function () {
+            $("div.card-footer").hide();
+        });
+    });
+</script>

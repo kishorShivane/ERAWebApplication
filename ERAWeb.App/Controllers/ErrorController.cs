@@ -10,6 +10,7 @@ namespace ERAWeb.App.Controllers
 {
     public class ErrorController : BaseController
     {
+        #region action methods
         public IActionResult PageNotFound()
         {
             return View();
@@ -24,5 +25,6 @@ namespace ERAWeb.App.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        #endregion
     }
 }

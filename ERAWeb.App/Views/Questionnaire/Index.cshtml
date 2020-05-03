@@ -35,7 +35,8 @@
     <div class="container-fluid">
         <div id="ui-view">
             <div>
-                <div class="animated fadeIn">
+                <partial name="_Instruction" />
+                <div class="animated fadeIn" id="divMain" style="display:none;">
                     <div class="row">
                         <div class="col">
                             <div class="card" id="divQuestionnaire">
@@ -78,7 +79,7 @@
                                                                             <div class="col-2" style="display: inherit">
                                                                                 <span class="mr-2">@Model.HumanVariables[question].Answers[item].Text</span>
                                                                                 <label class="switch switch-label switch-pill @Model.HumanVariables[question].Answers[item].Type">
-                                                                                    <input class="switch-input" type="checkbox" value="@Model.HumanVariables[question].Answers[item].Text" asp-for="@Model.HumanVariables[question].AnswerSelected">
+                                                                                    <input class="switch-input" type="checkbox" value="@Model.HumanVariables[question].Answers[item].Text" asp-for="@Model.HumanVariables[question].AnswerSelected" score="@Model.HumanVariables[question].Answers[item].Score">
                                                                                     <span class="switch-slider"></span>
                                                                                 </label>
                                                                             </div>
@@ -159,7 +160,7 @@
                                                                                 <div class="col-2" style="display:inherit">
                                                                                     <span class="mr-2">@Model.BMI[question].Answers[item].Text</span>
                                                                                     <label class="switch switch-label switch-pill @Model.BMI[question].Answers[item].Type">
-                                                                                        <input class="switch-input" type="checkbox" value="@Model.BMI[question].Answers[item].Text" asp-for="@Model.BMI[question].AnswerSelected">
+                                                                                        <input class="switch-input" type="checkbox" value="@Model.BMI[question].Answers[item].Text" asp-for="@Model.BMI[question].AnswerSelected" score="@Model.BMI[question].Answers[item].Score">
                                                                                         <span class="switch-slider"></span>
                                                                                     </label>
                                                                                 </div>
@@ -244,7 +245,7 @@
                                                                             <div class="col-2" style="display:inherit">
                                                                                 <span class="mr-2">@Model.Discomforts[question].Answers[item].Text</span>
                                                                                 <label class="switch switch-label switch-pill @Model.Discomforts[question].Answers[item].Type">
-                                                                                    <input class="switch-input" type="checkbox" value="@Model.Discomforts[question].Answers[item].Text" asp-for="@Model.Discomforts[question].AnswerSelected">
+                                                                                    <input class="switch-input" type="checkbox" value="@Model.Discomforts[question].Answers[item].Text" asp-for="@Model.Discomforts[question].AnswerSelected" score="@Model.Discomforts[question].Answers[item].Score">
                                                                                     <span class="switch-slider"></span>
                                                                                 </label>
                                                                             </div>
@@ -370,7 +371,7 @@
                                                                             <div class="col-2" style="display:inherit">
                                                                                 <span class="mr-2">@Model.SittingPosition[question].Answers[item].Text</span>
                                                                                 <label class="switch switch-label switch-pill @Model.SittingPosition[question].Answers[item].Type">
-                                                                                    <input class="switch-input" type="checkbox" value="@Model.SittingPosition[question].Answers[item].Text" asp-for="@Model.SittingPosition[question].AnswerSelected">
+                                                                                    <input class="switch-input" type="checkbox" value="@Model.SittingPosition[question].Answers[item].Text" asp-for="@Model.SittingPosition[question].AnswerSelected" score="@Model.SittingPosition[question].Answers[item].Score">
                                                                                     <span class="switch-slider"></span>
                                                                                 </label>
                                                                             </div>
@@ -456,7 +457,7 @@
                                                                             <div class="col-2" style="display:inherit">
                                                                                 <span class="mr-2">@Model.StandingPosition[question].Answers[item].Text</span>
                                                                                 <label class="switch switch-label switch-pill @Model.StandingPosition[question].Answers[item].Type">
-                                                                                    <input class="switch-input" type="checkbox" value="@Model.StandingPosition[question].Answers[item].Text" asp-for="@Model.StandingPosition[question].AnswerSelected">
+                                                                                    <input class="switch-input" type="checkbox" value="@Model.StandingPosition[question].Answers[item].Text" asp-for="@Model.StandingPosition[question].AnswerSelected" score="@Model.StandingPosition[question].Answers[item].Score">
                                                                                     <span class="switch-slider"></span>
                                                                                 </label>
                                                                             </div>
@@ -544,7 +545,7 @@
                                                                             <div class="col-2" style="display:inherit">
                                                                                 <span class="mr-2">@Model.ComputerPositionWhenSitting[question].Answers[item].Text</span>
                                                                                 <label class="switch switch-label switch-pill @Model.ComputerPositionWhenSitting[question].Answers[item].Type">
-                                                                                    <input class="switch-input" type="checkbox" value="@Model.ComputerPositionWhenSitting[question].Answers[item].Text" asp-for="@Model.ComputerPositionWhenSitting[question].AnswerSelected">
+                                                                                    <input class="switch-input" type="checkbox" value="@Model.ComputerPositionWhenSitting[question].Answers[item].Text" asp-for="@Model.ComputerPositionWhenSitting[question].AnswerSelected" cscore="@Model.ComputerPositionWhenSitting[question].Answers[item].Score">
                                                                                     <span class="switch-slider"></span>
                                                                                 </label>
                                                                             </div>
@@ -630,7 +631,7 @@
                                                                             <div class="col-2" style="display:inherit">
                                                                                 <span class="mr-2">@Model.ComputerPositionWhenStanding[question].Answers[item].Text</span>
                                                                                 <label class="switch switch-label switch-pill @Model.ComputerPositionWhenStanding[question].Answers[item].Type">
-                                                                                    <input class="switch-input" type="checkbox" value="@Model.ComputerPositionWhenStanding[question].Answers[item].Text" asp-for="@Model.ComputerPositionWhenStanding[question].AnswerSelected">
+                                                                                    <input class="switch-input" type="checkbox" value="@Model.ComputerPositionWhenStanding[question].Answers[item].Text" asp-for="@Model.ComputerPositionWhenStanding[question].AnswerSelected" score="@Model.ComputerPositionWhenStanding[question].Answers[item].Score">
                                                                                     <span class="switch-slider"></span>
                                                                                 </label>
                                                                             </div>

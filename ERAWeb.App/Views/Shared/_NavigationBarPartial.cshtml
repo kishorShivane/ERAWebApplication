@@ -1,15 +1,41 @@
-﻿<div class="sidebar">
+﻿
+@{
+    var value = TempData.Peek("UserSession");
+    var userInfo = new ERAWeb.Models.UserModel();
+    if (value != null)
+    {
+        userInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<ERAWeb.Models.UserModel>(value.ToString());
+
+    }
+}
+<div class="sidebar">
     <nav class="sidebar-nav">
         <ul class="nav">
             <li class="nav-title">Modules</li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Questionnaire"
-                   asp-action="Index">&nbsp;&nbsp;&nbsp;<i class="fa fa-user-check fa-2x" style="color: darkgray;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Questionnaire</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Report"
-                   asp-action="Index">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file-pdf fa-2x" style="color: darkgray;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Report</a>
-            </li>
+            @if (userInfo.UserTypeId == Convert.ToInt32(ERAWeb.App.Utilities.EnumHelpers.UserType.Administrator))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Report"
+                       asp-action="Search">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file-pdf fa-2x" style="color: darkgray;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Report</a>
+                </li>
+            }
+            else
+            {
+                @if (!userInfo.IsTestTaken)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Questionnaire"
+                           asp-action="Index">&nbsp;&nbsp;&nbsp;<i class="fa fa-user-check fa-2x" style="color: darkgray;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Questionnaire</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Report"
+                           asp-action="Index" asp-route-id="@userInfo.UserId">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file-pdf fa-2x" style="color: darkgray;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Report</a>
+                    </li>
+                }
+            }
         </ul>
     </nav>
     <button class="sidebar-minimizer brand-minimizer" type="button"></button>

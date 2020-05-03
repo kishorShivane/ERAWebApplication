@@ -6,7 +6,7 @@ namespace ERAWeb.Core.Interface
 {
     public interface IUserAnswerBroker
     {
-        Task<ResponseMessage<UserAnswerResponse>> GetUserAnswers(int userID);
+        Task<List<UserAnswerModel>> GetUserAnswers(int userID);
         Task<ResponseMessage<UserAnswerResponse>> InsertUserAnswers(List<UserAnswerModel> answers);
     }
 }

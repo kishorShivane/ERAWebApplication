@@ -11,15 +11,22 @@ namespace ERAWeb.App.Controllers
 {
     public class AccountController : BaseController
     {
+        #region fields
         IUserBroker userService = null;
+        #endregion
+
+        #region constructor
         public AccountController(IConfiguration _config, IUserBroker userBroker, ILoggerManager loggerManager)
         {
             logger = loggerManager;
             userService = userBroker;
             config = _config;
         }
+        #endregion
 
 
+
+        #region action methods
         public IActionResult Login()
         {
             //logger.LogInfo("Hello, world!");
@@ -51,7 +58,10 @@ namespace ERAWeb.App.Controllers
                 //}
 
                 SetUserSession(validUser.Content);
-                return RedirectToAction("Landing", "Home");
+                if (validUser.Content.UserTypeId == System.Convert.ToInt32(UserType.Administrator))
+                    return RedirectToAction("Search", "Report");
+                else
+                    return RedirectToAction("Index", "Questionnaire");
             }
             else
             {
@@ -92,9 +102,7 @@ namespace ERAWeb.App.Controllers
             }
         }
 
-        public IActionResult Activate()
-        {
-            return View();
-        }
+        #endregion
+
     }
 }

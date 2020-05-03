@@ -17,8 +17,11 @@ namespace ERAWeb.Infrastructure.DI
             services.AddTransient<IUserBroker, UserBroker>();
             services.AddTransient<IRegistrationBroker, RegistrationBroker>();
             services.AddTransient<ILoggerManager, LoggerManager>();
-            services.AddTransient<IReportBroker, ReportBroker>();
+            services.AddTransient<IQuestionBroker, QuestionBroker>();
             services.AddTransient<IUserAnswerBroker, UserAnswerBroker>();
+            services.AddTransient<IUserRiskBroker, UserRiskBroker>();
+            services.AddTransient<IQuestionBroker, QuestionBroker>();
+            services.AddTransient<IReportBroker, ReportBroker>();
             services.AddTransient<IERAAzureServiceProxy, ERAAzureServiceProxy>();
 
             return services;

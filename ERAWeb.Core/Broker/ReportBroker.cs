@@ -16,5 +16,17 @@ namespace ERAWeb.Core.Broker
             config = _config;
             proxy = _proxy;
         }
+
+        public async Task<List<UserModel>> GetUserReport(ReportSearchModel model)
+        {
+            List<UserModel> users = null;
+            ResponseMessage<List<UserModel>> response;
+            response = await Task.Run(() => proxy.GetUserReport(new ReportRequest() { UserID = model.UserID, Email = model.Email }));
+            if (response != null && response.Content != null && response.Content != null)
+            {
+                users = response.Content;
+            }
+            return users;
+        }
     }
 }
