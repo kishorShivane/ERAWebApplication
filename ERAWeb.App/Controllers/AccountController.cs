@@ -65,7 +65,7 @@ namespace ERAWeb.App.Controllers
             }
             else
             {
-                SetNotification(validUser.Message, NotificationType.Failure, "Failed");
+                SetNotification("Invalid UserID or Password..!!", NotificationType.Failure, "Failed");
                 return View();
             }
         }

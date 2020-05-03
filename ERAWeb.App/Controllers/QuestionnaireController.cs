@@ -70,7 +70,7 @@ namespace ERAWeb.App.Controllers
                 await userAnswerservice.InsertUserAnswers(userAnswers);
                 await userRiskservice.InsertUserRisks(userRisks);
                 await UpdateUserTestStatus();
-                SetNotification("Thank you for completing test successfully.!!", NotificationType.Success, "Successfully Submitted");
+                SetNotification("Thank you for completing test successfully.!!", NotificationType.Success, "Submitted Successfully");
                 return RedirectToActionPermanent("Index", "Report", new { id = UserInfo.UserId });
             }
             return View(questionnaire);
