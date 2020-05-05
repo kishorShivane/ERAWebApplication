@@ -3,6 +3,7 @@ using ERAWeb.Logger;
 using ERAWeb.Models;
 using ERAWeb.Proxy;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,11 +18,11 @@ namespace ERAWeb.Core.Broker
             proxy = _proxy;
         }
 
-        public async Task<List<UserAnswerModel>> GetUserAnswers(int userID)
+        public async Task<List<UserAnswerModel>> GetUserAnswers(Guid identifier)
         {
             List<UserAnswerModel> userAnswers = null;
             ResponseMessage<UserAnswerResponse> response;
-            response = await Task.Run(() => proxy.GetUserAnswers(new UserAnswerReadRequest() { UserID = userID }));
+            response = await Task.Run(() => proxy.GetUserAnswers(new UserAnswerReadRequest() { TestIdentifier = identifier }));
             if (response != null && response.Content != null && response.Content.Answers != null)
             {
                 userAnswers = response.Content.Answers;

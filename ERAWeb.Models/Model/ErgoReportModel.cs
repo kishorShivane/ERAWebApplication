@@ -20,6 +20,7 @@ namespace ERAWeb.Models
         public string EmployeeNumber { get; set; }
         public string CompanyName { get; set; }
         public string Email { get; set; }
+        public Guid TestIdentifier { get; set; }
         public List<Entries> HumanVariables { get; set; }
         public List<PositionEntries> SittingPosition { get; set; }
         public List<PositionEntries> StandingPosition { get; set; }

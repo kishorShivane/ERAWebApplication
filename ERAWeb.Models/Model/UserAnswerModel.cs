@@ -13,5 +13,6 @@ namespace ERAWeb.Models
         public int QuestionID { get; set; }
         public string Answer { get; set; }
         public int Score { get; set; }
+        public Guid TestIdentifier { get; set; }
     }
 }

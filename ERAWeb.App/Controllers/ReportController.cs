@@ -44,56 +44,67 @@ namespace ERAWeb.App.Controllers
         #endregion
 
         #region action methods
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index(Guid id)
         {
-            if (IsLoggedIn())
+            if (CheckIfAdmin())
             {
-                if ((UserInfo.UserId == id || CheckIfAdmin()))
-                {
-                    var ergoReport = new ErgoReportModel();
-                    var value = (string)TempData.Peek(UserInfo.Email);
-                    if (value != null)
-                    {
-                        ergoReport = JsonConvert.DeserializeObject<ErgoReportModel>(value);
-                    }
-                    else
-                    {
-                        ergoReport = await GetErgonomicReportDataForUser(UserInfo.UserId);
-                        TempData.Add(UserInfo.Email, JsonConvert.SerializeObject(ergoReport));
-                        TempData.Keep();
-                    }
-                    return View(ergoReport);
-                }
-                else
-                {
-                    return RedirectToAction("PageNotFound", "Error");
-                }
+                ErgoReportModel ergoReport = await GetReportData(id);
+                return View(ergoReport);
             }
             else
             {
-
-                return RedirectToAction("Login", "Account");
+                if (IsLoggedIn() && CheckIfTestTaken())
+                {
+                    if (UserInfo.LatestTestIdentifier.Value == id)
+                    {
+                        ErgoReportModel ergoReport = await GetReportData(id);
+                        return View(ergoReport);
+                    }
+                    else
+                    {
+                        return RedirectToAction("PageNotFound", "Error");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
             }
         }
 
-        public async Task<IActionResult> ErgonomicReport()
+        private async Task<ErgoReportModel> GetReportData(Guid id)
         {
             var ergoReport = new ErgoReportModel();
-            var value = (string)TempData.Peek(UserInfo.Email);
+            var value = (string)TempData.Peek(id.ToString());
             if (value != null)
             {
                 ergoReport = JsonConvert.DeserializeObject<ErgoReportModel>(value);
             }
             else
             {
-                ergoReport = await GetErgonomicReportDataForUser(UserInfo.UserId);
+                ergoReport = await GetErgonomicReportDataForUser(id);
+                TempData.Add(id.ToString(), JsonConvert.SerializeObject(ergoReport));
+                TempData.Keep();
             }
-            return new ViewAsPdf("ErgonomicReport", ergoReport)
+            return ergoReport;
+        }
+
+        public async Task<IActionResult> ErgonomicReport(Guid id)
+        {
+            if (CheckIfAdmin() || CheckIfTestTaken())
             {
-                FileName = UserInfo.FirstName + "_" + UserInfo.LastName + "_ErgonomicReport.pdf",
-                CustomSwitches = "--viewport-size 1280x1024",
-                PageMargins = new Margins() { Left = 10, Right = 10, Top = 20, Bottom = 20 }
-            };
+                ErgoReportModel ergoReport = await GetReportData(id);
+                return new ViewAsPdf("ErgonomicReport", ergoReport)
+                {
+                    FileName = UserInfo.FirstName + "_" + UserInfo.LastName + "_ErgonomicReport.pdf",
+                    CustomSwitches = "--viewport-size 1280x1024",
+                    PageMargins = new Margins() { Left = 10, Right = 10, Top = 20, Bottom = 20 }
+                };
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public IActionResult Search()
@@ -113,7 +124,7 @@ namespace ERAWeb.App.Controllers
         public async Task<IActionResult> Search(ReportSearchModel model)
         {
             var users = await reportService.GetUserReport(model);
-            if (users != null)
+            if (users != null && users.Any())
             {
                 model.Users = users;
             }
@@ -127,12 +138,12 @@ namespace ERAWeb.App.Controllers
         #endregion
 
         #region private methods
-        private async Task<ErgoReportModel> GetErgonomicReportDataForUser(int userID)
+        private async Task<ErgoReportModel> GetErgonomicReportDataForUser(Guid identifier)
         {
             ErgoReportModel reportData = null;
             await BootStrapQuestionnaireModel();
-            var userAnswers = await userAnswerservice.GetUserAnswers(userID);
-            var userRisks = await userRiskservice.GetUserRisks(userID);
+            var userAnswers = await userAnswerservice.GetUserAnswers(identifier);
+            var userRisks = await userRiskservice.GetUserRisks(identifier);
             if (userRisks != null && userRisks.Any() && userAnswers != null && userAnswers.Any())
             {
                 reportData = new ErgoReportModel();
@@ -153,6 +164,7 @@ namespace ERAWeb.App.Controllers
                 reportData.EmployeeNumber = UserInfo.EmployeeNumber;
                 reportData.CompanyName = UserInfo.CompanyName;
                 reportData.Email = UserInfo.Email;
+                reportData.TestIdentifier = identifier;
                 #endregion
 
 

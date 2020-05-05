@@ -1,5 +1,6 @@
 ﻿@model ERAWeb.Models.ErgoReportModel
 @{
+    ViewData["Title"] = Model.FirstName + "_" + Model.LastName + "_Ergonomic Report";
     Layout = "~/Views/Shared/_LayoutWithNoContent.cshtml";
     var positionEntries = Model.SittingPosition.Any() ? Model.SittingPosition : Model.StandingPosition;
     var positionText = Model.SittingPosition.Any() ? "Sitting Position" : "Standing Position";

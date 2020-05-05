@@ -22,24 +22,34 @@
                 <form class="form-horizontal" action="" method="post">
                     <div class="form-group row">
                         <div class="col-md-1"></div>
-                        <div class="col-md-4">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        UserID
-                                    </span>
-                                </div>
-                                <input class="form-control" asp-for="UserID" name="UserID" type="number" placeholder="UserID" id="txtUserID">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         Email
                                     </span>
                                 </div>
-                                <input class="form-control" asp-for="Email" name="Email" type="text" placeholder="Email like search" id="txtEmail">
+                                <input class="form-control" asp-for="Email" name="Email" type="text" placeholder="Email like " id="txtEmail">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        Last Name
+                                    </span>
+                                </div>
+                                <input class="form-control" asp-for="LastName" name="LastName" type="text" placeholder="Last Name like " id="txtLastName">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        Company Name
+                                    </span>
+                                </div>
+                                <input class="form-control" asp-for="CompanyName" name="CompanyName" type="text" placeholder="Company Name like" id="txtCompanyName">
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -75,6 +85,8 @@
                                 <th class="text-center">First Name</th>
                                 <th class="text-center">Last Name</th>
                                 <th class="text-center">Email</th>
+                                <th class="text-center">Company</th>
+                                <th class="text-center">Date of Assessment</th>
                                 <th class="text-center">Report</th>
                             </tr>
                         </thead>
@@ -85,8 +97,10 @@
                                     <td align="center">@user.FirstName</td>
                                     <td align="center">@user.LastName</td>
                                     <td align="center">@user.Email</td>
+                                    <td align="center">@user.CompanyName</td>
+                                    <td align="center">@user.LastAssessmentDate.Value.ToShortDateString()</td>
                                     <td>
-                                        <a asp-action="Index" asp-controller="Report" asp-route-id="@user.UserId" target="_blank"><h5 class="text-center"><span class="badge badge-pill badge-success">View Report</span></h5></a>
+                                        <a asp-action="Index" asp-controller="Report" asp-route-id="@user.LatestTestIdentifier" target="_blank"><h5 class="text-center"><span class="badge badge-pill badge-success">View Report</span></h5></a>
                                     </td>
                                 </tr>
                             }
@@ -104,7 +118,7 @@
 <script>
     $(document).ready(function () {
         $("button#btnSubmit").click(function () {
-            if ($("input#txtEmail").val() == "" && $("input#txtUserID").val() == "") {
+            if ($("input#txtEmail").val() == "" && $("input#txtLastName").val() == "" && $("input#txtCompanyName").val() == "") {
                 $("div.card-footer").show();
                 return false;
             }

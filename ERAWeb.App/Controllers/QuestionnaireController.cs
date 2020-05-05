@@ -22,6 +22,7 @@ namespace ERAWeb.App.Controllers
         IUserAnswerBroker userAnswerservice;
         IUserRiskBroker userRiskservice;
         IQuestionBroker questionService;
+        private DateTime todaysDate = DateTime.Now;
         #endregion
 
         #region constructor
@@ -41,7 +42,7 @@ namespace ERAWeb.App.Controllers
         #region action methods
         public async Task<IActionResult> Index()
         {
-            if (!CheckIfTestTaken())
+            if (await IsEligibleToTakeTest(config))
             {
                 if (questionnaire == null)
                     await BootStrapQuestionnaireModel();
@@ -50,7 +51,15 @@ namespace ERAWeb.App.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Report", new { id = UserInfo.UserId });
+                if (UserInfo.LatestTestIdentifier != null && UserInfo.LatestTestIdentifier.HasValue)
+                {
+                    return RedirectToAction("Index", "Report", new { id = UserInfo.LatestTestIdentifier });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                
             }
         }
 
@@ -59,39 +68,41 @@ namespace ERAWeb.App.Controllers
         {
             List<UserAnswerModel> userAnswers = null;
             List<UserRiskModel> userRisks = null;
+            var testIdentifier = Guid.NewGuid();
             if (model != null)
             {
-                userAnswers = GetUserAnswersFromModel(model);
+                userAnswers = GetUserAnswersFromModel(model, testIdentifier);
                 if (userAnswers.Any())
-                    userRisks = GetUserRisksFromAnswers(userAnswers);
+                    userRisks = GetUserRisksFromAnswers(userAnswers, testIdentifier);
             }
             if (userRisks.Any())
             {
                 await userAnswerservice.InsertUserAnswers(userAnswers);
                 await userRiskservice.InsertUserRisks(userRisks);
-                await UpdateUserTestStatus();
+                await UpdateUserTestStatus(testIdentifier);
                 SetNotification("Thank you for completing test successfully.!!", NotificationType.Success, "Submitted Successfully");
-                return RedirectToActionPermanent("Index", "Report", new { id = UserInfo.UserId });
+                return RedirectToActionPermanent("Index", "Report", new { id = UserInfo.LatestTestIdentifier });
             }
             return View(questionnaire);
         }
         #endregion
 
         #region private methods
-        private async Task UpdateUserTestStatus()
+        private async Task UpdateUserTestStatus(Guid testIdentifier)
         {
             var user = await GetUserSessionAsync();
             if (user != null)
             {
                 user.IsTestTaken = true;
+                user.LastAssessmentDate = todaysDate;
+                user.LatestTestIdentifier = testIdentifier;
             }
             await SetUserSessionAsync(user);
         }
 
-        private List<UserRiskModel> GetUserRisksFromAnswers(List<UserAnswerModel> userAnswers)
+        private List<UserRiskModel> GetUserRisksFromAnswers(List<UserAnswerModel> userAnswers, Guid testIdentifier)
         {
             List<UserRiskModel> userRisks = null;
-            var todaysDate = DateTime.Now;
             var groupByRisk = userAnswers.GroupBy(x => x.RiskID);
             Tuple<int, string> riskScore = null;
             double finalValue = 0;
@@ -114,7 +125,7 @@ namespace ERAWeb.App.Controllers
                         case 5:
                             var weight = Convert.ToDouble(risk.FirstOrDefault(z => z.QuestionID == 5).Answer);
                             var height = Convert.ToDouble(risk.FirstOrDefault(z => z.QuestionID == 6).Answer);
-                            finalValue = Math.Round(Convert.ToDouble(weight / (height * height)), 4);
+                            finalValue = Math.Round(Convert.ToDouble(weight / (height * height)), 2);
                             riskScore = GetScoreForRangeFromRisk(ergonomics, finalValue);
                             break;
                         case 6:
@@ -138,7 +149,8 @@ namespace ERAWeb.App.Controllers
                         AssesmentDate = todaysDate,
                         Score = finalValue,
                         RiskValue = riskScore.Item1,
-                        Risk = riskScore.Item2
+                        Risk = riskScore.Item2,
+                        TestIdentifier = testIdentifier
                     });
                 }
             }
@@ -146,25 +158,25 @@ namespace ERAWeb.App.Controllers
             return userRisks;
         }
 
-        private List<UserAnswerModel> GetUserAnswersFromModel(QuestionDictionary model)
+        private List<UserAnswerModel> GetUserAnswersFromModel(QuestionDictionary model, Guid testIdentifier )
         {
             List<UserAnswerModel> userAnswers = null;
             if (model != null)
             {
                 userAnswers = new List<UserAnswerModel>();
-                userAnswers.AddRange(GetIndividualSectionAnswers(model.HumanVariables, questionnaire.HumanVariables));
-                userAnswers.AddRange(GetIndividualSectionAnswers(model.BMI, questionnaire.BMI));
-                userAnswers.AddRange(GetIndividualSectionAnswers(model.Discomforts, questionnaire.Discomforts));
+                userAnswers.AddRange(GetIndividualSectionAnswers(model.HumanVariables, questionnaire.HumanVariables, testIdentifier));
+                userAnswers.AddRange(GetIndividualSectionAnswers(model.BMI, questionnaire.BMI, testIdentifier));
+                userAnswers.AddRange(GetIndividualSectionAnswers(model.Discomforts, questionnaire.Discomforts, testIdentifier));
 
                 if (model.WorkStation.FirstOrDefault().AnswerSelected == "Sitting Workstation")
                 {
-                    userAnswers.AddRange(GetIndividualSectionAnswers(model.SittingPosition, questionnaire.SittingPosition));
-                    userAnswers.AddRange(GetIndividualSectionAnswers(model.ComputerPositionWhenSitting, questionnaire.ComputerPositionWhenSitting));
+                    userAnswers.AddRange(GetIndividualSectionAnswers(model.SittingPosition, questionnaire.SittingPosition, testIdentifier));
+                    userAnswers.AddRange(GetIndividualSectionAnswers(model.ComputerPositionWhenSitting, questionnaire.ComputerPositionWhenSitting, testIdentifier));
                 }
                 else
                 {
-                    userAnswers.AddRange(GetIndividualSectionAnswers(model.StandingPosition, questionnaire.StandingPosition));
-                    userAnswers.AddRange(GetIndividualSectionAnswers(model.ComputerPositionWhenStanding, questionnaire.ComputerPositionWhenStanding));
+                    userAnswers.AddRange(GetIndividualSectionAnswers(model.StandingPosition, questionnaire.StandingPosition, testIdentifier));
+                    userAnswers.AddRange(GetIndividualSectionAnswers(model.ComputerPositionWhenStanding, questionnaire.ComputerPositionWhenStanding, testIdentifier));
                 }
 
                 if (userAnswers.Any())
@@ -175,10 +187,9 @@ namespace ERAWeb.App.Controllers
             return userAnswers;
         }
 
-        private IEnumerable<UserAnswerModel> GetIndividualSectionAnswers(List<QuestionnaireModel> answerModel, List<QuestionnaireModel> questionModel)
+        private IEnumerable<UserAnswerModel> GetIndividualSectionAnswers(List<QuestionnaireModel> answerModel, List<QuestionnaireModel> questionModel, Guid testIdentifier)
         {
             List<UserAnswerModel> sectionAnswers = null;
-            var todaysDate = DateTime.Now;
             if (answerModel.Any()) sectionAnswers = new List<UserAnswerModel>();
             answerModel.ForEach(x =>
             {
@@ -190,7 +201,8 @@ namespace ERAWeb.App.Controllers
                     QuestionID = x.QuestionID,
                     RiskID = x.RiskID,
                     UserID = UserInfo.UserId,
-                    Score = score
+                    Score = score,
+                    TestIdentifier = testIdentifier
                 });
             });
             return sectionAnswers;

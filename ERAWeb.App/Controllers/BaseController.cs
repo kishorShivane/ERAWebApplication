@@ -68,7 +68,7 @@ namespace ERAWeb.App.Controllers
         public void SetUserSession(UserModel user)
         {
             const string sessionKey = "UserSession";
-            DestroyUserSession();
+            DestroyAllSession();
             TempData.Add(sessionKey, JsonConvert.SerializeObject(user));
             TempData.Keep();
             //var serialisedData = JsonConvert.SerializeObject(user);
@@ -79,7 +79,7 @@ namespace ERAWeb.App.Controllers
         {
             userModel = user;
             const string sessionKey = "UserSession";
-            await DestroyUserSessionAsync();
+            await DestroyAllSessionAsync();
             TempData.Add(sessionKey, JsonConvert.SerializeObject(user));
             TempData.Keep();
             //var serialisedData = JsonConvert.SerializeObject(user);
@@ -106,22 +106,34 @@ namespace ERAWeb.App.Controllers
             return null;
         }
 
-        public void DestroyUserSession()
+        public void DestroyAllSession()
         {
-            const string sessionKey = "UserSession";
-            if (TempData.Keys.Contains("UserSession"))
-                TempData.Remove(sessionKey);
+            if (TempData.Keys.Any())
+                TempData.Clear();
             //HttpContext.Session.Remove(sessionKey);
         }
 
-        public async Task DestroyUserSessionAsync()
+        public async Task DestroyAllSessionAsync()
         {
-            const string sessionKey = "UserSession";
-            if (TempData.Keys.Contains("UserSession"))
-                TempData.Remove(sessionKey);
+            if (TempData.Keys.Any())
+                TempData.Clear();
             //HttpContext.Session.Remove(sessionKey);
         }
 
+        public async Task<bool> IsEligibleToTakeTest(IConfiguration config)
+        {
+            var result = true;
+            if (UserInfo.LastAssessmentDate != null && UserInfo.LastAssessmentDate.HasValue)
+            {
+                int testEligibilityDays = Convert.ToInt32(config.GetValue<string>("AppSettings:TestEligibleDays"));
+                var actualDate = UserInfo.LastAssessmentDate.Value.AddDays(testEligibilityDays);
+                if (actualDate > DateTime.Now)
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
         public void SetNotification(string message, NotificationType type = NotificationType.Success, string title = "Success", string redirectURL = "")
         {
             var notificationObject = JsonConvert.SerializeObject(new { Message = message, Type = type, Title = title, Redirection = redirectURL });

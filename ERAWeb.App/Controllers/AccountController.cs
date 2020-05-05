@@ -75,7 +75,7 @@ namespace ERAWeb.App.Controllers
             var user = GetUserSession();
             if (user != null)
             {
-                DestroyUserSession();
+                DestroyAllSession();
             }
             return View();
         }

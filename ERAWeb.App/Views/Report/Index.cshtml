@@ -1,6 +1,6 @@
 ﻿@model ERAWeb.Models.ErgoReportModel
 @{
-    ViewData["Title"] = "Report";
+    ViewData["Title"] = "Ergonomic Report";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var positionEntries = Model.SittingPosition.Any() ? Model.SittingPosition : Model.StandingPosition;
     var positionText = Model.SittingPosition.Any() ? "Sitting Position" : "Standing Position";
@@ -14,7 +14,7 @@
                 <a class="btn btn-sm btn-secondary float-right mr-1 d-print-none" href="#" onclick="javascript: window.print(); return false;">
                     <i class="fa fa-print"></i> Print
                 </a>
-                <a class="btn btn-sm btn-info float-right mr-1 d-print-none" asp-action="ErgonomicReport" asp-controller="Report">
+                <a class="btn btn-sm btn-info float-right mr-1 d-print-none" asp-action="ErgonomicReport" asp-controller="Report" asp-route-id="@Model.TestIdentifier">
                     <i class="fa fa-save"></i> Save
                 </a>
             </div>

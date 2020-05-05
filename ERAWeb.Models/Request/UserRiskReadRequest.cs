@@ -8,5 +8,6 @@ namespace ERAWeb.Models
     {
         public int RiskID { get; set; } = 0;
         public int UserID { get; set; } = 0;
+        public Guid? TestIdentifier { get; set; } = null;
     }
 }

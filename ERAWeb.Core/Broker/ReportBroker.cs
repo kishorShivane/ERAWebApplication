@@ -21,7 +21,7 @@ namespace ERAWeb.Core.Broker
         {
             List<UserModel> users = null;
             ResponseMessage<List<UserModel>> response;
-            response = await Task.Run(() => proxy.GetUserReport(new ReportRequest() { UserID = model.UserID, Email = model.Email }));
+            response = await Task.Run(() => proxy.GetUserReport(new ReportRequest() { CompanyName = model.CompanyName, Email = model.Email, LastName = model.LastName }));
             if (response != null && response.Content != null && response.Content != null)
             {
                 users = response.Content;

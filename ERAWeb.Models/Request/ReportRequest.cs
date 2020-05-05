@@ -6,7 +6,8 @@ namespace ERAWeb.Models
 {
     public class ReportRequest
     {
-        public int UserID { get; set; }
+        public string LastName { get; set; }
+        public string CompanyName { get; set; }
         public string Email { get; set; }
     }
 }

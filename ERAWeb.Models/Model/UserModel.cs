@@ -17,5 +17,7 @@ namespace ERAWeb.Models
         public string UserType { get; set; }
         public string CompanyName { get; set; }
         public bool IsTestTaken { get; set; }
+        public DateTime? LastAssessmentDate { get; set; } = null;
+        public Guid? LatestTestIdentifier { get; set; } = null;
     }
 }

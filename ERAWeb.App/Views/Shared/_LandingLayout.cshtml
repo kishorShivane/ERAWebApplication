@@ -34,6 +34,7 @@
     <script src="~/js/coreui.min.js"></script>
     <script src="~/lib/font-awesome/js/all.js"></script>
     <script type="text/javascript">
+        showLoader();
         //override defaults
         alertify.defaults.transition = "slide";
         alertify.defaults.theme.ok = "btn btn-primary";
@@ -47,10 +48,10 @@
                  var notificationContent = JSON.parse(message);
                 ShowClientNotification(notificationContent);
             }
-
+            hideLoader();
              $("form").submit(function(){
                  showLoader();
-            });
+             });
         });
 
         var ShowClientNotification = function (content) {
@@ -100,6 +101,10 @@
 
         var showLoader = function () {
             $('div#divLoader').removeClass('hideLoader');
+        }
+
+        var hideLoader = function () {
+            $('div#divLoader').addClass('hideLoader');
         }
     </script>
 </body>

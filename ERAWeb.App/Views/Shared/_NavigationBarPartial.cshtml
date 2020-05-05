@@ -21,18 +21,22 @@
             }
             else
             {
-                @if (!userInfo.IsTestTaken)
+                @if (userInfo.IsTestTaken)
                 {
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Questionnaire"
                            asp-action="Index">&nbsp;&nbsp;&nbsp;<i class="fa fa-user-check fa-2x" style="color: darkgray;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Questionnaire</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Report"
+                           asp-action="Index" asp-route-id="@userInfo.LatestTestIdentifier">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file-pdf fa-2x" style="color: darkgray;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Report</a>
+                    </li>
                 }
                 else
                 {
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Report"
-                           asp-action="Index" asp-route-id="@userInfo.UserId">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file-pdf fa-2x" style="color: darkgray;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Report</a>
+                        <a class="nav-link" asp-controller="Questionnaire"
+                           asp-action="Index">&nbsp;&nbsp;&nbsp;<i class="fa fa-user-check fa-2x" style="color: darkgray;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Questionnaire</a>
                     </li>
                 }
             }

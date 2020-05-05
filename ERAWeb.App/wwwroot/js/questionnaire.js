@@ -10,7 +10,7 @@ $(document).on("blur", "div#bmiVariables input[type='number']", function () {
     var resultClass = "btn-success";
     if (weight != "" && height != "") {
         var bmi = weight / (height * height);
-        bmi = bmi.toFixed(4);
+        bmi = bmi.toFixed(2);
         if (!isNaN(bmi)) {
             if (bmi < 18.5) { resultClass = "btn-danger"; }
             if (bmi >= 18.5 && bmi <= 24.9) { resultClass = "btn-success"; }
@@ -70,9 +70,13 @@ $(document).ready(function () {
 });
 
 var bindHideInstruction = function () {
-    $("a#btnHideInstruction").click(function () {
+
+    $("a.hideInstruction").click(function () {
         $("div#collapseOne").collapse("toggle");
-        $("div#divMain").show();
+        if ($(this).hasClass("collapsed"))
+            $("div#divMain").show();
+        else
+            $("div#divMain").hide();
     });
 }
 
@@ -115,6 +119,7 @@ var validateTabControls = function (activeTabContent) {
             if (!$(this).find("input[type='checkbox']").is(":checked")) {
                 //$(this).parents("div.card-body").addClass("errorBorder");
                 $(this).parents("div.card").eq(0).find("div.card-footer").addClass("errorBorder").show();
+                $(this).find("input[type='checkbox']").focus();
                 result = false;
             }
             else {
@@ -124,6 +129,7 @@ var validateTabControls = function (activeTabContent) {
         if ($(this).find("input[type='number']").length > 0) {
             if ($(this).find("input[type='number']").val() == "") {
                 $(this).parents("div.card").eq(0).find("div.card-footer").addClass("errorBorder").show();
+                $(this).find("input[type='number']").focus();
                 result = false;
             }
             else {
@@ -200,7 +206,6 @@ var bindTabSummary = function () {
     control.each(function () {
         var checkBox = $(this).find("input[type='checkbox']");
         if (checkBox.is(":checked")) {
-            debugger;
             lowRisk = lowRisk + ($(this).hasClass("switch-success") == true ? parseInt(checkBox.attr("score")) : 0);
             moderateRisk = moderateRisk + ($(this).hasClass("switch-warning") == true ? parseInt(checkBox.attr("score")) : 0);
             highRisk = highRisk + ($(this).hasClass("switch-danger") == true ? parseInt(checkBox.attr("score")) : 0);
@@ -227,10 +232,10 @@ var showSummary = function (lowRisk, moderateRisk, highRisk) {
     if (activeTab.find("div#divSummary").hasClass("discomformts")) {
         var resultClass = "";
         var text = "";
-        if (highRisk <= 1) { text = "Low Risk: "; resultClass = "btn btn-pill btn-block btn-success active"; }
-        if (highRisk >= 2 && highRisk <= 4) { text = "Moderate Risk: "; resultClass = "btn btn-pill btn-block btn-warning active"; }
-        if (highRisk > 4) { text = "High Risk: "; resultClass = "btn btn-pill btn-block btn-danger active"; }
-        averageBtn.html(text + " " + highRisk);
+        if (highRisk <= 1) { text = "Low Risk"; resultClass = "btn btn-pill btn-block btn-success active"; }
+        if (highRisk >= 2 && highRisk < 4) { text = "Moderate Risk"; resultClass = "btn btn-pill btn-block btn-warning active"; }
+        if (highRisk >= 4) { text = "High Risk"; resultClass = "btn btn-pill btn-block btn-danger active"; }
+        averageBtn.html(highRisk + " is " + text);
         averageBtn.attr("class", resultClass);
     }
 
@@ -239,11 +244,11 @@ var showSummary = function (lowRisk, moderateRisk, highRisk) {
         var text = "";
         var totalCheckBoxes = activeTab.find("div.card").length - 1;
         highRisk = (highRisk / totalCheckBoxes) * 100;
-        highRisk = highRisk.toFixed(4);
-        if (highRisk <= 30) { text = "Low Risk: "; resultClass = "btn btn-pill btn-block btn-success active"; }
-        if (highRisk > 30 && highRisk <= 40) { text = "Moderate Risk: "; resultClass = "btn btn-pill btn-block btn-warning active"; }
-        if (highRisk > 40) { text = "High Risk: "; resultClass = "btn btn-pill btn-block btn-danger active"; }
-        averageBtn.html(text + " " + highRisk + "%");
+        highRisk = highRisk.toFixed(2);
+        if (highRisk <= 30) { text = "Low Risk"; resultClass = "btn btn-pill btn-block btn-success active"; }
+        if (highRisk > 30 && highRisk <= 40) { text = "Moderate Risk"; resultClass = "btn btn-pill btn-block btn-warning active"; }
+        if (highRisk > 40) { text = "High Risk"; resultClass = "btn btn-pill btn-block btn-danger active"; }
+        averageBtn.html(highRisk + "% is " + text);
         averageBtn.attr("class", resultClass);
     }
 }
@@ -395,7 +400,6 @@ var bindPopoverInfo = function () {
 
 
 var getPopOverContent = function (divContent) {
-    debugger;
     var info = divContent.find("input#hdnInformationText").attr("value");
     var infoImage = divContent.find("input#hdnInformationImageURL").attr("value");
     var infoImageText = divContent.find("input#hdnInformationImageText").attr("value");

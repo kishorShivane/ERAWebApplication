@@ -13,5 +13,6 @@ namespace ERAWeb.Models
         public double Score { get; set; }
         public int RiskValue { get; set; }
         public string Risk { get; set; }
+        public Guid TestIdentifier { get; set; }
     }
 }
