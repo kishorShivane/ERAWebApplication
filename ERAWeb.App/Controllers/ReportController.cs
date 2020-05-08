@@ -46,7 +46,7 @@ namespace ERAWeb.App.Controllers
         #region action methods
         public async Task<IActionResult> Index(Guid id)
         {
-            if (CheckIfAdmin())
+            if (IsLoggedIn() && CheckIfAdmin())
             {
                 ErgoReportModel ergoReport = await GetReportData(id);
                 return View(ergoReport);
@@ -83,6 +83,8 @@ namespace ERAWeb.App.Controllers
             else
             {
                 ergoReport = await GetErgonomicReportDataForUser(id);
+                if (TempData[id.ToString()] != null)
+                    TempData.Remove(id.ToString());
                 TempData.Add(id.ToString(), JsonConvert.SerializeObject(ergoReport));
                 TempData.Keep();
             }
@@ -91,7 +93,7 @@ namespace ERAWeb.App.Controllers
 
         public async Task<IActionResult> ErgonomicReport(Guid id)
         {
-            if (CheckIfAdmin() || CheckIfTestTaken())
+            if (IsLoggedIn() && (CheckIfAdmin() || CheckIfTestTaken()))
             {
                 ErgoReportModel ergoReport = await GetReportData(id);
                 return new ViewAsPdf("ErgonomicReport", ergoReport)
@@ -109,7 +111,7 @@ namespace ERAWeb.App.Controllers
 
         public IActionResult Search()
         {
-            if (CheckIfAdmin())
+            if (IsLoggedIn() && CheckIfAdmin())
             {
                 ReportSearchModel model = new ReportSearchModel();
                 return View(model);
@@ -127,6 +129,10 @@ namespace ERAWeb.App.Controllers
             if (users != null && users.Any())
             {
                 model.Users = users;
+                if (TempData["AdminSearchData"] != null)
+                    TempData.Remove("AdminSearchData");
+                TempData.Add("AdminSearchData", JsonConvert.SerializeObject(model.Users));
+                TempData.Keep();
             }
             else
             {
@@ -158,13 +164,33 @@ namespace ERAWeb.App.Controllers
                 var standingCompRiskID = questionnaire.ComputerPositionWhenStanding.FirstOrDefault().RiskID;
 
                 #region report data properties
-                reportData.FirstName = UserInfo.FirstName;
-                reportData.LastName = UserInfo.LastName;
-                reportData.AssessmentDate = userRisks.FirstOrDefault().AssesmentDate;
-                reportData.EmployeeNumber = UserInfo.EmployeeNumber;
-                reportData.CompanyName = UserInfo.CompanyName;
-                reportData.Email = UserInfo.Email;
+                UserModel user = UserInfo;
+                if (CheckIfAdmin())
+                {
+                    if (TempData["AdminSearchData"] != null)
+                    {
+                        string value = TempData.Peek("AdminSearchData").ToString();
+                        List<UserModel> users = JsonConvert.DeserializeObject<List<UserModel>>(value);
+                        if (users != null && users.Any())
+                        {
+                            user = users.FirstOrDefault(x => x.LatestTestIdentifier.Value == identifier);
+                            if (user == null)
+                            {
+                                user = (await reportService.GetUserReport(new ReportSearchModel() { TestIdentifier = identifier })).FirstOrDefault();
+                            }
+                        }
+                    }
+                }
+
+                reportData.FirstName = user.FirstName;
+                reportData.LastName = user.LastName;
+                if (user.LastAssessmentDate.HasValue)
+                    reportData.AssessmentDate = user.LastAssessmentDate.Value.ToString("D");
+                reportData.EmployeeNumber = user.EmployeeNumber;
+                reportData.CompanyName = user.CompanyName;
+                reportData.Email = user.Email;
                 reportData.TestIdentifier = identifier;
+
                 #endregion
 
 

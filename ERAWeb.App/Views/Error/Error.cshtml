@@ -1,22 +1,31 @@
-﻿@model ErrorViewModel
+﻿@*@model ErrorViewModel*@
 @{
     ViewData["Title"] = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
-
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
-
-<h3>Development Mode</h3>
-<p>
-    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
-</p>
-<p>
-    <strong>Development environment should not be enabled in deployed applications</strong>, as it can result in sensitive information from exceptions being displayed to end users. For local debugging, development environment can be enabled by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>, and restarting the application.
-</p>
+<div class="container-fluid">
+    <div id="ui-view">
+        <div>
+            <div class="animated fadeInDown">
+                <div class="row">
+                    <div class="col-xl-2"></div>
+                    <div class="col-sm-12 col-xl-8">
+                        <div class="jumbotron">
+                            <h1 class="display-2 text-danger">Error</h1>
+                            <h1 class="text-danger">Oops! Something went wrong.!</h1>
+                            <p class="text-muted">An error occurred while processing your request.</p>
+                            <hr class="my-4">
+                            <p>Please try again logging in. In case of any issues, please write to us on <a href="mailto:xxxx@gmail.com">Admin</a></p>
+                            <p class="lead">
+                                <a class="btn btn-xing active mt-3" asp-controller="Account"
+                                   asp-action="Login">Login Now!</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xl-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

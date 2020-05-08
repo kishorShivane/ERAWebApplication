@@ -637,7 +637,7 @@
       ],
       "Information": {
         "Title": "Standing/Sitting Position information",
-        "InformationText": "If you work more than 5 hours sitting please select sitting station.",
+        "InformationText": "If you work more than 5 hours sitting please select sitting station.\nIf you work more than 5 hours standing please select standing station.",
         "InformationImageURL": "",
         "RecommendationText": "",
         "RecommendationImageURL": ""

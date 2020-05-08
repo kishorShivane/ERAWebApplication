@@ -318,6 +318,7 @@ namespace ERAWeb.Proxy
 
             using (var client = new HttpClient())
             using (var request = new HttpRequestMessage(HttpMethod.Post, $"{azureBaseUrl}{urlQueryStringParams}"))
+            //using (var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:7071/api/ERAReport"))
             using (var httpContent = CreateHttpContent(reportRequest))
             {
                 request.Content = httpContent;

@@ -36,17 +36,24 @@ namespace ERAWeb.App.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(UserModel user)
         {
-            user.RegisteredDate = DateTime.Now;
-            user.UserTypeId = Convert.ToInt32(EnumHelpers.UserType.Employee);
-            var validUser = await registerService.RegisterUser(user);
-            if (validUser.Content != null)
+            if (!IsLoggedIn())
             {
-                return RedirectToAction("Successfull", "Registration");
+                user.RegisteredDate = DateTime.Now;
+                user.UserTypeId = Convert.ToInt32(EnumHelpers.UserType.Employee);
+                var validUser = await registerService.RegisterUser(user);
+                if (validUser.Content != null)
+                {
+                    return RedirectToAction("Successfull", "Registration");
+                }
+                else
+                {
+                    SetNotification(validUser.Message, NotificationType.Failure, "Failed");
+                    return RedirectToAction("Error", "Error");
+                }
             }
             else
             {
-                SetNotification(validUser.Message, NotificationType.Failure, "Failed");
-                return RedirectToAction("Error", "Error");
+                return RedirectToAction("Index", "Questionnaire");
             }
         }
 

@@ -95,7 +95,7 @@
                                                                 {
                                                                     <div class="col-2">
                                                                         <a class="btn btn-ghost-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="@Model.HumanVariables[question].Information.InformationText" data-original-title="@Model.HumanVariables[question].Information.Title">
-                                                                            <i class="fas fa-question-circle"></i>
+                                                                            <i class="fas fa-info-circle"></i>
                                                                         </a>
                                                                     </div>
                                                                 }
@@ -133,7 +133,7 @@
                                                                 <a class="btn btn-ghost-info" tabindex="0" id="popOverBMIInfo" role="button" data-toggle="popover" data-trigger="focus" title="" data-html="true"
                                                                    data-content="<ul><li><a class='btn btn-pill btn-block btn-success' aria-pressed='true'>Low Risk</a></li><li><a class='btn btn-pill btn-block btn-warning' aria-pressed='true'>Normal</a></li><li><a class='btn btn-pill btn-block btn-danger' aria-pressed='true'>High Risk</a></li></ul>"
                                                                    data-original-title="Risk Level Indicator">
-                                                                    <i class="fas fa-question-circle"></i>
+                                                                    <i class="fas fa-info-circle"></i>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -191,7 +191,7 @@
                                                                 {
                                                                     <div class="col-2">
                                                                         <a class="btn btn-ghost-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="@Model.BMI[question].Information.InformationText" data-original-title="@Model.BMI[question].Information.Title">
-                                                                            <i class="fas fa-question-circle"></i>
+                                                                            <i class="fas fa-info-circle"></i>
                                                                         </a>
                                                                     </div>
                                                                 }
@@ -220,7 +220,7 @@
                                                                 <a class="btn btn-ghost-info" tabindex="0" id="popOverBMIInfo" role="button" data-toggle="popover" data-trigger="focus" title="" data-html="true"
                                                                    data-content="<ul><li><a class='btn btn-pill btn-block btn-success' aria-pressed='true'>Low Risk: BMI = 18.5 to 24.9</a></li><li><a class='btn btn-pill btn-block btn-warning' aria-pressed='true'>Normal: BMI = 25 to 29</a></li><li><a class='btn btn-pill btn-block btn-danger' aria-pressed='true'>High Risk: BMI < 18.5 & > 30</a></li></ul>"
                                                                    data-original-title="BMI Levels">
-                                                                    <i class="fas fa-question-circle"></i>
+                                                                    <i class="fas fa-info-circle"></i>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -261,7 +261,7 @@
                                                                 {
                                                                     <div class="col-2">
                                                                         <a class="btn btn-ghost-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="@Model.Discomforts[question].Information.InformationText" data-original-title="@Model.Discomforts[question].Information.Title">
-                                                                            <i class="fas fa-question-circle"></i>
+                                                                            <i class="fas fa-info-circle"></i>
                                                                         </a>
                                                                     </div>
                                                                 }
@@ -297,9 +297,9 @@
                                                             </div>
                                                             <div class="col-2">
                                                                 <a class="btn btn-ghost-info" tabindex="0" id="popOverBMIInfo" role="button" data-toggle="popover" data-trigger="focus" title="" data-html="true"
-                                                                   data-content="<ul><li><a class='btn btn-pill btn-block btn-success' aria-pressed='true'>Low Risk</a></li><li><a class='btn btn-pill btn-block btn-warning' aria-pressed='true'>Normal</a></li><li><a class='btn btn-pill btn-block btn-danger' aria-pressed='true'>High Risk</a></li></ul>"
+                                                                   data-content="<ul><li><a class='btn btn-pill btn-block btn-success' aria-pressed='true'>Low Risk</a></li><li><a class='btn btn-pill btn-block btn-warning' aria-pressed='true'>Moderate</a></li><li><a class='btn btn-pill btn-block btn-danger' aria-pressed='true'>High Risk</a></li></ul>"
                                                                    data-original-title="Risk Level Indicator">
-                                                                    <i class="fas fa-question-circle"></i>
+                                                                    <i class="fas fa-info-circle"></i>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -340,7 +340,7 @@
                                                                 {
                                                                     <div class="col-2">
                                                                         <a class="btn btn-ghost-info" tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="@Model.WorkStation[question].Information.InformationText" data-original-title="@Model.WorkStation[question].Information.Title">
-                                                                            <i class="fas fa-question-circle"></i>
+                                                                            <i class="fas fa-info-circle"></i>
                                                                         </a>
                                                                     </div>
                                                                 }
@@ -386,8 +386,8 @@
                                                                 @if (Model.SittingPosition[question].Information != null)
                                                                 {
                                                                     <div class="col-2">
-                                                                        <a class="btn btn-ghost-info @Model.SittingPosition[question].Information.PopoverClass" role="button">
-                                                                            <i class="fas fa-question-circle"></i>
+                                                                        <a class="btn btn-ghost-info @Model.SittingPosition[question].Information.PopoverClass" role="button" tabindex="0">
+                                                                            <i class="fas fa-info-circle"></i>
                                                                         </a>
                                                                         <input type="hidden" id="hdnTitle" value="@Model.SittingPosition[question].Information.Title" />
                                                                         <input type="hidden" id="hdnInformationTitle" value="@Model.SittingPosition[question].Information.InformationTitle" />
@@ -434,7 +434,7 @@
                                                                 <a class="btn btn-ghost-info" tabindex="0" id="popOverBMIInfo" role="button" data-toggle="popover" data-trigger="focus" title="" data-html="true"
                                                                    data-content="<ul><li><a class='btn btn-pill btn-block btn-success' aria-pressed='true'>Low Risk</a></li><li><a class='btn btn-pill btn-block btn-warning' aria-pressed='true'>Normal</a></li><li><a class='btn btn-pill btn-block btn-danger' aria-pressed='true'>High Risk</a></li></ul>"
                                                                    data-original-title="Risk Level Indicator">
-                                                                    <i class="fas fa-question-circle"></i>
+                                                                    <i class="fas fa-info-circle"></i>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -472,8 +472,8 @@
                                                                 @if (Model.StandingPosition[question].Information != null)
                                                                 {
                                                                     <div class="col-2">
-                                                                        <a class="btn btn-ghost-info @Model.StandingPosition[question].Information.PopoverClass" role="button">
-                                                                            <i class="fas fa-question-circle"></i>
+                                                                        <a class="btn btn-ghost-info @Model.StandingPosition[question].Information.PopoverClass" tabindex="0" role="button">
+                                                                            <i class="fas fa-info-circle"></i>
                                                                         </a>
                                                                         <input type="hidden" id="hdnTitle" value="@Model.StandingPosition[question].Information.Title" />
                                                                         <input type="hidden" id="hdnInformationTitle" value="@Model.StandingPosition[question].Information.InformationTitle" />
@@ -520,7 +520,7 @@
                                                                 <a class="btn btn-ghost-info" tabindex="0" id="popOverBMIInfo" role="button" data-toggle="popover" data-trigger="focus" title="" data-html="true"
                                                                    data-content="<ul><li><a class='btn btn-pill btn-block btn-success' aria-pressed='true'>Low Risk</a></li><li><a class='btn btn-pill btn-block btn-warning' aria-pressed='true'>Normal</a></li><li><a class='btn btn-pill btn-block btn-danger' aria-pressed='true'>High Risk</a></li></ul>"
                                                                    data-original-title="Risk Level Indicator">
-                                                                    <i class="fas fa-question-circle"></i>
+                                                                    <i class="fas fa-info-circle"></i>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -560,8 +560,8 @@
                                                                 @if (Model.ComputerPositionWhenSitting[question].Information != null)
                                                                 {
                                                                     <div class="col-2">
-                                                                        <a class="btn btn-ghost-info @Model.ComputerPositionWhenSitting[question].Information.PopoverClass" role="button">
-                                                                            <i class="fas fa-question-circle"></i>
+                                                                        <a class="btn btn-ghost-info @Model.ComputerPositionWhenSitting[question].Information.PopoverClass" role="button" tabindex="0">
+                                                                            <i class="fas fa-info-circle"></i>
                                                                         </a>
                                                                         <input type="hidden" id="hdnTitle" value="@Model.ComputerPositionWhenSitting[question].Information.Title" />
                                                                         <input type="hidden" id="hdnInformationTitle" value="@Model.ComputerPositionWhenSitting[question].Information.InformationTitle" />
@@ -608,7 +608,7 @@
                                                                 <a class="btn btn-ghost-info" tabindex="0" id="popOverBMIInfo" role="button" data-toggle="popover" data-trigger="focus" title="" data-html="true"
                                                                    data-content="<ul><li><a class='btn btn-pill btn-block btn-success' aria-pressed='true'>Low Risk</a></li><li><a class='btn btn-pill btn-block btn-warning' aria-pressed='true'>Normal</a></li><li><a class='btn btn-pill btn-block btn-danger' aria-pressed='true'>High Risk</a></li></ul>"
                                                                    data-original-title="Risk Level Indicator">
-                                                                    <i class="fas fa-question-circle"></i>
+                                                                    <i class="fas fa-info-circle"></i>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -646,8 +646,8 @@
                                                                 @if (Model.ComputerPositionWhenStanding[question].Information != null)
                                                                 {
                                                                     <div class="col-2">
-                                                                        <a class="btn btn-ghost-info @Model.ComputerPositionWhenStanding[question].Information.PopoverClass" role="button">
-                                                                            <i class="fas fa-question-circle"></i>
+                                                                        <a class="btn btn-ghost-info @Model.ComputerPositionWhenStanding[question].Information.PopoverClass" role="button" tabindex="0">
+                                                                            <i class="fas fa-info-circle"></i>
                                                                         </a>
                                                                         <input type="hidden" id="hdnTitle" value="@Model.ComputerPositionWhenStanding[question].Information.Title" />
                                                                         <input type="hidden" id="hdnInformationTitle" value="@Model.ComputerPositionWhenStanding[question].Information.InformationTitle" />
@@ -694,7 +694,7 @@
                                                                 <a class="btn btn-ghost-info" tabindex="0" id="popOverBMIInfo" role="button" data-toggle="popover" data-trigger="focus" title="" data-html="true"
                                                                    data-content="<ul><li><a class='btn btn-pill btn-block btn-success' aria-pressed='true'>Low Risk</a></li><li><a class='btn btn-pill btn-block btn-warning' aria-pressed='true'>Normal</a></li><li><a class='btn btn-pill btn-block btn-danger' aria-pressed='true'>High Risk</a></li></ul>"
                                                                    data-original-title="Risk Level Indicator">
-                                                                    <i class="fas fa-question-circle"></i>
+                                                                    <i class="fas fa-info-circle"></i>
                                                                 </a>
                                                             </div>
                                                         </div>

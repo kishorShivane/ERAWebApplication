@@ -14,7 +14,7 @@ namespace ERAWeb.Models
             SittingPosition = new List<PositionEntries>();
             HumanVariables = new List<Entries>();
         }
-        public DateTime AssessmentDate { get; set; }
+        public string AssessmentDate { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmployeeNumber { get; set; }

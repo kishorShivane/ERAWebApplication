@@ -42,24 +42,30 @@ namespace ERAWeb.App.Controllers
         #region action methods
         public async Task<IActionResult> Index()
         {
-            if (await IsEligibleToTakeTest(config))
+            if (IsLoggedIn())
             {
-                if (questionnaire == null)
-                    await BootStrapQuestionnaireModel();
-                var model = questionnaire;
-                return View(model);
-            }
-            else
-            {
-                if (UserInfo.LatestTestIdentifier != null && UserInfo.LatestTestIdentifier.HasValue)
+                if (await IsEligibleToTakeTest(config))
                 {
-                    return RedirectToAction("Index", "Report", new { id = UserInfo.LatestTestIdentifier });
+                    if (questionnaire == null)
+                        await BootStrapQuestionnaireModel();
+                    var model = questionnaire;
+                    return View(model);
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Home");
+                    if (UserInfo.LatestTestIdentifier != null && UserInfo.LatestTestIdentifier.HasValue)
+                    {
+                        return RedirectToAction("Index", "Report", new { id = UserInfo.LatestTestIdentifier });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
-                
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
             }
         }
 

@@ -137,6 +137,8 @@ namespace ERAWeb.App.Controllers
         public void SetNotification(string message, NotificationType type = NotificationType.Success, string title = "Success", string redirectURL = "")
         {
             var notificationObject = JsonConvert.SerializeObject(new { Message = message, Type = type, Title = title, Redirection = redirectURL });
+            if (TempData["Notification"] != null)
+                TempData.Remove("Notification");
             TempData.Add("Notification", notificationObject);
         }
         #endregion
