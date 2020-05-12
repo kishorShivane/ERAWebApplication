@@ -98,7 +98,7 @@ namespace ERAWeb.App.Controllers
                 ErgoReportModel ergoReport = await GetReportData(id);
                 return new ViewAsPdf("ErgonomicReport", ergoReport)
                 {
-                    FileName = UserInfo.FirstName + "_" + UserInfo.LastName + "_ErgonomicReport.pdf",
+                    FileName = ergoReport.FirstName + "_" + ergoReport.LastName + "_ErgonomicReport.pdf",
                     CustomSwitches = "--viewport-size 1280x1024",
                     PageMargins = new Margins() { Left = 10, Right = 10, Top = 20, Bottom = 20 }
                 };

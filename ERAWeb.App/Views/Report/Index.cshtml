@@ -23,6 +23,7 @@
                     <div class="col-md-1"></div>
                     <div class="col-md-10">
                         <img src="~/images/information/gijimalogo1.jpg" width="250" height="150" />
+                        <a style="float:right; font-weight:bold; font-size:20px">Gijima Occupational Hygiene and Environmental Services</a>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
@@ -36,7 +37,7 @@
                 <div class="row mb-2">
                     <div class="col-md-1"></div>
                     <div class="col-md-10">
-                        <h1 style="color: burlywood;">Egonomics assassemnt tool</h1>
+                        <h1 style="color: burlywood;">Ergonomics Risk Assessment</h1>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
@@ -192,7 +193,7 @@
                 <div class="row mb-2">
                     <div class="col-md-1"></div>
                     <div class="col-md-10">
-                        <h3 class="mb-3 text-center">The below table cells shows your results stats. The colour are rating you as follow:</h3>
+                        <h3 class="mb-3 text-center">Below are the consolidated results for each variable assessed as well as  your overall ergonomics risk score.</h3>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
@@ -212,7 +213,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <button aria-pressed="true" class="btn btn-pill btn-block @Model.HumanVariableSummary.Status active" type="button">Human Variables: @Model.HumanVariableSummary.Value%</button>
+                                        <button aria-pressed="true" class="btn btn-pill btn-block @Model.HumanVariableSummary.Status active" type="button">Human Variable: @Model.HumanVariableSummary.Value%</button>
                                     </td>
                                     <td>
                                         <button aria-pressed="true" class="btn btn-pill btn-block @Model.PositionSummary.Status active" type="button">Sitting Position: @Model.PositionSummary.Value%</button>
@@ -220,15 +221,23 @@
                                     <td>
                                         <button aria-pressed="true" class="btn btn-pill btn-block @Model.ComputerPositionSummary.Status active" type="button">Computer Position: @Model.ComputerPositionSummary.Value%</button>
                                     </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <table class="table table-clear">
+                            <tbody>
+                                <tr>
                                     <td>
-                                        <button aria-pressed="true" class="btn btn-pill btn-block @Model.OverAllSummary.Status active" type="button">Overall Ergonomics Rating: @Model.OverAllSummary.Value%</button>
+                                        <button aria-pressed="true" class="btn btn-pill btn-block font-weight-bold font-xl @Model.OverAllSummary.Status active" type="button">OVERALLL ERGONOMICS RISK SCORE: @Model.OverAllSummary.Value%</button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-1"></div>
-                </div>
+                </div>             
             </div>
         </div>
     </div>

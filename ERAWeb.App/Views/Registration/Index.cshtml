@@ -12,7 +12,11 @@
                     <div class="card mx-4">
                         <div class="card-body p-4">
                             <h1>Register</h1>
-                            <p class="text-muted">Create your account</p>
+                            <p class="text-muted">
+                                Complete the form below to create your account and register by completing the
+                                fields. Please ensure that all fields are completed. Click the Create Account button when completed. You can also
+                                cancel the process by clicking the Cancel button.
+                            </p>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
@@ -87,7 +91,7 @@
 <script type="text/javascript">
      $(document).ready(function () {
          $("button#btnCancel").click(function () {
-             alertify.confirm('Confirm', "Are you sure you want to exit?", function ()
+             alertify.confirm('Confirm', "Are you sure you want to logout?", function ()
              {
                  window.location.href = '@loginURL';
              }, function ()
