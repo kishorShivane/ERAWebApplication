@@ -665,6 +665,7 @@
           "Score": 1
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Sitting Position information",
         "InformationTitle": "Sitting Position",
@@ -697,6 +698,7 @@
           "Score": 1
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Sitting Position information",
         "InformationTitle": "Feet Support",
@@ -734,6 +736,7 @@
           "Score": 1
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Sitting Position information",
         "InformationTitle": "Arm Support",
@@ -766,6 +769,7 @@
           "Score": 1
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Sitting Position information",
         "InformationTitle": "Information",
@@ -799,6 +803,7 @@
           "Score": 0
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Sitting Position information",
         "InformationTitle": "Information",
@@ -831,6 +836,7 @@
           "Score": 0
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Sitting Position information",
         "InformationTitle": "Information",
@@ -866,6 +872,7 @@
           "Score": 1
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Computer Position when Sitting information",
         "InformationTitle": "Information",
@@ -898,6 +905,7 @@
           "Score": 1
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Computer Position when Sitting information",
         "InformationTitle": "Information",
@@ -931,6 +939,7 @@
           "Score": 1
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Computer Position when Sitting information",
         "InformationTitle": "Information",
@@ -963,6 +972,7 @@
           "Score": 0
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Computer Position when Sitting information",
         "InformationTitle": "Information",
@@ -996,6 +1006,7 @@
           "Score": 1
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Computer Position when Sitting information",
         "InformationTitle": "Information",
@@ -1032,6 +1043,7 @@
           "Score": 1
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Standing Potition information",
         "InformationTitle": "Information",
@@ -1065,6 +1077,7 @@
           "Score": 1
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Computer Position when Sitting information",
         "InformationTitle": "Information",
@@ -1098,6 +1111,7 @@
           "Score": 1
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Computer Position when Sitting information",
         "InformationTitle": "Information",
@@ -1130,6 +1144,7 @@
           "Score": 1
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Computer Position when Sitting information",
         "InformationTitle": "Information",
@@ -1165,6 +1180,7 @@
           "Score": 1
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Computer Position when Sitting information",
         "InformationTitle": "Information",
@@ -1197,6 +1213,7 @@
           "Score": 1
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Computer Position when Sitting information",
         "InformationTitle": "Information",
@@ -1230,6 +1247,7 @@
           "Score": 1
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Computer Position when Sitting information",
         "InformationTitle": "Information",
@@ -1263,6 +1281,7 @@
           "Score": 0
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Computer Position when Sitting information",
         "InformationTitle": "Information",
@@ -1296,6 +1315,7 @@
           "Score": 1
         }
       ],
+      "HasImage": true,
       "Information": {
         "Title": "Computer Position when Sitting information",
         "InformationTitle": "Information",

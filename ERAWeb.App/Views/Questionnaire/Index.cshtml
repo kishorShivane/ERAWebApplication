@@ -30,8 +30,86 @@
     .inactive {
         display: none;
     }
+
+    .it .btn-orange {
+        background-color: blue;
+        border-color: #777 !important;
+        color: #777;
+        text-align: left;
+        width: 100%;
+    }
+
+    .it input.form-control {
+        border: none;
+        margin-bottom: 0px;
+        border-radius: 0px;
+        border-bottom: 1px solid #ddd;
+        box-shadow: none;
+    }
+
+    .it .form-control:focus {
+        border-color: #ff4d0d;
+        box-shadow: none;
+        outline: none;
+    }
+
+    .fileUpload {
+        position: relative;
+        overflow: hidden;
+    }
+
+        .fileUpload input.upload {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+
+    .form-group {
+        margin-bottom: 0;
+    }
 </style>
-<form asp-controller="Questionnaire" asp-action="Submit" method="post" novalidate>
+<script>
+    $(document).on('change', '.up', function () {
+        var names = [];
+        var length = $(this).get(0).files.length;
+        for (var i = 0; i < $(this).get(0).files.length; ++i) {
+            names.push($(this).get(0).files[i].name);
+        }
+        // $("input[name=file]").val(names);
+        switch (length) {
+            case 0:
+                break;
+            case 1:
+                $(this).closest('.form-group').find('.form-control').attr("value", names);
+                $(this).parents("div.col-5").eq(0).find("span#deleteImage").show();
+                break;
+            default:
+                var fileName = names.join(', ');
+                $(this).closest('.form-group').find('.form-control').attr("value", length + " files selected");
+                $(this).parents("div.col-5").eq(0).find("span#deleteImage").show();
+                break;
+        }
+    });
+
+    $(document).on('click', 'input#txtFileName', function (e) {
+        $(this).parent().find("input#up").click();
+        e.stopPropagation();
+        e.preventDefault();
+    });
+
+    $(document).on('click', 'span#deleteImage', function (e) {
+        $(this).parents("div.col-5").eq(0).find("input#up").val("").change();
+        $(this).parents("div.col-5").eq(0).find('.form-control').attr("value", "");
+        $(this).hide();
+    });
+</script>
+<form asp-controller="Questionnaire" asp-action="Submit" method="post" novalidate enctype="multipart/form-data">
     <div class="container-fluid">
         <div id="ui-view">
             <div>
@@ -85,6 +163,7 @@
                                                                             </div>
                                                                             colCount = colCount - 2;
                                                                         }
+
                                                                         <div class="col-@colCount">
                                                                             @Html.HiddenFor(item => Model.HumanVariables[question].QuestionID)
                                                                             @Html.HiddenFor(item => Model.HumanVariables[question].RiskID)
@@ -377,10 +456,34 @@
                                                                             </div>
                                                                             colCount = colCount - 2;
                                                                         }
+                                                                        @if (Model.SittingPosition[question].HasImage)
+                                                                        {
+                                                                            colCount = colCount - 5;
+                                                                        }
                                                                         <div class="col-@colCount">
                                                                             @Html.HiddenFor(item => Model.SittingPosition[question].QuestionID)
                                                                             @Html.HiddenFor(item => Model.SittingPosition[question].RiskID)
                                                                         </div>
+                                                                        @if (Model.SittingPosition[question].HasImage)
+                                                                        {
+                                                                            <div class="col-5" style="display:flex;">
+                                                                                <div style="width:8%;">
+                                                                                    <span id="deleteImage" style="display:none;"><i class="fa fa-trash-alt" aria-hidden="true" style="color:red;font-size: 1.5em;margin-top: 18%;"></i></span>
+                                                                                    &nbsp;&nbsp;
+                                                                                </div>
+                                                                                <div class="form-group" style="width:92%">
+                                                                                    <div class="input-group">
+                                                                                        <input type="text" class="form-control" id="txtFileName" readonly>
+                                                                                        <div class="input-group-btn">
+                                                                                            <span class="fileUpload btn btn-tumblr">
+                                                                                                <input type="file" asp-for="@Model.SittingPosition[question].ImagesSelected" class="upload up" id="up" accept="image/*" />
+                                                                                                <span class="upl" id="upload"><i class="fa fa-upload" aria-hidden="true"></i> Upload Image</span>
+                                                                                            </span><!-- btn-orange -->
+                                                                                        </div><!-- btn -->
+                                                                                    </div><!-- group -->
+                                                                                </div><!-- form-group -->
+                                                                            </div>
+                                                                        }
                                                                     </div>
                                                                 </div>
                                                                 @if (Model.SittingPosition[question].Information != null)
@@ -463,10 +566,34 @@
                                                                             </div>
                                                                             colCount = colCount - 2;
                                                                         }
+                                                                        @if (Model.StandingPosition[question].HasImage)
+                                                                        {
+                                                                            colCount = colCount - 4;
+                                                                        }
                                                                         <div class="col-@colCount">
                                                                             @Html.HiddenFor(item => Model.StandingPosition[question].QuestionID)
                                                                             @Html.HiddenFor(item => Model.StandingPosition[question].RiskID)
                                                                         </div>
+                                                                        @if (Model.StandingPosition[question].HasImage)
+                                                                        {
+                                                                            <div class="col-5" style="display:flex;">
+                                                                                <div style="width:8%;">
+                                                                                    <span id="deleteImage" style="display:none;"><i class="fa fa-trash-alt" aria-hidden="true" style="color:red;font-size: 1.5em;margin-top: 18%;"></i></span>
+                                                                                    &nbsp;&nbsp;
+                                                                                </div>
+                                                                                <div class="form-group" style="width:92%">
+                                                                                    <div class="input-group">
+                                                                                        <input type="text" class="form-control" id="txtFileName" readonly>
+                                                                                        <div class="input-group-btn">
+                                                                                            <span class="fileUpload btn btn-tumblr">
+                                                                                                <input type="file" asp-for="@Model.StandingPosition[question].ImagesSelected" class="upload up" id="up" accept="image/*" />
+                                                                                                <span class="upl" id="upload"><i class="fa fa-upload" aria-hidden="true"></i> Upload Image</span>
+                                                                                            </span><!-- btn-orange -->
+                                                                                        </div><!-- btn -->
+                                                                                    </div><!-- group -->
+                                                                                </div><!-- form-group -->
+                                                                            </div>
+                                                                        }
                                                                     </div>
                                                                 </div>
                                                                 @if (Model.StandingPosition[question].Information != null)
@@ -498,7 +625,7 @@
                                                         <div class="row">
                                                             <div class="col-10">
                                                                 <p>
-                                                                    Sitting Position Score
+                                                                    Standing Position Score
                                                                 </p>
                                                                 <hr>
                                                                 <div class="form-group row average" id="divSummary">
@@ -551,10 +678,34 @@
                                                                             </div>
                                                                             colCount = colCount - 2;
                                                                         }
+                                                                        @if (Model.ComputerPositionWhenSitting[question].HasImage)
+                                                                        {
+                                                                            colCount = colCount - 4;
+                                                                        }
                                                                         <div class="col-@colCount">
                                                                             @Html.HiddenFor(item => Model.ComputerPositionWhenSitting[question].QuestionID)
                                                                             @Html.HiddenFor(item => Model.ComputerPositionWhenSitting[question].RiskID)
                                                                         </div>
+                                                                        @if (Model.ComputerPositionWhenSitting[question].HasImage)
+                                                                        {
+                                                                    <div class="col-5" style="display:flex;">
+                                                                        <div style="width:8%;">
+                                                                            <span id="deleteImage" style="display:none;"><i class="fa fa-trash-alt" aria-hidden="true" style="color:red;font-size: 1.5em;margin-top: 18%;"></i></span>
+                                                                            &nbsp;&nbsp;
+                                                                        </div>
+                                                                        <div class="form-group" style="width:92%">
+                                                                            <div class="input-group">
+                                                                                <input type="text" class="form-control" id="txtFileName" readonly>
+                                                                                <div class="input-group-btn">
+                                                                                    <span class="fileUpload btn btn-tumblr">
+                                                                                        <input type="file" asp-for="@Model.ComputerPositionWhenSitting[question].ImagesSelected" class="upload up" id="up" accept="image/*" />
+                                                                                        <span class="upl" id="upload"><i class="fa fa-upload" aria-hidden="true"></i> Upload Image</span>
+                                                                                    </span><!-- btn-orange -->
+                                                                                </div><!-- btn -->
+                                                                            </div><!-- group -->
+                                                                        </div><!-- form-group -->
+                                                                    </div>
+                                                                        }
                                                                     </div>
                                                                 </div>
                                                                 @if (Model.ComputerPositionWhenSitting[question].Information != null)
@@ -586,7 +737,7 @@
                                                         <div class="row">
                                                             <div class="col-10">
                                                                 <p>
-                                                                    Sitting Position Score
+                                                                    Computer Position while Sitting
                                                                 </p>
                                                                 <hr>
                                                                 <div class="form-group row average" id="divSummary">
@@ -637,10 +788,34 @@
                                                                             </div>
                                                                             colCount = colCount - 2;
                                                                         }
+                                                                        @if (Model.ComputerPositionWhenStanding[question].HasImage)
+                                                                        {
+                                                                            colCount = colCount - 4;
+                                                                        }
                                                                         <div class="col-@colCount">
                                                                             @Html.HiddenFor(item => Model.ComputerPositionWhenStanding[question].QuestionID)
                                                                             @Html.HiddenFor(item => Model.ComputerPositionWhenStanding[question].RiskID)
                                                                         </div>
+                                                                        @if (Model.ComputerPositionWhenStanding[question].HasImage)
+                                                                        {
+                                                                    <div class="col-5" style="display:flex;">
+                                                                        <div style="width:8%;">
+                                                                            <span id="deleteImage" style="display:none;"><i class="fa fa-trash-alt" aria-hidden="true" style="color:red;font-size: 1.5em;margin-top: 18%;"></i></span>
+                                                                            &nbsp;&nbsp;
+                                                                        </div>
+                                                                        <div class="form-group" style="width:92%">
+                                                                            <div class="input-group">
+                                                                                <input type="text" class="form-control" id="txtFileName" readonly>
+                                                                                <div class="input-group-btn">
+                                                                                    <span class="fileUpload btn btn-tumblr">
+                                                                                        <input type="file" asp-for="@Model.ComputerPositionWhenStanding[question].ImagesSelected" class="upload up" id="up" accept="image/*" />
+                                                                                        <span class="upl" id="upload"><i class="fa fa-upload" aria-hidden="true"></i> Upload Image</span>
+                                                                                    </span><!-- btn-orange -->
+                                                                                </div><!-- btn -->
+                                                                            </div><!-- group -->
+                                                                        </div><!-- form-group -->
+                                                                    </div>
+                                                                        }
                                                                     </div>
                                                                 </div>
                                                                 @if (Model.ComputerPositionWhenStanding[question].Information != null)
@@ -672,7 +847,7 @@
                                                         <div class="row">
                                                             <div class="col-10">
                                                                 <p>
-                                                                    Sitting Position Score
+                                                                    Computer Position while Standing
                                                                 </p>
                                                                 <hr>
                                                                 <div class="form-group row average" id="divSummary">

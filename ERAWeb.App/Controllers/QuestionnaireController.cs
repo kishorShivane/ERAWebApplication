@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using ERAWeb.Core.Interface;
 using ERAWeb.Logger;
 using ERAWeb.Models;
+using ERAWeb.Models.Model;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -22,12 +24,13 @@ namespace ERAWeb.App.Controllers
         IUserAnswerBroker userAnswerservice;
         IUserRiskBroker userRiskservice;
         IQuestionBroker questionService;
+        IHostingEnvironment hostingEnvironment;
         private DateTime todaysDate = DateTime.Now;
         #endregion
 
         #region constructor
         public QuestionnaireController(IConfiguration _config, ILoggerManager loggerManager, IHostingEnvironment _host,
-                IUserAnswerBroker _userAnswerService, IUserRiskBroker _userRiskservice, IQuestionBroker _questionService)
+                IUserAnswerBroker _userAnswerService, IUserRiskBroker _userRiskservice, IQuestionBroker _questionService, IHostingEnvironment _hostingEnvironment)
         {
             logger = loggerManager;
             config = _config;
@@ -35,6 +38,7 @@ namespace ERAWeb.App.Controllers
             userAnswerservice = _userAnswerService;
             userRiskservice = _userRiskservice;
             questionService = _questionService;
+            hostingEnvironment = _hostingEnvironment;
         }
 
         #endregion
@@ -94,6 +98,27 @@ namespace ERAWeb.App.Controllers
         #endregion
 
         #region private methods
+
+        private string UploadImageFileToDirectory(IFormFile fileControl)
+        {
+            string uniqueFileName = null;
+
+            if (fileControl != null)
+            {
+                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images\\uploadImages");
+                uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(fileControl.FileName);
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                if (!System.IO.File.Exists(filePath))
+                {
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        fileControl.CopyTo(fileStream);
+                    }
+                }
+            }
+            return uniqueFileName;
+        }
+
         private async Task UpdateUserTestStatus(Guid testIdentifier)
         {
             var user = await GetUserSessionAsync();
@@ -164,7 +189,7 @@ namespace ERAWeb.App.Controllers
             return userRisks;
         }
 
-        private List<UserAnswerModel> GetUserAnswersFromModel(QuestionDictionary model, Guid testIdentifier )
+        private List<UserAnswerModel> GetUserAnswersFromModel(QuestionDictionary model, Guid testIdentifier)
         {
             List<UserAnswerModel> userAnswers = null;
             if (model != null)
@@ -199,7 +224,14 @@ namespace ERAWeb.App.Controllers
             if (answerModel.Any()) sectionAnswers = new List<UserAnswerModel>();
             answerModel.ForEach(x =>
             {
+                List<UserImageModel> userImages = null;
                 int score = GetScoreForAnswerToQuestion(x.QuestionID, x.AnswerSelected, questionModel);
+                if (x.ImagesSelected != null)
+                {
+                    userImages = new List<UserImageModel>();
+                    userImages.Add(new UserImageModel() { ImageFileName = UploadImageFileToDirectory(x.ImagesSelected) });
+                }
+
                 sectionAnswers.Add(new UserAnswerModel()
                 {
                     Answer = x.AnswerSelected,
@@ -208,7 +240,8 @@ namespace ERAWeb.App.Controllers
                     RiskID = x.RiskID,
                     UserID = UserInfo.UserId,
                     Score = score,
-                    TestIdentifier = testIdentifier
+                    TestIdentifier = testIdentifier,
+                    UserImages = userImages
                 });
             });
             return sectionAnswers;

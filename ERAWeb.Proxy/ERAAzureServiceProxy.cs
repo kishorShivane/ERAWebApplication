@@ -201,7 +201,8 @@ namespace ERAWeb.Proxy
             string urlQueryStringParams = config.GetValue<string>("ERAAzureAPIURL:ERAUserAnswerWriteAPIURL");
 
             using (var client = new HttpClient())
-            using (var request = new HttpRequestMessage(HttpMethod.Post, $"{azureBaseUrl}{urlQueryStringParams}"))
+            //using (var request = new HttpRequestMessage(HttpMethod.Post, $"{azureBaseUrl}{urlQueryStringParams}"))
+            using (var request = new HttpRequestMessage(HttpMethod.Post,  "http://localhost:7071/api/ERAUserAnswerWrite"))
             using (var httpContent = CreateHttpContent(writeRequest))
             {
                 request.Content = httpContent;

@@ -41,6 +41,7 @@ namespace ERAWeb.Models
     {
         public string Comments { get; set; }
         public bool IsPositive { get; set; }
+        public string ImageFileName { get; set; } = string.Empty;
     }
 
     public class Summary

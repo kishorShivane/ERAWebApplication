@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,7 +8,7 @@ namespace ERAWeb.Models
 
     public class QuestionDictionary
     {
-        public List<ErgonomicScore> ErgonomicScores{ get; set; }
+        public List<ErgonomicScore> ErgonomicScores { get; set; }
         public List<QuestionnaireModel> HumanVariables { get; set; }
         public List<QuestionnaireModel> BMI { get; set; }
         public List<QuestionnaireModel> Discomforts { get; set; }
@@ -29,6 +30,8 @@ namespace ERAWeb.Models
         public string AnswerSelected { get; set; }
         public Information Information { get; set; }
         public string Description { get; set; }
+        public IFormFile ImagesSelected { get; set; }
+        public bool HasImage { get; set; } = false;
     }
 
     public class Answer

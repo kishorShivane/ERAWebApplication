@@ -165,7 +165,7 @@ namespace ERAWeb.App.Controllers
 
                 #region report data properties
                 UserModel user = UserInfo;
-                if (CheckIfAdmin())
+               if (CheckIfAdmin())
                 {
                     if (TempData["AdminSearchData"] != null)
                     {
@@ -263,14 +263,16 @@ namespace ERAWeb.App.Controllers
             var sectionData = new List<PositionEntries>();
             sittingPosition.ForEach(x =>
             {
-                var answer = userAnswers.FirstOrDefault(z => z.QuestionID == x.QuestionID).Answer;
-                var isPositive = x.Answers.FirstOrDefault(z => z.Text.Equals(answer)).Type == "switch-success" ? true : false;
+                var userAnswer = userAnswers.FirstOrDefault(z => z.QuestionID == x.QuestionID);
+                var isPositive = x.Answers.FirstOrDefault(z => z.Text.Equals(userAnswer.Answer)).Type == "switch-success" ? true : false;
+                var imageFileName = x.HasImage ? (userAnswer.UserImages!=null && userAnswer.UserImages.Any()) ? userAnswer.UserImages.FirstOrDefault().ImageFileName : "" : "";
                 sectionData.Add(new PositionEntries()
                 {
                     Description = x.Question,
-                    Response = answer,
+                    Response = userAnswer.Answer,
                     IsPositive = isPositive,
-                    Comments = isPositive ? "Good" : x.Comment
+                    Comments = isPositive ? "Good" : x.Comment,
+                    ImageFileName = imageFileName
                 });
             });
             return sectionData;

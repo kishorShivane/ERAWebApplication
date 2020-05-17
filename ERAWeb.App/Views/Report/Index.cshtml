@@ -128,15 +128,17 @@
                                 <tbody>
                                     @foreach (var item in positionEntries)
                                     {
+                                        var badgeClass = item.IsPositive ? "badge-success" : "badge-danger";
                                         <tr>
                                             <td class="left">@item.Description</td>
-                                            @if (@item.IsPositive)
+
+                                            @if (string.IsNullOrEmpty(item.ImageFileName))
                                             {
-                                                <th class="center"><h4 class="text-center"><span class="badge  badge-pill badge-success">@item.Response</span></h4></th>
+                                                <td><h4 class="text-center"><span class="badge  badge-pill @badgeClass">@item.Response</span></h4></td>
                                             }
                                             else
                                             {
-                                                <th class="center"><h4 class="text-center"><span class="badge  badge-pill badge-danger">@item.Response</span></h4></th>
+                                                <td><h4 class="text-center"><span class="badge  badge-pill badge-success">@item.Response</span>&nbsp;<a href="~/images/uploadImages/@item.ImageFileName" target="_blank"><i class="fas fa-image"></i></a></h4></td>
                                             }
                                             <td class="left">@item.Comments</td>
                                         </tr>
@@ -170,15 +172,17 @@
                                 <tbody>
                                     @foreach (var item in Model.ComputerPosition)
                                     {
+                                        var badgeClass = item.IsPositive ? "badge-success" : "badge-danger";
                                         <tr>
                                             <td class="left">@item.Description</td>
-                                            @if (@item.IsPositive)
+
+                                            @if (string.IsNullOrEmpty(item.ImageFileName))
                                             {
-                                                <th class="center"><h4 class="text-center"><span class="badge  badge-pill badge-success">@item.Response</span></h4></th>
+                                                <td><h4 class="text-center"><span class="badge  badge-pill @badgeClass">@item.Response</span></h4></td>
                                             }
                                             else
                                             {
-                                                <th class="center"><h4 class="text-center"><span class="badge  badge-pill badge-danger">@item.Response</span></h4></th>
+                                                <td><h4 class="text-center"><span class="badge  badge-pill badge-success">@item.Response</span>&nbsp;<a href="~/images/uploadImages/@item.ImageFileName" target="_blank"><i class="fas fa-image"></i></a></h4></td>
                                             }
                                             <td class="left">@item.Comments</td>
                                         </tr>
@@ -237,7 +241,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>             
+                </div>
             </div>
         </div>
     </div>
