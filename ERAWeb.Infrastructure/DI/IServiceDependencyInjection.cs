@@ -22,6 +22,7 @@ namespace ERAWeb.Infrastructure.DI
             services.AddTransient<IUserRiskBroker, UserRiskBroker>();
             services.AddTransient<IQuestionBroker, QuestionBroker>();
             services.AddTransient<IReportBroker, ReportBroker>();
+            services.AddTransient<IUserProfileBroker, UserProfileBroker>();
             services.AddTransient<IERAAzureServiceProxy, ERAAzureServiceProxy>();
 
             return services;

@@ -1,0 +1,97 @@
+﻿@model ERAWeb.Models.ContactModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/login.css" rel="stylesheet" />
+<style>
+    .form-control {
+        border-radius: 30px;
+    }
+
+    textarea.form-control {
+        border-radius: 20px;
+    }
+</style>
+<div class="container">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-8 mt-5">
+                <div class="fadeInDown">
+                    <form asp-controller="ContactUs" asp-action="Index" method="post" id="formContact">
+                        <div class="card c-email-app">
+                            <div class="card-body">
+                                <h1><i class="fa fa-mail-bulk"></i>&nbsp;&nbsp;Contact Us</h1>
+                                <hr />
+                                <div class="c-message">
+                                    <div class="c-message-details">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <div class="form-group">
+                                                    <input asp-for="Name" name="Name" type="text" class="form-control" required placeholder="Name" />
+                                                    <div class="invalid-feedback">Please enter a Name.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4"></div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <div class="form-group">
+                                                    <input asp-for="Email" name="Email" type="email" class="form-control" required placeholder="Email" />
+                                                    <div class="invalid-feedback">Please enter a Email.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-2"></div>
+                                        </div>
+
+                                        <hr>
+                                        <div class="form-group">
+                                            <textarea asp-for="Message" class="form-control" id="message" name="Message" required rows="10" placeholder="Type in your message"></textarea>
+                                            <div class="invalid-feedback">Please type in some Message.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer p-4">
+                                <div class="row">
+                                    <div class="col-3"></div>
+                                    <div class="col-3">
+                                        <button class="btn btn-block btn-success btn-pill" type="submit" id="btnSubmit">Send Email</button>
+                                    </div>
+                                    <div class="col-3">
+                                        <button class="btn btn-block btn-danger btn-pill" id="btnClear">Clear</button>
+                                    </div>
+                                    <div class="col-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnSubmit").click(function (event) {
+            // Fetch form to apply custom Bootstrap validation
+            var form = $("#formContact")
+            if (form[0].checkValidity() === false) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+
+            form.addClass('was-validated');
+            // Perform ajax submit here...
+        });
+
+        $("button#btnClear").click(function () {
+            $("input").val("");
+            $("textarea").html("");
+            e.stopPropagation();
+            e.preventDefault();
+        });
+    });
+</script>

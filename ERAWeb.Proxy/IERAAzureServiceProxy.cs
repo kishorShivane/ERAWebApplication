@@ -16,5 +16,7 @@ namespace ERAWeb.Proxy
         Task<ResponseMessage<UserRiskResponse>> InsertUserRisks(UserRiskWriteRequest request);
         Task<ResponseMessage<QuestionResponse>> GetQuestions(QuestionRequest request);
         Task<ResponseMessage<List<UserModel>>> GetUserReport(ReportRequest request);
+        Task<ResponseMessage<UserModel>> GetUserProfile(UserModel user);
+        Task<ResponseMessage<UserModel>> UpdateUserProfile(UserModel user);
     }
 }

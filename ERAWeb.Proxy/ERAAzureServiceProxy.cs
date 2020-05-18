@@ -340,5 +340,63 @@ namespace ERAWeb.Proxy
             }
             return result;
         }
+
+        public async Task<ResponseMessage<UserModel>> GetUserProfile(UserModel user)
+        {
+            ResponseMessage<UserModel> result;
+            string azureBaseUrl = config.GetValue<string>("ERAAzureAPIURL:ERAAzureAPIBaseURL");
+            string urlQueryStringParams = config.GetValue<string>("ERAAzureAPIURL:ERAUserProfileRead");
+
+            using (var client = new HttpClient())
+            using (var request = new HttpRequestMessage(HttpMethod.Post, $"{azureBaseUrl}{urlQueryStringParams}"))
+            using (var httpContent = CreateHttpContent(user))
+            {
+                request.Content = httpContent;
+
+                using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        result = JsonConvert.DeserializeObject<ResponseMessage<UserModel>>(jsonString);
+                    }
+                    else
+                    {
+                        result = new ResponseMessage<UserModel>();
+                        result = JsonConvert.DeserializeObject<ResponseMessage<UserModel>>(jsonString);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public async Task<ResponseMessage<UserModel>> UpdateUserProfile(UserModel user)
+        {
+            ResponseMessage<UserModel> result;
+            string azureBaseUrl = config.GetValue<string>("ERAAzureAPIURL:ERAAzureAPIBaseURL");
+            string urlQueryStringParams = config.GetValue<string>("ERAAzureAPIURL:ERAUserProfileUpdate");
+
+            using (var client = new HttpClient())
+            using (var request = new HttpRequestMessage(HttpMethod.Post, $"{azureBaseUrl}{urlQueryStringParams}"))
+            using (var httpContent = CreateHttpContent(user))
+            {
+                request.Content = httpContent;
+
+                using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        result = JsonConvert.DeserializeObject<ResponseMessage<UserModel>>(jsonString);
+                    }
+                    else
+                    {
+                        result = new ResponseMessage<UserModel>();
+                        result = JsonConvert.DeserializeObject<ResponseMessage<UserModel>>(jsonString);
+                    }
+                }
+            }
+            return result;
+        }
     }
 }

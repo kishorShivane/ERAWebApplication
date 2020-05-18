@@ -88,12 +88,16 @@ namespace ERAWeb.App.Controllers
 
         public async Task<UserModel> GetUserSessionAsync()
         {
-            const string sessionKey = "UserSession";
-            var value = (string)TempData.Peek(sessionKey);
-            //var value = HttpContext.Session.GetString(sessionKey);
-            if (value != null)
-                return JsonConvert.DeserializeObject<UserModel>(value);
-            return null;
+            return await Task.Run(() =>
+            {
+                const string sessionKey = "UserSession";
+                var value = (string)TempData.Peek(sessionKey);
+                //var value = HttpContext.Session.GetString(sessionKey);
+                if (value != null)
+                    return JsonConvert.DeserializeObject<UserModel>(value);
+                return null;
+            });
+
         }
 
         public UserModel GetUserSession()
@@ -115,24 +119,31 @@ namespace ERAWeb.App.Controllers
 
         public async Task DestroyAllSessionAsync()
         {
-            if (TempData.Keys.Any())
-                TempData.Clear();
-            //HttpContext.Session.Remove(sessionKey);
+            await Task.Run(() =>
+            {
+                if (TempData.Keys.Any())
+                    TempData.Clear();
+            });
+
         }
 
         public async Task<bool> IsEligibleToTakeTest(IConfiguration config)
         {
-            var result = true;
-            if (UserInfo.LastAssessmentDate != null && UserInfo.LastAssessmentDate.HasValue)
+            return await Task.Run(() =>
             {
-                int testEligibilityDays = Convert.ToInt32(config.GetValue<string>("AppSettings:TestEligibleDays"));
-                var actualDate = UserInfo.LastAssessmentDate.Value.AddDays(testEligibilityDays);
-                if (actualDate > DateTime.Now)
+                var result = true;
+                if (UserInfo.LastAssessmentDate != null && UserInfo.LastAssessmentDate.HasValue)
                 {
-                    result = false;
+                    int testEligibilityDays = Convert.ToInt32(config.GetValue<string>("AppSettings:TestEligibleDays"));
+                    var actualDate = UserInfo.LastAssessmentDate.Value.AddDays(testEligibilityDays);
+                    if (actualDate > DateTime.Now)
+                    {
+                        result = false;
+                    }
                 }
-            }
-            return result;
+                return result;
+            });
+
         }
         public void SetNotification(string message, NotificationType type = NotificationType.Success, string title = "Success", string redirectURL = "")
         {

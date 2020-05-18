@@ -5,7 +5,6 @@
     if (value != null)
     {
         userInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<ERAWeb.Models.UserModel>(value.ToString());
-
     }
 }
 <div class="sidebar">
@@ -40,6 +39,15 @@
                     </li>
                 }
             }
+            <li class="nav-title">Screens</li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Profile"
+                   asp-action="Index">&nbsp;&nbsp;&nbsp;<i class="fa fa-address-card fa-2x" style="color: darkgray;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="ContactUs"
+                   asp-action="Index">&nbsp;&nbsp;&nbsp;<i class="fa fa-mail-bulk fa-2x" style="color: darkgray;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contact Us</a>
+            </li>
         </ul>
     </nav>
     <button class="sidebar-minimizer brand-minimizer" type="button"></button>

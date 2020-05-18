@@ -41,7 +41,7 @@ namespace ERAWeb.App.Controllers
                 user.RegisteredDate = DateTime.Now;
                 user.UserTypeId = Convert.ToInt32(EnumHelpers.UserType.Employee);
                 var validUser = await registerService.RegisterUser(user);
-                if (validUser.Content != null)
+                if (validUser != null && validUser.Content != null)
                 {
                     return RedirectToAction("Successfull", "Registration");
                 }
