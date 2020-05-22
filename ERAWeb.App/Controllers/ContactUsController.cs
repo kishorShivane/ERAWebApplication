@@ -24,7 +24,7 @@ namespace ERAWeb.App.Controllers
 
         public IActionResult Index()
         {
-            var contact = new ContactModel();
+            var contact = new ContactModel(); 
             contact.Name = UserInfo.FirstName + " " + UserInfo.LastName;
             contact.Email = UserInfo.Email;
             return View(contact);
@@ -39,7 +39,7 @@ namespace ERAWeb.App.Controllers
                 await NotificationHelper.SendEmailNotification(UserInfo, model.Email, model.Name, model.Message, config);
                 SetNotification("Thank you for contacting us!!", NotificationType.Information, "Thank You", redirectURL);
             }
-            return View(model);
+            return View(model); 
         }
     }
 }

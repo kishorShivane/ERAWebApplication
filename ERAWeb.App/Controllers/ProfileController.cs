@@ -36,7 +36,7 @@ namespace ERAWeb.App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(UserModel user)
+        public async Task<IActionResult> Index(UserModel user) 
         {
             if (user != null)
             {
