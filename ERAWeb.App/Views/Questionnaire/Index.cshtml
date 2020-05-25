@@ -87,12 +87,12 @@
                 break;
             case 1:
                 $(this).closest('.form-group').find('.form-control').attr("value", names);
-                $(this).parents("div.col-5").eq(0).find("span#deleteImage").show();
+                $(this).parents("div.divPersist").eq(0).find("span#deleteImage").show();
                 break;
             default:
                 var fileName = names.join(', ');
                 $(this).closest('.form-group').find('.form-control').attr("value", length + " files selected");
-                $(this).parents("div.col-5").eq(0).find("span#deleteImage").show();
+                $(this).parents("div.divPersist").eq(0).find("span#deleteImage").show();
                 break;
         }
     });
@@ -104,8 +104,8 @@
     });
 
     $(document).on('click', 'span#deleteImage', function (e) {
-        $(this).parents("div.col-5").eq(0).find("input#up").val("").change();
-        $(this).parents("div.col-5").eq(0).find('.form-control').attr("value", "");
+        $(this).parents("div.divPersist").eq(0).find("input#up").val("").change();
+        $(this).parents("div.divPersist").eq(0).find('.form-control').attr("value", "");
         $(this).hide();
     });
 </script>
@@ -154,17 +154,17 @@
                                                                     <div class="row controlGroup">
                                                                         @for (int item = 0; item < Model.HumanVariables[question].Answers.Count(); item++)
                                                                         {
-                                                                            <div class="col-2" style="display: inherit">
+                                                                            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3" style="display: inherit">
                                                                                 <span class="mr-2">@Model.HumanVariables[question].Answers[item].Text</span>
                                                                                 <label class="switch switch-label switch-pill @Model.HumanVariables[question].Answers[item].Type">
                                                                                     <input class="switch-input" type="checkbox" value="@Model.HumanVariables[question].Answers[item].Text" asp-for="@Model.HumanVariables[question].AnswerSelected" score="@Model.HumanVariables[question].Answers[item].Score">
                                                                                     <span class="switch-slider"></span>
                                                                                 </label>
                                                                             </div>
-                                                                            colCount = colCount - 2;
+                                                                            colCount = colCount - 3;
                                                                         }
 
-                                                                        <div class="col-@colCount">
+                                                                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-@colCount">
                                                                             @Html.HiddenFor(item => Model.HumanVariables[question].QuestionID)
                                                                             @Html.HiddenFor(item => Model.HumanVariables[question].RiskID)
                                                                         </div>
@@ -236,17 +236,17 @@
                                                                         <div class="row controlGroup">
                                                                             @for (int item = 0; item < Model.BMI[question].Answers.Count(); item++)
                                                                             {
-                                                                                <div class="col-2" style="display:inherit">
+                                                                                <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3" style="display:inherit">
                                                                                     <span class="mr-2">@Model.BMI[question].Answers[item].Text</span>
                                                                                     <label class="switch switch-label switch-pill @Model.BMI[question].Answers[item].Type">
                                                                                         <input class="switch-input" type="checkbox" value="@Model.BMI[question].Answers[item].Text" asp-for="@Model.BMI[question].AnswerSelected" score="@Model.BMI[question].Answers[item].Score">
                                                                                         <span class="switch-slider"></span>
                                                                                     </label>
                                                                                 </div>
-                                                                                colCount = colCount - 2;
+                                                                                colCount = colCount - 3;
                                                                             }
 
-                                                                            <div class="col-@colCount">
+                                                                            <div class="col-sm-12 col-md-6 col-lg-3 col-xl-@colCount">
                                                                                 @Html.HiddenFor(item => Model.BMI[question].QuestionID)
                                                                                 @Html.HiddenFor(item => Model.BMI[question].RiskID)
                                                                             </div>
@@ -256,7 +256,7 @@
                                                                     {
                                                                         var textID = @Model.BMI[question].Question.Replace(' ', '_').Replace('.', '_');
                                                                         <div class="controlGroup row">
-                                                                            <div class="col-3">
+                                                                            <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
                                                                                 <input class="form-control" id="@textID" asp-for="@Model.BMI[question].AnswerSelected" type="number" step="0.01" placeholder="">
                                                                             </div>
                                                                             <div class="col-9">
@@ -321,16 +321,16 @@
                                                                     <div class="row controlGroup">
                                                                         @for (int item = 0; item < Model.Discomforts[question].Answers.Count; item++)
                                                                         {
-                                                                            <div class="col-2" style="display:inherit">
+                                                                            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3" style="display:inherit">
                                                                                 <span class="mr-2">@Model.Discomforts[question].Answers[item].Text</span>
                                                                                 <label class="switch switch-label switch-pill @Model.Discomforts[question].Answers[item].Type">
                                                                                     <input class="switch-input" type="checkbox" value="@Model.Discomforts[question].Answers[item].Text" asp-for="@Model.Discomforts[question].AnswerSelected" score="@Model.Discomforts[question].Answers[item].Score">
                                                                                     <span class="switch-slider"></span>
                                                                                 </label>
                                                                             </div>
-                                                                            colCount = colCount - 2;
+                                                                            colCount = colCount - 3;
                                                                         }
-                                                                        <div class="col-@colCount">
+                                                                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-@colCount">
                                                                             @Html.HiddenFor(item => Model.Discomforts[question].QuestionID)
                                                                             @Html.HiddenFor(item => Model.Discomforts[question].RiskID)
                                                                         </div>
@@ -400,7 +400,7 @@
                                                                     <div class="row controlGroup">
                                                                         @for (int item = 0; item < Model.WorkStation[question].Answers.Count; item++)
                                                                         {
-                                                                            <div class="col-4" style="display:inherit">
+                                                                            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4" style="display:inherit">
                                                                                 <span class="mr-2">@Model.WorkStation[question].Answers[item].Text</span>
                                                                                 <label class="switch switch-label switch-pill @Model.WorkStation[question].Answers[item].Type">
                                                                                     <input class="switch-input" type="checkbox" value="@Model.WorkStation[question].Answers[item].Text" asp-for="@Model.WorkStation[question].AnswerSelected">
@@ -409,7 +409,7 @@
                                                                             </div>
                                                                             colCount = colCount - 4;
                                                                         }
-                                                                        <div class="col-@colCount">
+                                                                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-@colCount">
                                                                             @Html.HiddenFor(item => Model.WorkStation[question].QuestionID)
                                                                             @Html.HiddenFor(item => Model.WorkStation[question].RiskID)
                                                                         </div>
@@ -447,7 +447,7 @@
                                                                     <div class="row controlGroup">
                                                                         @for (int item = 0; item < Model.SittingPosition[question].Answers.Count; item++)
                                                                         {
-                                                                            <div class="col-2" style="display:inherit">
+                                                                            <div class="col-sm-12 col-md-6 col-lg-3 col-xl-2" style="display:inherit">
                                                                                 <span class="mr-2">@Model.SittingPosition[question].Answers[item].Text</span>
                                                                                 <label class="switch switch-label switch-pill @Model.SittingPosition[question].Answers[item].Type">
                                                                                     <input class="switch-input" type="checkbox" value="@Model.SittingPosition[question].Answers[item].Text" asp-for="@Model.SittingPosition[question].AnswerSelected" score="@Model.SittingPosition[question].Answers[item].Score">
@@ -460,13 +460,14 @@
                                                                         {
                                                                             colCount = colCount - 5;
                                                                         }
-                                                                        <div class="col-@colCount">
+                                                                        <div class="hidden-md hidden-sm hidden-lg col-xl-@colCount">
+
+                                                                        </div>
+                                                                        <div class="col-sm-12 col-md-6 col-lg-5 col-xl-5 divPersist" style="display:flex;">
                                                                             @Html.HiddenFor(item => Model.SittingPosition[question].QuestionID)
                                                                             @Html.HiddenFor(item => Model.SittingPosition[question].RiskID)
-                                                                        </div>
-                                                                        @if (Model.SittingPosition[question].HasImage)
-                                                                        {
-                                                                            <div class="col-5" style="display:flex;">
+                                                                            @if (Model.SittingPosition[question].HasImage)
+                                                                            {
                                                                                 <div style="width:8%;">
                                                                                     <span id="deleteImage" style="display:none;"><i class="fa fa-trash-alt" aria-hidden="true" style="color:red;font-size: 1.5em;margin-top: 18%;"></i></span>
                                                                                     &nbsp;&nbsp;
@@ -482,8 +483,8 @@
                                                                                         </div><!-- btn -->
                                                                                     </div><!-- group -->
                                                                                 </div><!-- form-group -->
-                                                                            </div>
-                                                                        }
+                                                                            }
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 @if (Model.SittingPosition[question].Information != null)
@@ -557,7 +558,7 @@
                                                                     <div class="row controlGroup">
                                                                         @for (int item = 0; item < Model.StandingPosition[question].Answers.Count; item++)
                                                                         {
-                                                                            <div class="col-2" style="display:inherit">
+                                                                            <div class="col-sm-12 col-md-6 col-lg-3 col-xl-2" style="display:inherit">
                                                                                 <span class="mr-2">@Model.StandingPosition[question].Answers[item].Text</span>
                                                                                 <label class="switch switch-label switch-pill @Model.StandingPosition[question].Answers[item].Type">
                                                                                     <input class="switch-input" type="checkbox" value="@Model.StandingPosition[question].Answers[item].Text" asp-for="@Model.StandingPosition[question].AnswerSelected" score="@Model.StandingPosition[question].Answers[item].Score">
@@ -568,15 +569,16 @@
                                                                         }
                                                                         @if (Model.StandingPosition[question].HasImage)
                                                                         {
-                                                                            colCount = colCount - 4;
+                                                                            colCount = colCount - 5;
                                                                         }
-                                                                        <div class="col-@colCount">
+                                                                        <div class="hidden-md hidden-sm hidden-lg col-xl-@colCount">
+
+                                                                        </div>
+                                                                        <div class="col-sm-12 col-md-6 col-lg-5 col-xl-5 divPersist" style="display:flex;">
                                                                             @Html.HiddenFor(item => Model.StandingPosition[question].QuestionID)
                                                                             @Html.HiddenFor(item => Model.StandingPosition[question].RiskID)
-                                                                        </div>
-                                                                        @if (Model.StandingPosition[question].HasImage)
-                                                                        {
-                                                                            <div class="col-5" style="display:flex;">
+                                                                            @if (Model.StandingPosition[question].HasImage)
+                                                                            {
                                                                                 <div style="width:8%;">
                                                                                     <span id="deleteImage" style="display:none;"><i class="fa fa-trash-alt" aria-hidden="true" style="color:red;font-size: 1.5em;margin-top: 18%;"></i></span>
                                                                                     &nbsp;&nbsp;
@@ -592,8 +594,9 @@
                                                                                         </div><!-- btn -->
                                                                                     </div><!-- group -->
                                                                                 </div><!-- form-group -->
-                                                                            </div>
-                                                                        }
+                                                                            }
+                                                                        </div>
+
                                                                     </div>
                                                                 </div>
                                                                 @if (Model.StandingPosition[question].Information != null)
@@ -680,32 +683,33 @@
                                                                         }
                                                                         @if (Model.ComputerPositionWhenSitting[question].HasImage)
                                                                         {
-                                                                            colCount = colCount - 4;
+                                                                            colCount = colCount - 5;
                                                                         }
-                                                                        <div class="col-@colCount">
+                                                                        <div class="hidden-md hidden-sm hidden-lg col-xl-@colCount">
+
+                                                                        </div>
+                                                                        <div class="col-sm-12 col-md-6 col-lg-5 col-xl-5 divPersist" style="display:flex;">
                                                                             @Html.HiddenFor(item => Model.ComputerPositionWhenSitting[question].QuestionID)
                                                                             @Html.HiddenFor(item => Model.ComputerPositionWhenSitting[question].RiskID)
+                                                                            @if (Model.ComputerPositionWhenSitting[question].HasImage)
+                                                                            {
+                                                                                <div style="width:8%;">
+                                                                                    <span id="deleteImage" style="display:none;"><i class="fa fa-trash-alt" aria-hidden="true" style="color:red;font-size: 1.5em;margin-top: 18%;"></i></span>
+                                                                                    &nbsp;&nbsp;
+                                                                                </div>
+                                                                                <div class="form-group" style="width:92%">
+                                                                                    <div class="input-group">
+                                                                                        <input type="text" class="form-control" id="txtFileName" readonly>
+                                                                                        <div class="input-group-btn">
+                                                                                            <span class="fileUpload btn btn-tumblr">
+                                                                                                <input type="file" asp-for="@Model.ComputerPositionWhenSitting[question].ImagesSelected" class="upload up" id="up" accept="image/*" />
+                                                                                                <span class="upl" id="upload"><i class="fa fa-upload" aria-hidden="true"></i> Upload Image</span>
+                                                                                            </span><!-- btn-orange -->
+                                                                                        </div><!-- btn -->
+                                                                                    </div><!-- group -->
+                                                                                </div><!-- form-group -->
+                                                                            }
                                                                         </div>
-                                                                        @if (Model.ComputerPositionWhenSitting[question].HasImage)
-                                                                        {
-                                                                    <div class="col-5" style="display:flex;">
-                                                                        <div style="width:8%;">
-                                                                            <span id="deleteImage" style="display:none;"><i class="fa fa-trash-alt" aria-hidden="true" style="color:red;font-size: 1.5em;margin-top: 18%;"></i></span>
-                                                                            &nbsp;&nbsp;
-                                                                        </div>
-                                                                        <div class="form-group" style="width:92%">
-                                                                            <div class="input-group">
-                                                                                <input type="text" class="form-control" id="txtFileName" readonly>
-                                                                                <div class="input-group-btn">
-                                                                                    <span class="fileUpload btn btn-tumblr">
-                                                                                        <input type="file" asp-for="@Model.ComputerPositionWhenSitting[question].ImagesSelected" class="upload up" id="up" accept="image/*" />
-                                                                                        <span class="upl" id="upload"><i class="fa fa-upload" aria-hidden="true"></i> Upload Image</span>
-                                                                                    </span><!-- btn-orange -->
-                                                                                </div><!-- btn -->
-                                                                            </div><!-- group -->
-                                                                        </div><!-- form-group -->
-                                                                    </div>
-                                                                        }
                                                                     </div>
                                                                 </div>
                                                                 @if (Model.ComputerPositionWhenSitting[question].Information != null)
@@ -790,32 +794,33 @@
                                                                         }
                                                                         @if (Model.ComputerPositionWhenStanding[question].HasImage)
                                                                         {
-                                                                            colCount = colCount - 4;
+                                                                            colCount = colCount - 5;
                                                                         }
-                                                                        <div class="col-@colCount">
+                                                                        <div class="hidden-md hidden-sm hidden-lg col-xl-@colCount">
+
+                                                                        </div>
+                                                                        <div class="col-sm-12 col-md-6 col-lg-5 col-xl-5 divPersist" style="display:flex;">
                                                                             @Html.HiddenFor(item => Model.ComputerPositionWhenStanding[question].QuestionID)
                                                                             @Html.HiddenFor(item => Model.ComputerPositionWhenStanding[question].RiskID)
+                                                                            @if (Model.ComputerPositionWhenStanding[question].HasImage)
+                                                                            {
+                                                                                <div style="width:8%;">
+                                                                                    <span id="deleteImage" style="display:none;"><i class="fa fa-trash-alt" aria-hidden="true" style="color:red;font-size: 1.5em;margin-top: 18%;"></i></span>
+                                                                                    &nbsp;&nbsp;
+                                                                                </div>
+                                                                                <div class="form-group" style="width:92%">
+                                                                                    <div class="input-group">
+                                                                                        <input type="text" class="form-control" id="txtFileName" readonly>
+                                                                                        <div class="input-group-btn">
+                                                                                            <span class="fileUpload btn btn-tumblr">
+                                                                                                <input type="file" asp-for="@Model.ComputerPositionWhenStanding[question].ImagesSelected" class="upload up" id="up" accept="image/*" />
+                                                                                                <span class="upl" id="upload"><i class="fa fa-upload" aria-hidden="true"></i> Upload Image</span>
+                                                                                            </span><!-- btn-orange -->
+                                                                                        </div><!-- btn -->
+                                                                                    </div><!-- group -->
+                                                                                </div><!-- form-group -->
+                                                                            }
                                                                         </div>
-                                                                        @if (Model.ComputerPositionWhenStanding[question].HasImage)
-                                                                        {
-                                                                    <div class="col-5" style="display:flex;">
-                                                                        <div style="width:8%;">
-                                                                            <span id="deleteImage" style="display:none;"><i class="fa fa-trash-alt" aria-hidden="true" style="color:red;font-size: 1.5em;margin-top: 18%;"></i></span>
-                                                                            &nbsp;&nbsp;
-                                                                        </div>
-                                                                        <div class="form-group" style="width:92%">
-                                                                            <div class="input-group">
-                                                                                <input type="text" class="form-control" id="txtFileName" readonly>
-                                                                                <div class="input-group-btn">
-                                                                                    <span class="fileUpload btn btn-tumblr">
-                                                                                        <input type="file" asp-for="@Model.ComputerPositionWhenStanding[question].ImagesSelected" class="upload up" id="up" accept="image/*" />
-                                                                                        <span class="upl" id="upload"><i class="fa fa-upload" aria-hidden="true"></i> Upload Image</span>
-                                                                                    </span><!-- btn-orange -->
-                                                                                </div><!-- btn -->
-                                                                            </div><!-- group -->
-                                                                        </div><!-- form-group -->
-                                                                    </div>
-                                                                        }
                                                                     </div>
                                                                 </div>
                                                                 @if (Model.ComputerPositionWhenStanding[question].Information != null)
@@ -881,72 +886,87 @@
                                 </div>
                                 <div class="card-footer p-4">
                                     <div class="row show" id="1" aria-selected="true">
-                                        <div class="col-5">
+                                        <div class="col-sm-3 col-md-3 col-lg-4 col-xl-5">
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-2">
                                             <button class="btn btn-block btn-foursquare" type="button" id="btnNext">Next</button>
                                         </div>
-                                        <div class="col-5">
+                                        <div class="col-sm-3 col-md-3 col-lg-4 col-xl-5">
                                         </div>
                                     </div>
                                     <div class="row" id="2" style="display: none" aria-selected="false">
-                                        <div class="col-4">
+                                        <div class="hidden-sm col-md-2 col-lg-3 col-xl-3">
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                                             <button class="btn btn-block btn-behance" type="button" id="btnPrev">Previous</button>
                                         </div>
-                                        <div class="col-2">
+                                        <div class="visible-sm">
+                                            <br />
+                                        </div>
+                                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                                             <button class="btn btn-block btn-foursquare" type="button" id="btnNext">Next</button>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="hidden-sm col-md-2 col-lg-3 col-xl-3">
                                         </div>
                                     </div>
                                     <div class="row" id="3" style="display: none" aria-selected="false">
-                                        <div class="col-4">
+                                        <div class="hidden-sm col-md-2 col-lg-3 col-xl-3">
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                                             <button class="btn btn-block btn-behance" type="button" id="btnPrev">Previous</button>
                                         </div>
-                                        <div class="col-2">
+                                        <div class="visible-sm">
+                                            <br />
+                                        </div>
+                                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                                             <button class="btn btn-block btn-foursquare" type="button" id="btnNext">Next</button>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="hidden-sm col-md-2 col-lg-3 col-xl-3">
                                         </div>
                                     </div>
                                     <div class="row" id="4" style="display: none" aria-selected="false">
-                                        <div class="col-4">
+                                        <div class="hidden-sm col-md-2 col-lg-3 col-xl-3">
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                                             <button class="btn btn-block btn-behance" type="button" id="btnPrev">Previous</button>
                                         </div>
-                                        <div class="col-2">
-                                            <button class="btn btn-block btn-foursquare" type="button" id="btnNext" style="display:none">Next</button>
+                                        <div class="visible-sm">
+                                            <br />
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                                            <button class="btn btn-block btn-foursquare" type="button" id="btnNext">Next</button>
+                                        </div>
+                                        <div class="hidden-sm col-md-2 col-lg-3 col-xl-3">
                                         </div>
                                     </div>
                                     <div class="row" id="5" style="display: none" aria-selected="false">
-                                        <div class="col-4">
+                                        <div class="hidden-sm col-md-2 col-lg-3 col-xl-3">
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                                             <button class="btn btn-block btn-behance" type="button" id="btnPrev">Previous</button>
                                         </div>
-                                        <div class="col-2">
+                                        <div class="visible-sm">
+                                            <br />
+                                        </div>
+                                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                                             <button class="btn btn-block btn-foursquare" type="button" id="btnNext">Next</button>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="hidden-sm col-md-2 col-lg-3 col-xl-3">
                                         </div>
                                     </div>
                                     <div class="row" id="6" style="display:none" aria-selected="false">
-                                        <div class="col-4">
+                                        <div class="hidden-sm col-md-2 col-lg-3 col-xl-3">
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                                             <button class="btn btn-block btn-behance" type="button" id="btnPrev">Previous</button>
                                         </div>
-                                        <div class="col-2">
+                                        <div class="visible-sm">
+                                            <br />
+                                        </div>
+                                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                                             <button class="btn btn-block btn-success" type="submit" id="btnSubmit">Submit</button>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="hidden-sm col-md-2 col-lg-3 col-xl-3">
                                         </div>
                                     </div>
                                 </div>
