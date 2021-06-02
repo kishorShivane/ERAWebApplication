@@ -41,7 +41,6 @@
         alertify.defaults.theme.input = "form-control";
         alertify.set('notifier','position', 'top-right');
         $(document).ready(function () {
-            debugger;
             var message = $('<div>').html('@TempData["Notification"]')[0].textContent;
             if (message != "") {
                  var notificationContent = JSON.parse(message);
@@ -61,7 +60,6 @@
         }
 
         var SetContentsToModal = function (modal, content) {
-            debugger;
             if (content.Title != "") {
                modal.find("h4.modal-title").html(content.Title);
             }

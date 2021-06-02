@@ -74,20 +74,20 @@ namespace ERAWeb.App.Controllers
 
         private async Task<ErgoReportModel> GetReportData(Guid id)
         {
-            var ergoReport = new ErgoReportModel();
-            var value = (string)TempData.Peek(id.ToString());
-            if (value != null)
-            {
-                ergoReport = JsonConvert.DeserializeObject<ErgoReportModel>(value);
-            }
-            else
-            {
-                ergoReport = await GetErgonomicReportDataForUser(id);
-                if (TempData[id.ToString()] != null)
-                    TempData.Remove(id.ToString());
-                TempData.Add(id.ToString(), JsonConvert.SerializeObject(ergoReport));
-                TempData.Keep();
-            }
+            ErgoReportModel ergoReport = new ErgoReportModel();
+            //var value = (string)TempData.Peek(id.ToString());
+            //if (value != null)
+            //{
+            //    ergoReport = JsonConvert.DeserializeObject<ErgoReportModel>(value);
+            //}
+            //else
+            //{
+            ergoReport = await GetErgonomicReportDataForUser(id);
+            //    if (TempData[id.ToString()] != null)
+            //        TempData.Remove(id.ToString());
+            //    TempData.Add(id.ToString(), JsonConvert.SerializeObject(ergoReport));
+            //    TempData.Keep();
+            //}
             return ergoReport;
         }
 
@@ -165,7 +165,7 @@ namespace ERAWeb.App.Controllers
 
                 #region report data properties
                 UserModel user = UserInfo;
-               if (CheckIfAdmin())
+                if (CheckIfAdmin())
                 {
                     if (TempData["AdminSearchData"] != null)
                     {
@@ -265,7 +265,7 @@ namespace ERAWeb.App.Controllers
             {
                 var userAnswer = userAnswers.FirstOrDefault(z => z.QuestionID == x.QuestionID);
                 var isPositive = x.Answers.FirstOrDefault(z => z.Text.Equals(userAnswer.Answer)).Type == "switch-success" ? true : false;
-                var imageFileName = x.HasImage ? (userAnswer.UserImages!=null && userAnswer.UserImages.Any()) ? userAnswer.UserImages.FirstOrDefault().ImageFileName : "" : "";
+                var imageFileName = x.HasImage ? (userAnswer.UserImages != null && userAnswer.UserImages.Any()) ? userAnswer.UserImages.FirstOrDefault().ImageFileName : "" : "";
                 sectionData.Add(new PositionEntries()
                 {
                     Description = x.Question,
