@@ -74,20 +74,10 @@ namespace ERAWeb.App.Controllers
 
         private async Task<ErgoReportModel> GetReportData(Guid id)
         {
-            ErgoReportModel ergoReport = new ErgoReportModel();
-            //var value = (string)TempData.Peek(id.ToString());
-            //if (value != null)
-            //{
-            //    ergoReport = JsonConvert.DeserializeObject<ErgoReportModel>(value);
-            //}
-            //else
-            //{
+            ErgoReportModel ergoReport = new ErgoReportModel();            
+
             ergoReport = await GetErgonomicReportDataForUser(id);
-            //    if (TempData[id.ToString()] != null)
-            //        TempData.Remove(id.ToString());
-            //    TempData.Add(id.ToString(), JsonConvert.SerializeObject(ergoReport));
-            //    TempData.Keep();
-            //}
+            TempData.Keep();
             return ergoReport;
         }
 
